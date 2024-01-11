@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "JuliaProgrammingForBiologists"
+  page-navigation: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Basics"
+        contents:
+          - text: "Home"
+            file: index.qmd
+          - about.qmd
+      - section: "Julia tutorials"
+        contents:
+  page-footer: "Copyright 2024, Darren Irwin" 
+
+format:
+  html:
+    theme: lumen
+    css: styles.css
+    toc: true
+    link-external-newwindow: true
+
+
+
