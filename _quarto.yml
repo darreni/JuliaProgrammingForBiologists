@@ -21,6 +21,7 @@ website:
           - about.qmd
       - section: "Julia tutorials"
         contents:
+          - InstallJulia.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:

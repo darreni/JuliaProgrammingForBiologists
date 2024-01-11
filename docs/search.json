@@ -4,13 +4,20 @@
     "href": "index.html",
     "title": "Julia Programming For Biologists",
     "section": "",
-    "text": "Welcome! I am starting this website on January 11, 2024, for the purpose of teaching tutorials about the Julia programming language, in the context of biology.\nWe’ll see where this goes . . .\nNote: This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Welcome! I am starting this website on January 11, 2024, for the purpose of teaching tutorials about the Julia programming language, in the context of biology.\nWe’ll see where this goes . . ."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site"
+    "text": "About this site:\n[More detail to be entered here.]\nThis is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "InstallJulia.html",
+    "href": "InstallJulia.html",
+    "title": "Download and Install Julia",
+    "section": "",
+    "text": "To install Julia, go to this URL and follow instructions: https://julialang.org/downloads/\nThat website will likely detect your operating system and suggest the right approach.\nOn a Mac, you simply open a Terminal window (look for the Terminal application in your Applications/Utilities directory) and type the command below at the Terminal prompt:\ncurl -fsSL https://install.julialang.org | sh\nThe above command installs the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer."
   }
 ]

@@ -8,6 +8,4 @@ Welcome! I am starting this website on January 11, 2024, for the purpose of teac
 We'll see where this goes . . .
 
 
-Note: This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
