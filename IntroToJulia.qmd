@@ -1,0 +1,68 @@
+---
+title: "Quick Introduction to Julia"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+jupyter: julia-1.10
+---
+
+Now that we have Julia running, we can learn how to enter expressions that Julia will evaluate. 
+
+The simplest expressions are just a single number or string of text, e.g. try entering something like:
+
+```{julia}
+5
+```
+
+After you type `5` at the `julia>` prompt and press enter, Julia responds with `5`, the _returned value_ of your expression.
+
+You can do a little more complex expression:
+
+```{julia}
+7 * (6 - 1)
+```
+
+### Arithmetic operators
+
+Play around with other simple mathematical expressions. These are some of the main _mathematical operators_, which you are likely familiar with: `+` , `-`, `*`, `/`, `^`
+
+One that you might be less familiar with is the _remainder operator_ `%` which gives the remainder of a division, Try playing with these:
+
+```{julia}
+7 % 2
+```
+
+Another is the `÷` operator, which produces just the integer part of a division (without the decimal part). 
+You aren't likely to use `÷` very often, but I include it here as an example of Julia's use of _unicode characters_ (more on this below). To type that character at the Julia prompt, enter `\div` followed by the `tab` key.
+
+#### Functions
+
+We can also use some _functions_ in our expressions. A function is something that does a specific thing defined by code already loaded into memory. Here we use the `sqrt()` function, which produces a square root of the number in the parentheses.
+
+```{julia}
+sqrt(16)
+```
+
+### Different Types of numbers
+
+When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. For example, two main ways that Julia can store numbers are as _integers_ or as _floating-point numbers. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact. 
+
+We can learn about the Type that Julia uses to store values by entering 
+
+
+### Unicode characters
+
+
+
+
+
+
+
+
+
+```{julia}
+
+```

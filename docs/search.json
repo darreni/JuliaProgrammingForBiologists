@@ -1,10 +1,10 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Julia Programming For Biologists",
+    "objectID": "IntroToJulia.html",
+    "href": "IntroToJulia.html",
+    "title": "Quick Introduction to Julia",
     "section": "",
-    "text": "Welcome! I am starting this website on January 11, 2024, for the purpose of teaching tutorials about the Julia programming language, in the context of biology.\nWe’ll see where this goes . . ."
+    "text": "Now that we have Julia running, we can learn how to enter expressions that Julia will evaluate.\nThe simplest expressions are just a single number or string of text, e.g. try entering something like:\n\n5\n\n5\n\n\nAfter you type 5 at the julia&gt; prompt and press enter, Julia responds with 5, the returned value of your expression.\nYou can do a little more complex expression:\n\n7 * (6 - 1)\n\n35\n\n\n\nArithmetic operators\nPlay around with other simple mathematical expressions. These are some of the main mathematical operators, which you are likely familiar with: + , -, *, /, ^\nOne that you might be less familiar with is the remainder operator % which gives the remainder of a division, Try playing with these:\n\n7 % 2\n\n1\n\n\nAnother is the ÷ operator, which produces just the integer part of a division (without the decimal part). You aren’t likely to use ÷ very often, but I include it here as an example of Julia’s use of unicode characters (more on this below). To type that character at the Julia prompt, enter \\div followed by the tab key.\n\nFunctions\nWe can also use some functions in our expressions. A function is something that does a specific thing defined by code already loaded into memory. Here we use the sqrt() function, which produces a square root of the number in the parentheses.\n\nsqrt(16)\n\n4.0\n\n\n\n\n\nDifferent Types of numbers\nWhen computers store numbers, they can do it in different ways, each with their advantages and disadvantages. For example, two main ways that Julia can store numbers are as integers or as _floating-point numbers. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact.\nWe can learn about the Type that Julia uses to store values by entering\n\n\nUnicode characters"
   },
   {
     "objectID": "about.html",
@@ -14,10 +14,17 @@
     "text": "About this site:\n[More detail to be entered here.]\nThis is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Julia Programming For Biologists",
+    "section": "",
+    "text": "Welcome! I am starting this website on January 11, 2024, for the purpose of teaching tutorials about the Julia programming language, in the context of biology.\nWe’ll see where this goes . . ."
+  },
+  {
     "objectID": "InstallJulia.html",
     "href": "InstallJulia.html",
     "title": "Download and Install Julia",
     "section": "",
-    "text": "To install Julia, go to this URL and follow instructions: https://julialang.org/downloads/\nThat website will likely detect your operating system and suggest the right approach.\nOn a Mac, you simply open a Terminal window (look for the Terminal application in your Applications/Utilities directory) and type the command below at the Terminal prompt:\ncurl -fsSL https://install.julialang.org | sh\nThe above command installs the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer."
+    "text": "To download and install Julia, go to this URL and follow instructions: https://julialang.org/downloads/\nThat website will likely detect your operating system and suggest the right approach.\nOn a Mac, the above will direct you to simply open a Terminal window (look for the Terminal application in your Applications/Utilities directory) and type the command below at the Terminal prompt:\ncurl -fsSL https://install.julialang.org | sh\nThe above command installs the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer.\n\nNow, run Julia!\nIn the Terminal window, type julia at the prompt. After some time (only the first time you do this), you should see a julia logo and a prompt saying julia&gt; . This means Julia is installed and running.\nTry typing a simple calculation, e.g. 1 + 3, and see what happens.\nNow try typing \"Hello, nice to meet you\" (make sure you put the quotes).\nNow, go to the next page to learn more about interacting with Julia."
   }
 ]
