@@ -13,7 +13,7 @@ To download and install Julia, go to this URL and follow instructions: <https://
 
 That website will likely detect your operating system and suggest the right approach.
 
-On a Mac, the above will direct you to simply open a Terminal window (look for the Terminal application in your `Applications/Utilities` directory) and type the command below at the Terminal prompt:
+_If you have a Mac_, the above will direct you to simply open a Terminal window (look for the Terminal application in your `Applications/Utilities` directory) and type the command below at the Terminal prompt:
 
 `curl -fsSL https://install.julialang.org | sh`
 
@@ -23,9 +23,11 @@ The above command installs the Juliaup installation manager, which is a wonderfu
 
 In the Terminal window, type `julia` at the prompt. After some time (only the first time you do this), you should see a julia logo and a prompt saying `julia>` . This means Julia is installed and running.
 
-Try typing a simple calculation, e.g. `1 + 3`, and see what happens.
+Try typing a simple calculation, e.g. `1 + 3` then Enter or Return, and see what happens.
 
-Now try typing `"Hello, nice to meet you"` (make sure you put the quotes).
+Now try entering `"Hello, nice to meet you"` (make sure you put the quotes).
+
+With the above, you are using the REPL, the Read-Evaluate-Print-Loop. This is a common way of running Julia. (Another way is to save scripts and execute them, but that is usually for more advanced use.)
 
 Now, go to the next page to learn more about interacting with Julia.
 

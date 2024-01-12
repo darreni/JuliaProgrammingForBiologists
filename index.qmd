@@ -5,7 +5,12 @@ author: "Darren Irwin"
 
 Welcome! I am starting this website on January 11, 2024, for the purpose of teaching tutorials about the Julia programming language, in the context of biology.
 
-We'll see where this goes . . .
+Julia is a relatively new programming language (started around 2012; first official release in 2018) that is both highly readable (by humans) and fast. This is intended to solve the "2-language" problem, a common workflow in which development of a new program is done first in a highly readable language and then converted by an expert programmer into a fast language. This though results in a program that is difficult to read by non-experts.
 
+I have used Julia in my own work for about 2 years now, after having much experience with Matlab and then R, and dabbling a bit in Python, C, C++, and Java. The developers of Julia have praise for aspects of all of these languages, and their goal was to combine all the good aspects into one efficient and readable language. I think they have succeeded marvelously.
 
+My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. My goal is to get you programming quickly, givig just enough underlying explanation of computer science principles to enable fast progress.
 
+This is a work in progress, and we'll see where it goes . . .
+
+To advance through pages of the tutorial, click on the right arrow below.

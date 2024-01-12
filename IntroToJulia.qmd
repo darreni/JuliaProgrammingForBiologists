@@ -38,22 +38,166 @@ One that you might be less familiar with is the _remainder operator_ `%` which g
 Another is the `÷` operator, which produces just the integer part of a division (without the decimal part). 
 You aren't likely to use `÷` very often, but I include it here as an example of Julia's use of _unicode characters_ (more on this below). To type that character at the Julia prompt, enter `\div` followed by the `tab` key.
 
-#### Functions
+### Functions
 
-We can also use some _functions_ in our expressions. A function is something that does a specific thing defined by code already loaded into memory. Here we use the `sqrt()` function, which produces a square root of the number in the parentheses.
+We can also use some _functions_ in our expressions. A function is something that does a specific thing defined by code already loaded into memory. You can recognize a function in Julia by the fact that it will be a string of text followed immediately by parentheses, perhaps with inputs to the function inside the parentheses. Here we use the `sqrt()` function, which produces a square root of the number in the parentheses.
 
 ```{julia}
 sqrt(16)
 ```
 
-### Different Types of numbers
+### Assigning values to variable names
 
-When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. For example, two main ways that Julia can store numbers are as _integers_ or as _floating-point numbers. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact. 
+Each of the above expressions returns a _value_ that we can give a name and store in memory, using the equal sign `=`, the _assignment operator_. We can then use variable names in subsequent expressions:
 
-We can learn about the Type that Julia uses to store values by entering 
+```{julia}
+pop1 = 50; pop2 = 200; totalPop = pop1 + pop2
+```
 
+The semicolons above are used to separate distinct expressions that Julia should evaluate before continuing to the next. This is called a _compound expresssion_ and is a convenient to enter several commands on the same line. Another way to enter a compound expression is with a begin-end block:
+
+```{julia}
+begin
+  x = 17
+  y = x^2
+end
+```
+
+***Try this:*** Pick a number for the radius of a circle, and assign that to a variable name and store that in Julia's memory. Then in a separate command, use that variable to calculate the area of the circle (which is given by π$r^{2}$). A neat thing is that Julia already knows the value of π; to get it, just type `pi` or alternatively `\pi` then tab.
+
+
+### Different _Types_ of numbers
+
+When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. Two main ways that Julia can store numbers are as _integers_ or as _floating-point numbers_. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact. 
+
+We can learn about the _Type_ that Julia uses to store values by using the `typeof()` function:
+
+```{julia}
+typeof(3)
+```
+
+Julia responds by saying that the value `3` is of the `Int64` type. This means that it is an integer stored in memory using 64 bits. (No worries if you don't know what this means.) Now compare to this:
+
+```{julia}
+typeof(3.0)
+```
+
+Julia responds by sayng `3.0` is of the `Float64` type. This means a 64-bit floating-point number.
+
+Much of the time, we don't need to think about variable types, because Julia is smart and handles types through somethign called _dynamic typing_. Here's an example:
+
+```{julia}
+a = 2
+b = 3.0
+c = a + b
+typeof(c)
+```
+
+Above, Julia figures that by entering `b = 3.0` you are indicating that you want `b` treated as a floating-point number, so when it adds the integer 2 to this, it returns a floating-point number.
+
+Julia has all sort of other useful Types of numbers. One that I will point out here is the `Rational` number type, which you can construct with the `//` operator and do exact calculations using ratios:
+
+```{julia}
+ratio1 = 1//3
+ratio2 = 5//7
+product = ratio1 * ratio2
+```
+
+As your Julia skills increase, there are large benefits to being somewhat aware of types--this can help you write efficient programs and help with debugging your code. You can even define your own Types.
+
+### Characters and Strings
+
+Programming in biology often involves manipulating text such as "ACGT". For this, we can use two other variable types in Julia: characters (officially `Char`) and strings (officially `String`), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha).
+
+We enter characters with single quotes, and can combine them to make strings:
+
+```{julia}
+nucleotide1 = 'T'
+nucleotide2 = 'C'
+dinucleotide = nucleotide1 * nucleotide2
+```
+
+Above, we create two variables of type `Char` and combined them (yes, Julia views combining characters or strings as a form of multiplication, ha ha) to produce a `String`.
+
+***Try this:*** If Julia uses the `*` symbol for combining two characters or strings into a longer string, what do you think it might use the `^` symbol for, when applied to a character or string? Make a guess, and then play around and find out.
+
+When you enter a `String` into Julia, you need to use double quotes (unlike a `Char` with single quotes).
+
+```{julia}
+oligo1 = "ACGCAT"
+oligo2 = "CCCTG"
+ligation = string(oligo1, oligo2)
+```
+
+The function `string` above concatenates different strings together.
+
+***Try this:*** Assign a few of your favorite species to different variable names, and then combine them into a single string, with commas separating their names.
 
 ### Unicode characters
+
+One fun thing about Julia is that you can use unicode variables in variable names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:
+
+```{julia}
+χ² = 30.4
+β = 2χ²
+```
+
+To make the unicode symbols above, you would type `\chi` tab `\^2` tab, and on the next line `\beta` tab. Notice also that the expression `2χ²` is the same as `2*χ²` or `2 * χ²`.
+
+Unicode also allows some fun.
+
+***Try this:*** Assign a variable `a` the value of a `Char` given by typing `\:seedling:` tab. Assign a variable `b` the value of a `Char` given by typing `\:deciduous_tree:` tab. Then execute this line:
+
+```julia
+string(a, " grows into ", b)
+```
+ 
+We can also use unicode symbols in variable names:
+
+```{julia}
+🐬 = 47    # write with: \:dolphin: tab
+🐳 = 5     # write with: \:whale: tab
+totalMarineMammals = 🐬 + 🐳
+```
+
+Note the use of the `#` symbol to make comments to the right of code.
+
+You can find how to write a whole bunch of unicode symbols here: <https://docs.julialang.org/en/v1/manual/unicode-input/>
+
+### Comparisons and Booleans
+
+In programming it is often important to check if certain conditions are `true` or `false`. These are called Booleans (of type `Bool` in Julia). 
+
+These operators are used to compare two values (place to left and right of the operator), resulting in `true` or `false`:
+`==` : equal?
+`!=` : not equal?
+`<` : less than?
+`<=` : less than or equal?
+`>` : greater than?
+`>=` : greater than or equal?
+
+***Try this:*** Try a bunch of comparisons of values using the above. These are called _Boolean expressions_.
+
+We can use _Boolean operators_ to combine multiple comparisons. These are used as follows, where `x` and `y` are Boolean expression:
+`!x`  : not x
+`x && y`  : x and y
+`x || y`  : x or y
+
+For example:
+
+```{julia}
+5 <= 3 && 7 == 14/2
+```
+
+```{julia}
+5 <= 3 || 7 == 14/2
+```
+
+***Try this:*** Assign a numerical value to a variable, then determine whether that value is greater than 5 or less than -3.
+
+
+
+
 
 
 

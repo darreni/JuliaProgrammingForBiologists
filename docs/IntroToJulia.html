@@ -96,6 +96,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -213,8 +215,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#arithmetic-operators" id="toc-arithmetic-operators" class="nav-link active" data-scroll-target="#arithmetic-operators">Arithmetic operators</a></li>
-  <li><a href="#different-types-of-numbers" id="toc-different-types-of-numbers" class="nav-link" data-scroll-target="#different-types-of-numbers">Different Types of numbers</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  <li><a href="#assigning-values-to-variable-names" id="toc-assigning-values-to-variable-names" class="nav-link" data-scroll-target="#assigning-values-to-variable-names">Assigning values to variable names</a></li>
+  <li><a href="#different-types-of-numbers" id="toc-different-types-of-numbers" class="nav-link" data-scroll-target="#different-types-of-numbers">Different <em>Types</em> of numbers</a></li>
+  <li><a href="#characters-and-strings" id="toc-characters-and-strings" class="nav-link" data-scroll-target="#characters-and-strings">Characters and Strings</a></li>
   <li><a href="#unicode-characters" id="toc-unicode-characters" class="nav-link" data-scroll-target="#unicode-characters">Unicode characters</a></li>
+  <li><a href="#comparisons-and-booleans" id="toc-comparisons-and-booleans" class="nav-link" data-scroll-target="#comparisons-and-booleans">Comparisons and Booleans</a></li>
   </ul>
 </nav>
     </div>
@@ -271,9 +277,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Another is the <code>÷</code> operator, which produces just the integer part of a division (without the decimal part). You aren’t likely to use <code>÷</code> very often, but I include it here as an example of Julia’s use of <em>unicode characters</em> (more on this below). To type that character at the Julia prompt, enter <code>\div</code> followed by the <code>tab</code> key.</p>
-<section id="functions" class="level4">
-<h4 class="anchored" data-anchor-id="functions">Functions</h4>
-<p>We can also use some <em>functions</em> in our expressions. A function is something that does a specific thing defined by code already loaded into memory. Here we use the <code>sqrt()</code> function, which produces a square root of the number in the parentheses.</p>
+</section>
+<section id="functions" class="level3">
+<h3 class="anchored" data-anchor-id="functions">Functions</h3>
+<p>We can also use some <em>functions</em> in our expressions. A function is something that does a specific thing defined by code already loaded into memory. You can recognize a function in Julia by the fact that it will be a string of text followed immediately by parentheses, perhaps with inputs to the function inside the parentheses. Here we use the <code>sqrt()</code> function, which produces a square root of the number in the parentheses.</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -281,14 +288,139 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+<section id="assigning-values-to-variable-names" class="level3">
+<h3 class="anchored" data-anchor-id="assigning-values-to-variable-names">Assigning values to variable names</h3>
+<p>Each of the above expressions returns a <em>value</em> that we can give a name and store in memory, using the equal sign <code>=</code>, the <em>assignment operator</em>. We can then use variable names in subsequent expressions:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pop1 <span class="op">=</span> <span class="fl">50</span>; pop2 <span class="op">=</span> <span class="fl">200</span>; totalPop <span class="op">=</span> pop1 <span class="op">+</span> pop2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>250</code></pre>
+</div>
+</div>
+<p>The semicolons above are used to separate distinct expressions that Julia should evaluate before continuing to the next. This is called a <em>compound expresssion</em> and is a convenient to enter several commands on the same line. Another way to enter a compound expression is with a begin-end block:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="fl">17</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> x<span class="op">^</span><span class="fl">2</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>289</code></pre>
+</div>
+</div>
+<p><strong><em>Try this:</em></strong> Pick a number for the radius of a circle, and assign that to a variable name and store that in Julia’s memory. Then in a separate command, use that variable to calculate the area of the circle (which is given by π<span class="math inline">\(r^{2}\)</span>). A neat thing is that Julia already knows the value of π; to get it, just type <code>pi</code> or alternatively <code>\pi</code> then tab.</p>
 </section>
 <section id="different-types-of-numbers" class="level3">
-<h3 class="anchored" data-anchor-id="different-types-of-numbers">Different Types of numbers</h3>
-<p>When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. For example, two main ways that Julia can store numbers are as <em>integers</em> or as _floating-point numbers. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact.</p>
-<p>We can learn about the Type that Julia uses to store values by entering</p>
+<h3 class="anchored" data-anchor-id="different-types-of-numbers">Different <em>Types</em> of numbers</h3>
+<p>When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. Two main ways that Julia can store numbers are as <em>integers</em> or as <em>floating-point numbers</em>. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact.</p>
+<p>We can learn about the <em>Type</em> that Julia uses to store values by using the <code>typeof()</code> function:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Int64</code></pre>
+</div>
+</div>
+<p>Julia responds by saying that the value <code>3</code> is of the <code>Int64</code> type. This means that it is an integer stored in memory using 64 bits. (No worries if you don’t know what this means.) Now compare to this:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fl">3.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Float64</code></pre>
+</div>
+</div>
+<p>Julia responds by sayng <code>3.0</code> is of the <code>Float64</code> type. This means a 64-bit floating-point number.</p>
+<p>Much of the time, we don’t need to think about variable types, because Julia is smart and handles types through somethign called <em>dynamic typing</em>. Here’s an example:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">3.0</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>Float64</code></pre>
+</div>
+</div>
+<p>Above, Julia figures that by entering <code>b = 3.0</code> you are indicating that you want <code>b</code> treated as a floating-point number, so when it adds the integer 2 to this, it returns a floating-point number.</p>
+<p>Julia has all sort of other useful Types of numbers. One that I will point out here is the <code>Rational</code> number type, which you can construct with the <code>//</code> operator and do exact calculations using ratios:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ratio1 <span class="op">=</span> <span class="fl">1</span><span class="op">//</span><span class="fl">3</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ratio2 <span class="op">=</span> <span class="fl">5</span><span class="op">//</span><span class="fl">7</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>product <span class="op">=</span> ratio1 <span class="op">*</span> ratio2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>5//21</code></pre>
+</div>
+</div>
+<p>As your Julia skills increase, there are large benefits to being somewhat aware of types–this can help you write efficient programs and help with debugging your code. You can even define your own Types.</p>
+</section>
+<section id="characters-and-strings" class="level3">
+<h3 class="anchored" data-anchor-id="characters-and-strings">Characters and Strings</h3>
+<p>Programming in biology often involves manipulating text such as “ACGT”. For this, we can use two other variable types in Julia: characters (officially <code>Char</code>) and strings (officially <code>String</code>), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha).</p>
+<p>We enter characters with single quotes, and can combine them to make strings:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>nucleotide1 <span class="op">=</span> <span class="ch">'T'</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>nucleotide2 <span class="op">=</span> <span class="ch">'C'</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>dinucleotide <span class="op">=</span> nucleotide1 <span class="op">*</span> nucleotide2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>"TC"</code></pre>
+</div>
+</div>
+<p>Above, we create two variables of type <code>Char</code> and combined them (yes, Julia views combining characters or strings as a form of multiplication, ha ha) to produce a <code>String</code>.</p>
+<p><strong><em>Try this:</em></strong> If Julia uses the <code>*</code> symbol for combining two characters or strings into a longer string, what do you think it might use the <code>^</code> symbol for, when applied to a character or string? Make a guess, and then play around and find out.</p>
+<p>When you enter a <code>String</code> into Julia, you need to use double quotes (unlike a <code>Char</code> with single quotes).</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>oligo1 <span class="op">=</span> <span class="st">"ACGCAT"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>oligo2 <span class="op">=</span> <span class="st">"CCCTG"</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>ligation <span class="op">=</span> <span class="fu">string</span>(oligo1, oligo2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>"ACGCATCCCTG"</code></pre>
+</div>
+</div>
+<p>The function <code>string</code> above concatenates different strings together.</p>
+<p><strong><em>Try this:</em></strong> Assign a few of your favorite species to different variable names, and then combine them into a single string, with commas separating their names.</p>
 </section>
 <section id="unicode-characters" class="level3">
 <h3 class="anchored" data-anchor-id="unicode-characters">Unicode characters</h3>
+<p>One fun thing about Julia is that you can use unicode variables in variable names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>χ² <span class="op">=</span> <span class="fl">30.4</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>β <span class="op">=</span> <span class="fl">2</span>χ²</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>60.8</code></pre>
+</div>
+</div>
+<p>To make the unicode symbols above, you would type <code>\chi</code> tab <code>\^2</code> tab, and on the next line <code>\beta</code> tab. Notice also that the expression <code>2χ²</code> is the same as <code>2*χ²</code> or <code>2 * χ²</code>.</p>
+<p>Unicode also allows some fun.</p>
+<p><strong><em>Try this:</em></strong> Assign a variable <code>a</code> the value of a <code>Char</code> given by typing <code>\:seedling:</code> tab. Assign a variable <code>b</code> the value of a <code>Char</code> given by typing <code>\:deciduous_tree:</code> tab. Then execute this line:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">string</span>(a, <span class="st">" grows into "</span>, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can also use unicode symbols in variable names:</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>🐬 <span class="op">=</span> <span class="fl">47</span>    <span class="co"># write with: \:dolphin: tab</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>🐳 <span class="op">=</span> <span class="fl">5</span>     <span class="co"># write with: \:whale: tab</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>totalMarineMammals <span class="op">=</span> 🐬 <span class="op">+</span> 🐳</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>52</code></pre>
+</div>
+</div>
+<p>Note the use of the <code>#</code> symbol to make comments to the right of code.</p>
+<p>You can find how to write a whole bunch of unicode symbols here: <a href="https://docs.julialang.org/en/v1/manual/unicode-input/" class="uri">https://docs.julialang.org/en/v1/manual/unicode-input/</a></p>
+</section>
+<section id="comparisons-and-booleans" class="level3">
+<h3 class="anchored" data-anchor-id="comparisons-and-booleans">Comparisons and Booleans</h3>
+<p>In programming it is often important to check if certain conditions are <code>true</code> or <code>false</code>. These are called Booleans (of type <code>Bool</code> in Julia).</p>
+<p>These operators are used to compare two values (place to left and right of the operator), resulting in <code>true</code> or <code>false</code>: <code>==</code> : equal? <code>!=</code> : not equal? <code>&lt;</code> : less than? <code>&lt;=</code> : less than or equal? <code>&gt;</code> : greater than? <code>&gt;=</code> : greater than or equal?</p>
+<p><strong><em>Try this:</em></strong> Try a bunch of comparisons of values using the above. These are called <em>Boolean expressions</em>.</p>
+<p>We can use <em>Boolean operators</em> to combine multiple comparisons. These are used as follows, where <code>x</code> and <code>y</code> are Boolean expression: <code>!x</code> : not x <code>x &amp;&amp; y</code> : x and y <code>x || y</code> : x or y</p>
+<p>For example:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">&lt;=</span> <span class="fl">3</span> <span class="op">&amp;&amp;</span> <span class="fl">7</span> <span class="op">==</span> <span class="fl">14</span><span class="op">/</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>false</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">&lt;=</span> <span class="fl">3</span> <span class="op">||</span> <span class="fl">7</span> <span class="op">==</span> <span class="fl">14</span><span class="op">/</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>true</code></pre>
+</div>
+</div>
+<p><strong><em>Try this:</em></strong> Assign a numerical value to a variable, then determine whether that value is greater than 5 or less than -3.</p>
 
 
 </section>
