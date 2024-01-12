@@ -221,6 +221,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#characters-and-strings" id="toc-characters-and-strings" class="nav-link" data-scroll-target="#characters-and-strings">Characters and Strings</a></li>
   <li><a href="#unicode-characters" id="toc-unicode-characters" class="nav-link" data-scroll-target="#unicode-characters">Unicode characters</a></li>
   <li><a href="#comparisons-and-booleans" id="toc-comparisons-and-booleans" class="nav-link" data-scroll-target="#comparisons-and-booleans">Comparisons and Booleans</a></li>
+  <li><a href="#collections-e.g.-arrays" id="toc-collections-e.g.-arrays" class="nav-link" data-scroll-target="#collections-e.g.-arrays">Collections, e.g.&nbsp;Arrays</a></li>
+  <li><a href="#ranges" id="toc-ranges" class="nav-link" data-scroll-target="#ranges">Ranges</a></li>
   </ul>
 </nav>
     </div>
@@ -421,6 +423,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><strong><em>Try this:</em></strong> Assign a numerical value to a variable, then determine whether that value is greater than 5 or less than -3.</p>
+</section>
+<section id="collections-e.g.-arrays" class="level3">
+<h3 class="anchored" data-anchor-id="collections-e.g.-arrays">Collections, e.g.&nbsp;Arrays</h3>
+<p>Variables can contain more than a single item in them. A general term for such a data structure is a <em>collection</em>. An array is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Here we declare some kinds of arrays:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>array1 <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>5-element Vector{Int64}:
+ 1
+ 2
+ 3
+ 4
+ 5</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>array2 <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span>; <span class="fl">4</span> <span class="fl">5</span> <span class="fl">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6</code></pre>
+</div>
+</div>
+<p>Because these variables are more complex data structures that the simple ones we’ve looked at so far, Julia tells you the type of the returned value, before showing you the actual values.</p>
+<p>Note that a <code>Vector</code> is another name (an <em>alias</em>) for a 1-dimensional array, and a <code>Matrix</code> is another name for a 2-dimensional array.</p>
+<p>We’re going to eventually learn a lot more about arrays, as they are super useful in data science, bioinformatics, and simulations.</p>
+</section>
+<section id="ranges" class="level3">
+<h3 class="anchored" data-anchor-id="ranges">Ranges</h3>
+<p>Julia has a neat data structure to store arithmetic series of numbers:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>rangeOfNums <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(rangeOfNums)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(rangeOfNums)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1:100</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>UnitRange{Int64}</code></pre>
+</div>
+</div>
+<p>Julia stores this range efficiently, until the actual numbers are needed. If we want to actually convert it to the numbers themselves, we could enter something like <code>collect(rangeOfNums)</code></p>
+<p>If we want only the even numbers, we enter something like <code>collect(0:2:30)</code>.</p>
+<p><strong><em>Try this:</em></strong> Assign a vector containing the numbers counting down from 15 to -15, by 3.</p>
 
 
 </section>

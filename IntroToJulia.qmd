@@ -195,6 +195,40 @@ For example:
 
 ***Try this:*** Assign a numerical value to a variable, then determine whether that value is greater than 5 or less than -3.
 
+### Collections, e.g. Arrays
+
+Variables can contain more than a single item in them. A general term for such a data structure is a _collection_. An array is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Here we declare some kinds of arrays:
+
+```{julia}
+array1 = [1, 2, 3, 4, 5]
+```
+
+```{julia}
+array2 = [1 2 3; 4 5 6]
+```
+
+Because these variables are more complex data structures that the simple ones we've looked at so far, Julia tells you the type of the returned value, before showing you the actual values.
+
+Note that a `Vector` is another name (an _alias_) for a 1-dimensional array, and a `Matrix` is another name for a 2-dimensional array.
+
+We're going to eventually learn a lot more about arrays, as they are super useful in data science, bioinformatics, and simulations. 
+
+### Ranges
+
+Julia has a neat data structure to store arithmetic series of numbers:
+
+```{julia}
+rangeOfNums = 1:100
+println(rangeOfNums)
+typeof(rangeOfNums)
+```
+
+Julia stores this range efficiently, until the actual numbers are needed. If we want to actually convert it to the numbers themselves, we could enter something like `collect(rangeOfNums)`
+
+If we want only the even numbers, we enter something like `collect(0:2:30)`.
+
+***Try this:*** Assign a vector containing the numbers counting down from 15 to -15, by 3.
+
 
 
 
