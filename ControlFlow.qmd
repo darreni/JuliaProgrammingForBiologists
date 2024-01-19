@@ -1,0 +1,29 @@
+---
+title: "Control Flow: Loops and Ifs"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+jupyter: julia-1.10
+---
+
+Loops are very useful in programming, because we often want to do a set of commands multiple times. For example:
+
+```{julia}
+for ice in 1:10
+  iceCubed = ice^3
+  println("The cube of ", ice, " is ", iceCubed)
+end
+```
+
+***Try this:*** Teach Julia how to sing the song "99 bottles of beer on the wall." This song goes like "99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of ..." and does that all the way down. (I don't think anyone has ever completed the song . . . Can your program succeed in doing so?)
+
+
+
+[This is all I've prepared so far. More coming . . .]
+
+
+
+

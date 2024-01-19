@@ -24,6 +24,7 @@ website:
           - InstallJulia.qmd
           - IntroToJulia.qmd
           - PlutoNotebooks.qmd
+          - ControlFlow.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:
