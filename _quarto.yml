@@ -23,6 +23,7 @@ website:
         contents:
           - InstallJulia.qmd
           - IntroToJulia.qmd
+          - PlutoNotebooks.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:

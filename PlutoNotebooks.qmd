@@ -1,0 +1,151 @@
+---
+title: "Pluto Notebooks for Julia"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+jupyter: julia-1.10
+---
+
+Now that we know how to use the Julia REPL to interact with Julia and are building our understanding of programming, we likely want an environment in which we can compose programs and save them for use later. Pluto notebooks provides a _reactive notebook_ environment for doing this.
+
+### Install Pluto
+
+Pluto is a package that we install into Julia in the same way as we did with the Plots package (on the last page):
+
+Type `]` to enter the package mode, then input this:
+
+```julia
+add Pluto
+```
+
+This downloads and installs everything needed for Pluto to run (which is quite a bit, so may take some time).
+
+When done, press "delete" to return from package mode to the REPL. Then type these two commands:
+
+```julia
+import Pluto
+Pluto.run()
+```
+
+Eventually (and if your computer works the same as mine), a browser window will open that says "welcome to Pluto.jl" at the top.
+
+### Create your first notebook
+
+Click on "Create a new notebook" (Under the heading "My Work").
+
+You will then see a mostly blank page that says "Pluto.jl" in the upper left. Below that there is a line with faint text that says "Enter cell code". Try entering a simple Julia expression there to assign a value to a variable (e.g. something like `a = 7^2`) and then press Shift + Enter to tell Pluto to evaluate the cell.
+
+Pluto then returns the result of your expression _above_ the cell.
+
+Let's add another cell by clicking the little "+" sign below the first cell. In this new cell, enter an expression that creates a second variable and assigns to it a calculation involving your first variable (e.g. `b = a - 3`). You will see again see the result above the cell.
+
+Now, edit the first cell to change the value assigned to `a`, and press Shift + Enter. You will see the returned value of `a` change, and the value of `b` changes too. This is what it means to be _reactive_: any change in your notebook propogates through the entire notebook in a logical way. The whole notebook then is like a single program.
+
+#### Pluto notebooks are not dependent on cell order
+
+Try switching the order of your two cells, by simply hovering your pointer to the left of one of the cells, and then dragging it up or down. Now play around with the code in the cells. You will see that the results do not depend on cell order. 
+
+This allows you to organize notebooks in whatever way you want. You have the option of having the final result at the top, with supporting code lower down.
+
+#### Consequences of movable cell blocks
+
+There are a couple important consequence of the above. One is that we cannot have two statements that assign to the same variable in two different cells. For instance, if you say `a = 1` in one cell and `a = a + 1`. (Try it! Pluto will respond with an error and suggest a solution.) Instead, we can use `begin`-`end` blocks to group code in which a single variable is assigned a series of values in succession:
+
+```{julia}
+begin
+    myVar = 1
+    myVar = myVar + 5
+end
+```
+
+A related principle is that each cell block can only contain a single expression. (However, an expression can be quite big if it contain a `begin`-`end` block.) This ensures Julia can figure out which cells depend on which.
+
+### Save your notebook
+
+Let's save our notebook so we can open it later and use it again. At the top of the page, click on "Save notebook". You can then choose a folder and enter a file name (e.g. something like "MyFirstPlutoNotebook.jl" wouldn't be a terrible choice). It is good to give your notebook a ".jl" extension, which  indicates a file written in Julia.
+
+If you now leave your notebook by clicking on the "Pluto.jl" logo in the upper left, you should see that the notebook you just saved is listed under "My Work". Click on that notebook name, and it will open your notebook again.
+
+### Pluto files are valid Julia files
+
+A nice thing about working in Pluto is that the file that you are saving is 100% runnable as a Julia file (without using Pluto).
+
+### Pluto has _no hidden state_
+
+A way that Pluto differs from some other notebook environments (e.g. Jupyter) is that _the program state is completely described by the code in the notebook_. You don't have to wonder if each cell has been executed--the entire notebook is affected by any change you make (although Julia is clever and for efficiency figures out what cells depend on that change).
+
+### Make a plot in Pluto
+
+Pluto can show all sorts of output from your code. For instance, try making a plot. We first need to install the Plots package into our Pluto environment:
+
+```{julia}
+using Plots
+```
+
+If you have not downloaded the Plots package, Pluto will nicely do it for you.
+
+Now, lets generate some data and graph it:
+
+```{julia}
+numPoints = 10
+xValues = randn(numPoints) # random draw from standard normal distribution
+yValues = xValues .+ 0.5 .* randn(numPoints)
+scatter(xValues, yValues)
+```
+
+You will likely see a scatter plot of 10 data points. The data generation involved random draws from a standard normal distribution, so your graph won't look exactly the same as the one shown here. 
+
+***Try this:*** Can you figure out how to modify the above to get 1000 data points? Try it!
+
+### Add text using Markdown
+
+You can add headers and comments to your notebook using Markdown, simply by entering `md` and then double quotes surrounding your text. Create a new cell at the top of your notebook and enter this:
+
+```julia
+md"# _Welcome to my notebook_! 
+
+This is a Pluto notebook for programming in the Julia language. Pluto notebooks are **reactive** to changes you make.
+"
+```
+
+You can hide the code producing that text by clicking on the little eye symbol left of the code cell.
+
+We can incorporate Julia expressions into our Markdown comments by preceding it with a `$` symbol:
+
+```julia
+md"There are $numPoints data points in the graph"
+```
+
+```julia
+num = 4; md"The square of $num is $(num^2) ."
+```
+
+[Note that if you want the above Markdown commands to work outside of Pluto, e.g. in a regular Julia REPL, you have to add the Markdown.jl package. Enter package mode with `]`, then enter `add Markdown`, then press "delete" to return to REPL, then enter `using Markdown`.]
+
+### Next steps
+
+Now that we have a good envirnoment set up to write and save more complex programs, we'll learn about _control flow_, the way you can design a program to do different sets of code depending on the state of one or more variables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

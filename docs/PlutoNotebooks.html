@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Darren Irwin">
+
+<title>JuliaProgrammingForBiologists - Pluto Notebooks for Julia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./IntroToJulia.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">JuliaProgrammingForBiologists</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./InstallJulia.html">Julia tutorials</a></li><li class="breadcrumb-item"><a href="./PlutoNotebooks.html">Pluto Notebooks for Julia</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Julia tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./InstallJulia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download and Install Julia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./IntroToJulia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quick Introduction to Julia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PlutoNotebooks.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Pluto Notebooks for Julia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#install-pluto" id="toc-install-pluto" class="nav-link active" data-scroll-target="#install-pluto">Install Pluto</a></li>
+  <li><a href="#create-your-first-notebook" id="toc-create-your-first-notebook" class="nav-link" data-scroll-target="#create-your-first-notebook">Create your first notebook</a></li>
+  <li><a href="#save-your-notebook" id="toc-save-your-notebook" class="nav-link" data-scroll-target="#save-your-notebook">Save your notebook</a></li>
+  <li><a href="#pluto-files-are-valid-julia-files" id="toc-pluto-files-are-valid-julia-files" class="nav-link" data-scroll-target="#pluto-files-are-valid-julia-files">Pluto files are valid Julia files</a></li>
+  <li><a href="#pluto-has-no-hidden-state" id="toc-pluto-has-no-hidden-state" class="nav-link" data-scroll-target="#pluto-has-no-hidden-state">Pluto has <em>no hidden state</em></a></li>
+  <li><a href="#make-a-plot-in-pluto" id="toc-make-a-plot-in-pluto" class="nav-link" data-scroll-target="#make-a-plot-in-pluto">Make a plot in Pluto</a></li>
+  <li><a href="#add-text-using-markdown" id="toc-add-text-using-markdown" class="nav-link" data-scroll-target="#add-text-using-markdown">Add text using Markdown</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Pluto Notebooks for Julia</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Darren Irwin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Now that we know how to use the Julia REPL to interact with Julia and are building our understanding of programming, we likely want an environment in which we can compose programs and save them for use later. Pluto notebooks provides a <em>reactive notebook</em> environment for doing this.</p>
+<section id="install-pluto" class="level3">
+<h3 class="anchored" data-anchor-id="install-pluto">Install Pluto</h3>
+<p>Pluto is a package that we install into Julia in the same way as we did with the Plots package (on the last page):</p>
+<p>Type <code>]</code> to enter the package mode, then input this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>add Pluto</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This downloads and installs everything needed for Pluto to run (which is quite a bit, so may take some time).</p>
+<p>When done, press “delete” to return from package mode to the REPL. Then type these two commands:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Pluto</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Pluto.<span class="fu">run</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Eventually (and if your computer works the same as mine), a browser window will open that says “welcome to Pluto.jl” at the top.</p>
+</section>
+<section id="create-your-first-notebook" class="level3">
+<h3 class="anchored" data-anchor-id="create-your-first-notebook">Create your first notebook</h3>
+<p>Click on “Create a new notebook” (Under the heading “My Work”).</p>
+<p>You will then see a mostly blank page that says “Pluto.jl” in the upper left. Below that there is a line with faint text that says “Enter cell code”. Try entering a simple Julia expression there to assign a value to a variable (e.g.&nbsp;something like <code>a = 7^2</code>) and then press Shift + Enter to tell Pluto to evaluate the cell.</p>
+<p>Pluto then returns the result of your expression <em>above</em> the cell.</p>
+<p>Let’s add another cell by clicking the little “+” sign below the first cell. In this new cell, enter an expression that creates a second variable and assigns to it a calculation involving your first variable (e.g.&nbsp;<code>b = a - 3</code>). You will see again see the result above the cell.</p>
+<p>Now, edit the first cell to change the value assigned to <code>a</code>, and press Shift + Enter. You will see the returned value of <code>a</code> change, and the value of <code>b</code> changes too. This is what it means to be <em>reactive</em>: any change in your notebook propogates through the entire notebook in a logical way. The whole notebook then is like a single program.</p>
+<section id="pluto-notebooks-are-not-dependent-on-cell-order" class="level4">
+<h4 class="anchored" data-anchor-id="pluto-notebooks-are-not-dependent-on-cell-order">Pluto notebooks are not dependent on cell order</h4>
+<p>Try switching the order of your two cells, by simply hovering your pointer to the left of one of the cells, and then dragging it up or down. Now play around with the code in the cells. You will see that the results do not depend on cell order.</p>
+<p>This allows you to organize notebooks in whatever way you want. You have the option of having the final result at the top, with supporting code lower down.</p>
+</section>
+<section id="consequences-of-movable-cell-blocks" class="level4">
+<h4 class="anchored" data-anchor-id="consequences-of-movable-cell-blocks">Consequences of movable cell blocks</h4>
+<p>There are a couple important consequence of the above. One is that we cannot have two statements that assign to the same variable in two different cells. For instance, if you say <code>a = 1</code> in one cell and <code>a = a + 1</code>. (Try it! Pluto will respond with an error and suggest a solution.) Instead, we can use <code>begin</code>-<code>end</code> blocks to group code in which a single variable is assigned a series of values in succession:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    myVar <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    myVar <span class="op">=</span> myVar <span class="op">+</span> <span class="fl">5</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>6</code></pre>
+</div>
+</div>
+<p>A related principle is that each cell block can only contain a single expression. (However, an expression can be quite big if it contain a <code>begin</code>-<code>end</code> block.) This ensures Julia can figure out which cells depend on which.</p>
+</section>
+</section>
+<section id="save-your-notebook" class="level3">
+<h3 class="anchored" data-anchor-id="save-your-notebook">Save your notebook</h3>
+<p>Let’s save our notebook so we can open it later and use it again. At the top of the page, click on “Save notebook”. You can then choose a folder and enter a file name (e.g.&nbsp;something like “MyFirstPlutoNotebook.jl” wouldn’t be a terrible choice). It is good to give your notebook a “.jl” extension, which indicates a file written in Julia.</p>
+<p>If you now leave your notebook by clicking on the “Pluto.jl” logo in the upper left, you should see that the notebook you just saved is listed under “My Work”. Click on that notebook name, and it will open your notebook again.</p>
+</section>
+<section id="pluto-files-are-valid-julia-files" class="level3">
+<h3 class="anchored" data-anchor-id="pluto-files-are-valid-julia-files">Pluto files are valid Julia files</h3>
+<p>A nice thing about working in Pluto is that the file that you are saving is 100% runnable as a Julia file (without using Pluto).</p>
+</section>
+<section id="pluto-has-no-hidden-state" class="level3">
+<h3 class="anchored" data-anchor-id="pluto-has-no-hidden-state">Pluto has <em>no hidden state</em></h3>
+<p>A way that Pluto differs from some other notebook environments (e.g.&nbsp;Jupyter) is that <em>the program state is completely described by the code in the notebook</em>. You don’t have to wonder if each cell has been executed–the entire notebook is affected by any change you make (although Julia is clever and for efficiency figures out what cells depend on that change).</p>
+</section>
+<section id="make-a-plot-in-pluto" class="level3">
+<h3 class="anchored" data-anchor-id="make-a-plot-in-pluto">Make a plot in Pluto</h3>
+<p>Pluto can show all sorts of output from your code. For instance, try making a plot. We first need to install the Plots package into our Pluto environment:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you have not downloaded the Plots package, Pluto will nicely do it for you.</p>
+<p>Now, lets generate some data and graph it:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>numPoints <span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>xValues <span class="op">=</span> <span class="fu">randn</span>(numPoints) <span class="co"># random draw from standard normal distribution</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>yValues <span class="op">=</span> xValues <span class="op">.+</span> <span class="fl">0.5</span> <span class="op">.*</span> <span class="fu">randn</span>(numPoints)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(xValues, yValues)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="672" height="480" viewbox="0 0 2688 1920">
+<defs>
+  <clippath id="clip040">
+    <rect x="0" y="0" width="2688" height="1920"></rect>
+  </clippath>
+</defs>
+<path clip-path="url(#clip040)" d="M0 1920 L2688 1920 L2688 0 L0 0  Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clippath id="clip041">
+    <rect x="537" y="0" width="1883" height="1883"></rect>
+  </clippath>
+</defs>
+<path clip-path="url(#clip040)" d="M196.816 1800.78 L2640.76 1800.78 L2640.76 47.2441 L196.816 47.2441  Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clippath id="clip042">
+    <rect x="196" y="47" width="2445" height="1755"></rect>
+  </clippath>
+</defs>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="324.947,1800.78 324.947,47.2441 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="936.195,1800.78 936.195,47.2441 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="1547.44,1800.78 1547.44,47.2441 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="2158.69,1800.78 2158.69,47.2441 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,1800.78 2640.76,1800.78 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="324.947,1800.78 324.947,1781.88 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="936.195,1800.78 936.195,1781.88 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="1547.44,1800.78 1547.44,1781.88 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="2158.69,1800.78 2158.69,1781.88 "></polyline>
+<path clip-path="url(#clip040)" d="M294.889 1848.65 L324.565 1848.65 L324.565 1852.59 L294.889 1852.59 L294.889 1848.65 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M338.685 1861.55 L355.005 1861.55 L355.005 1865.48 L333.06 1865.48 L333.06 1861.55 Q335.722 1858.79 340.306 1854.16 Q344.912 1849.51 346.093 1848.17 Q348.338 1845.65 349.218 1843.91 Q350.12 1842.15 350.12 1840.46 Q350.12 1837.71 348.176 1835.97 Q346.255 1834.23 343.153 1834.23 Q340.954 1834.23 338.5 1835 Q336.069 1835.76 333.292 1837.31 L333.292 1832.59 Q336.116 1831.46 338.569 1830.88 Q341.023 1830.3 343.06 1830.3 Q348.431 1830.3 351.625 1832.98 Q354.819 1835.67 354.819 1840.16 Q354.819 1842.29 354.009 1844.21 Q353.222 1846.11 351.116 1848.7 Q350.537 1849.37 347.435 1852.59 Q344.333 1855.78 338.685 1861.55 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M905.952 1848.65 L935.628 1848.65 L935.628 1852.59 L905.952 1852.59 L905.952 1848.65 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M946.531 1861.55 L954.17 1861.55 L954.17 1835.18 L945.86 1836.85 L945.86 1832.59 L954.123 1830.92 L958.799 1830.92 L958.799 1861.55 L966.438 1861.55 L966.438 1865.48 L946.531 1865.48 L946.531 1861.55 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M1547.44 1834 Q1543.83 1834 1542 1837.57 Q1540.2 1841.11 1540.2 1848.24 Q1540.2 1855.34 1542 1858.91 Q1543.83 1862.45 1547.44 1862.45 Q1551.08 1862.45 1552.88 1858.91 Q1554.71 1855.34 1554.71 1848.24 Q1554.71 1841.11 1552.88 1837.57 Q1551.08 1834 1547.44 1834 M1547.44 1830.3 Q1553.25 1830.3 1556.31 1834.9 Q1559.39 1839.49 1559.39 1848.24 Q1559.39 1856.96 1556.31 1861.57 Q1553.25 1866.15 1547.44 1866.15 Q1541.63 1866.15 1538.55 1861.57 Q1535.5 1856.96 1535.5 1848.24 Q1535.5 1839.49 1538.55 1834.9 Q1541.63 1830.3 1547.44 1830.3 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M2149.07 1861.55 L2156.71 1861.55 L2156.71 1835.18 L2148.4 1836.85 L2148.4 1832.59 L2156.67 1830.92 L2161.34 1830.92 L2161.34 1861.55 L2168.98 1861.55 L2168.98 1865.48 L2149.07 1865.48 L2149.07 1861.55 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="196.816,1747.04 2640.76,1747.04 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="196.816,1493.46 2640.76,1493.46 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="196.816,1239.89 2640.76,1239.89 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="196.816,986.309 2640.76,986.309 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="196.816,732.733 2640.76,732.733 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="196.816,479.156 2640.76,479.156 "></polyline>
+<polyline clip-path="url(#clip042)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="196.816,225.58 2640.76,225.58 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,1800.78 196.816,47.2441 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,1747.04 215.714,1747.04 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,1493.46 215.714,1493.46 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,1239.89 215.714,1239.89 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,986.309 215.714,986.309 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,732.733 215.714,732.733 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,479.156 215.714,479.156 "></polyline>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="196.816,225.58 215.714,225.58 "></polyline>
+<path clip-path="url(#clip040)" d="M50.5475 1747.49 L80.2233 1747.49 L80.2233 1751.42 L50.5475 1751.42 L50.5475 1747.49 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M91.126 1760.38 L98.7648 1760.38 L98.7648 1734.02 L90.4547 1735.68 L90.4547 1731.42 L98.7185 1729.76 L103.394 1729.76 L103.394 1760.38 L111.033 1760.38 L111.033 1764.32 L91.126 1764.32 L91.126 1760.38 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M120.478 1758.44 L125.362 1758.44 L125.362 1764.32 L120.478 1764.32 L120.478 1758.44 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M135.593 1729.76 L153.95 1729.76 L153.95 1733.69 L139.876 1733.69 L139.876 1742.17 Q140.894 1741.82 141.913 1741.66 Q142.931 1741.47 143.95 1741.47 Q149.737 1741.47 153.116 1744.64 Q156.496 1747.81 156.496 1753.23 Q156.496 1758.81 153.024 1761.91 Q149.552 1764.99 143.232 1764.99 Q141.056 1764.99 138.788 1764.62 Q136.542 1764.25 134.135 1763.51 L134.135 1758.81 Q136.218 1759.94 138.441 1760.5 Q140.663 1761.05 143.14 1761.05 Q147.144 1761.05 149.482 1758.95 Q151.82 1756.84 151.82 1753.23 Q151.82 1749.62 149.482 1747.51 Q147.144 1745.41 143.14 1745.41 Q141.265 1745.41 139.39 1745.82 Q137.538 1746.24 135.593 1747.12 L135.593 1729.76 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M49.5521 1493.91 L79.2279 1493.91 L79.2279 1497.85 L49.5521 1497.85 L49.5521 1493.91 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M90.1306 1506.81 L97.7695 1506.81 L97.7695 1480.44 L89.4593 1482.11 L89.4593 1477.85 L97.7232 1476.18 L102.399 1476.18 L102.399 1506.81 L110.038 1506.81 L110.038 1510.74 L90.1306 1510.74 L90.1306 1506.81 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M119.482 1504.86 L124.367 1504.86 L124.367 1510.74 L119.482 1510.74 L119.482 1504.86 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M144.552 1479.26 Q140.941 1479.26 139.112 1482.82 Q137.306 1486.37 137.306 1493.5 Q137.306 1500.6 139.112 1504.17 Q140.941 1507.71 144.552 1507.71 Q148.186 1507.71 149.991 1504.17 Q151.82 1500.6 151.82 1493.5 Q151.82 1486.37 149.991 1482.82 Q148.186 1479.26 144.552 1479.26 M144.552 1475.56 Q150.362 1475.56 153.417 1480.16 Q156.496 1484.75 156.496 1493.5 Q156.496 1502.22 153.417 1506.83 Q150.362 1511.41 144.552 1511.41 Q138.741 1511.41 135.663 1506.83 Q132.607 1502.22 132.607 1493.5 Q132.607 1484.75 135.663 1480.16 Q138.741 1475.56 144.552 1475.56 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M50.5475 1240.34 L80.2233 1240.34 L80.2233 1244.27 L50.5475 1244.27 L50.5475 1240.34 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M100.316 1225.68 Q96.7047 1225.68 94.876 1229.25 Q93.0704 1232.79 93.0704 1239.92 Q93.0704 1247.03 94.876 1250.59 Q96.7047 1254.13 100.316 1254.13 Q103.95 1254.13 105.756 1250.59 Q107.584 1247.03 107.584 1239.92 Q107.584 1232.79 105.756 1229.25 Q103.95 1225.68 100.316 1225.68 M100.316 1221.98 Q106.126 1221.98 109.181 1226.59 Q112.26 1231.17 112.26 1239.92 Q112.26 1248.65 109.181 1253.25 Q106.126 1257.84 100.316 1257.84 Q94.5056 1257.84 91.4269 1253.25 Q88.3714 1248.65 88.3714 1239.92 Q88.3714 1231.17 91.4269 1226.59 Q94.5056 1221.98 100.316 1221.98 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M120.478 1251.29 L125.362 1251.29 L125.362 1257.17 L120.478 1257.17 L120.478 1251.29 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M135.593 1222.61 L153.95 1222.61 L153.95 1226.54 L139.876 1226.54 L139.876 1235.01 Q140.894 1234.67 141.913 1234.5 Q142.931 1234.32 143.95 1234.32 Q149.737 1234.32 153.116 1237.49 Q156.496 1240.66 156.496 1246.08 Q156.496 1251.66 153.024 1254.76 Q149.552 1257.84 143.232 1257.84 Q141.056 1257.84 138.788 1257.47 Q136.542 1257.1 134.135 1256.36 L134.135 1251.66 Q136.218 1252.79 138.441 1253.35 Q140.663 1253.9 143.14 1253.9 Q147.144 1253.9 149.482 1251.79 Q151.82 1249.69 151.82 1246.08 Q151.82 1242.47 149.482 1240.36 Q147.144 1238.25 143.14 1238.25 Q141.265 1238.25 139.39 1238.67 Q137.538 1239.09 135.593 1239.97 L135.593 1222.61 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M99.3204 972.108 Q95.7093 972.108 93.8806 975.672 Q92.075 979.214 92.075 986.344 Q92.075 993.45 93.8806 997.015 Q95.7093 1000.56 99.3204 1000.56 Q102.955 1000.56 104.76 997.015 Q106.589 993.45 106.589 986.344 Q106.589 979.214 104.76 975.672 Q102.955 972.108 99.3204 972.108 M99.3204 968.404 Q105.131 968.404 108.186 973.01 Q111.265 977.594 111.265 986.344 Q111.265 995.07 108.186 999.677 Q105.131 1004.26 99.3204 1004.26 Q93.5102 1004.26 90.4315 999.677 Q87.376 995.07 87.376 986.344 Q87.376 977.594 90.4315 973.01 Q93.5102 968.404 99.3204 968.404 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M119.482 997.709 L124.367 997.709 L124.367 1003.59 L119.482 1003.59 L119.482 997.709 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M144.552 972.108 Q140.941 972.108 139.112 975.672 Q137.306 979.214 137.306 986.344 Q137.306 993.45 139.112 997.015 Q140.941 1000.56 144.552 1000.56 Q148.186 1000.56 149.991 997.015 Q151.82 993.45 151.82 986.344 Q151.82 979.214 149.991 975.672 Q148.186 972.108 144.552 972.108 M144.552 968.404 Q150.362 968.404 153.417 973.01 Q156.496 977.594 156.496 986.344 Q156.496 995.07 153.417 999.677 Q150.362 1004.26 144.552 1004.26 Q138.741 1004.26 135.663 999.677 Q132.607 995.07 132.607 986.344 Q132.607 977.594 135.663 973.01 Q138.741 968.404 144.552 968.404 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M100.316 718.531 Q96.7047 718.531 94.876 722.096 Q93.0704 725.638 93.0704 732.767 Q93.0704 739.874 94.876 743.439 Q96.7047 746.98 100.316 746.98 Q103.95 746.98 105.756 743.439 Q107.584 739.874 107.584 732.767 Q107.584 725.638 105.756 722.096 Q103.95 718.531 100.316 718.531 M100.316 714.828 Q106.126 714.828 109.181 719.434 Q112.26 724.017 112.26 732.767 Q112.26 741.494 109.181 746.101 Q106.126 750.684 100.316 750.684 Q94.5056 750.684 91.4269 746.101 Q88.3714 741.494 88.3714 732.767 Q88.3714 724.017 91.4269 719.434 Q94.5056 714.828 100.316 714.828 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M120.478 744.133 L125.362 744.133 L125.362 750.013 L120.478 750.013 L120.478 744.133 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M135.593 715.453 L153.95 715.453 L153.95 719.388 L139.876 719.388 L139.876 727.86 Q140.894 727.513 141.913 727.351 Q142.931 727.166 143.95 727.166 Q149.737 727.166 153.116 730.337 Q156.496 733.508 156.496 738.925 Q156.496 744.503 153.024 747.605 Q149.552 750.684 143.232 750.684 Q141.056 750.684 138.788 750.314 Q136.542 749.943 134.135 749.202 L134.135 744.503 Q136.218 745.638 138.441 746.193 Q140.663 746.749 143.14 746.749 Q147.144 746.749 149.482 744.642 Q151.82 742.536 151.82 738.925 Q151.82 735.314 149.482 733.207 Q147.144 731.101 143.14 731.101 Q141.265 731.101 139.39 731.517 Q137.538 731.934 135.593 732.814 L135.593 715.453 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M90.1306 492.501 L97.7695 492.501 L97.7695 466.136 L89.4593 467.802 L89.4593 463.543 L97.7232 461.876 L102.399 461.876 L102.399 492.501 L110.038 492.501 L110.038 496.436 L90.1306 496.436 L90.1306 492.501 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M119.482 490.557 L124.367 490.557 L124.367 496.436 L119.482 496.436 L119.482 490.557 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M144.552 464.955 Q140.941 464.955 139.112 468.52 Q137.306 472.061 137.306 479.191 Q137.306 486.297 139.112 489.862 Q140.941 493.404 144.552 493.404 Q148.186 493.404 149.991 489.862 Q151.82 486.297 151.82 479.191 Q151.82 472.061 149.991 468.52 Q148.186 464.955 144.552 464.955 M144.552 461.251 Q150.362 461.251 153.417 465.858 Q156.496 470.441 156.496 479.191 Q156.496 487.918 153.417 492.524 Q150.362 497.108 144.552 497.108 Q138.741 497.108 135.663 492.524 Q132.607 487.918 132.607 479.191 Q132.607 470.441 135.663 465.858 Q138.741 461.251 144.552 461.251 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M91.126 238.925 L98.7648 238.925 L98.7648 212.559 L90.4547 214.226 L90.4547 209.967 L98.7185 208.3 L103.394 208.3 L103.394 238.925 L111.033 238.925 L111.033 242.86 L91.126 242.86 L91.126 238.925 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M120.478 236.98 L125.362 236.98 L125.362 242.86 L120.478 242.86 L120.478 236.98 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M135.593 208.3 L153.95 208.3 L153.95 212.235 L139.876 212.235 L139.876 220.707 Q140.894 220.36 141.913 220.198 Q142.931 220.013 143.95 220.013 Q149.737 220.013 153.116 223.184 Q156.496 226.355 156.496 231.772 Q156.496 237.351 153.024 240.453 Q149.552 243.531 143.232 243.531 Q141.056 243.531 138.788 243.161 Q136.542 242.791 134.135 242.05 L134.135 237.351 Q136.218 238.485 138.441 239.041 Q140.663 239.596 143.14 239.596 Q147.144 239.596 149.482 237.49 Q151.82 235.383 151.82 231.772 Q151.82 228.161 149.482 226.055 Q147.144 223.948 143.14 223.948 Q141.265 223.948 139.39 224.365 Q137.538 224.781 135.593 225.661 L135.593 208.3 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><circle clip-path="url(#clip042)" cx="265.984" cy="1751.15" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="1583.52" cy="913.414" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="1986.67" cy="417.671" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="2160.21" cy="606.267" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="990.957" cy="1515.26" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="2357.63" cy="302.948" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="991.948" cy="1469.62" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="1849.88" cy="736.286" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="2317.49" cy="908.634" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip042)" cx="2571.59" cy="96.8724" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<path clip-path="url(#clip040)" d="M278.281 209.375 L575.105 209.375 L575.105 105.695 L278.281 105.695  Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<polyline clip-path="url(#clip040)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="278.281,209.375 575.105,209.375 575.105,105.695 278.281,105.695 278.281,209.375 "></polyline>
+<circle clip-path="url(#clip040)" cx="386.9" cy="157.535" r="20.48" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="5.46133"></circle>
+<path clip-path="url(#clip040)" d="M509.362 177.223 Q507.557 181.852 505.844 183.264 Q504.131 184.676 501.26 184.676 L497.858 184.676 L497.858 181.112 L500.358 181.112 Q502.117 181.112 503.089 180.278 Q504.061 179.445 505.242 176.343 L506.006 174.399 L495.52 148.889 L500.034 148.889 L508.135 169.167 L516.237 148.889 L520.751 148.889 L509.362 177.223 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip040)" d="M528.043 170.88 L535.682 170.88 L535.682 144.515 L527.371 146.181 L527.371 141.922 L535.635 140.255 L540.311 140.255 L540.311 170.88 L547.95 170.88 L547.95 174.815 L528.043 174.815 L528.043 170.88 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path></svg>
+</div>
+</div>
+<p>You will likely see a scatter plot of 10 data points. The data generation involved random draws from a standard normal distribution, so your graph won’t look exactly the same as the one shown here.</p>
+<p><strong><em>Try this:</em></strong> Can you figure out how to modify the above to get 1000 data points? Try it!</p>
+</section>
+<section id="add-text-using-markdown" class="level3">
+<h3 class="anchored" data-anchor-id="add-text-using-markdown">Add text using Markdown</h3>
+<p>You can add headers and comments to your notebook using Markdown, simply by entering <code>md</code> and then double quotes surrounding your text. Create a new cell at the top of your notebook and enter this:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>md<span class="st">"# _Welcome to my notebook_! </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>This is a Pluto notebook <span class="cf">for</span> programming <span class="kw">in</span> the Julia language. Pluto notebooks are <span class="op">**</span>reactive<span class="op">**</span> to changes you make.</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can hide the code producing that text by clicking on the little eye symbol left of the code cell.</p>
+<p>We can incorporate Julia expressions into our Markdown comments by preceding it with a <code>$</code> symbol:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>md<span class="st">"There are </span><span class="sc">$</span>numPoints<span class="st"> data points in the graph"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> <span class="fl">4</span>; md<span class="st">"The square of </span><span class="sc">$</span>num<span class="st"> is </span><span class="sc">$</span>(num<span class="op">^</span><span class="fl">2</span>)<span class="st"> ."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[Note that if you want the above Markdown commands to work outside of Pluto, e.g.&nbsp;in a regular Julia REPL, you have to add the Markdown.jl package. Enter package mode with <code>]</code>, then enter <code>add Markdown</code>, then press “delete” to return to REPL, then enter <code>using Markdown</code>.]</p>
+</section>
+<section id="next-steps" class="level3">
+<h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
+<p>Now that we have a good envirnoment set up to write and save more complex programs, we’ll learn about <em>control flow</em>, the way you can design a program to do different sets of code depending on the state of one or more variables.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./IntroToJulia.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Quick Introduction to Julia</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Copyright 2024, Darren Irwin</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

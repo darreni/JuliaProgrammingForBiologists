@@ -159,7 +159,7 @@ One fun thing about Julia is that you can use unicode variables in variable name
 β = 2χ²
 ```
 
-To make the unicode symbols above, you would type `\chi` tab `\^2` tab, and on the next line `\beta` tab. Notice also that the expression `2χ²` is the same as `2*χ²` or `2 * χ²`.
+To make the unicode symbols above, you would type `\chi` tab `\^2` tab, and on the next line `\beta` tab. Notice also that the expression `2χ²` is evaluated the same as `2*χ²` or `2 * χ²`.
 
 Unicode also allows some fun.
 
@@ -210,7 +210,7 @@ For example:
 5 <= 3 || 7 == 14/2
 ```
 
-***Try this:*** Write a short program in which you assign a numerical value to a variable, then determine whether that value is _greater than 5 or less than -3_. Your program should return 'true' or 'false'.
+***Try this:*** Write a short program in which you assign a numerical value to a variable, then determine whether that value is _greater than 5 or less than -3_. Your program should return `true` or `false`.
 
 ### Collections, e.g. Arrays
 
@@ -235,6 +235,10 @@ arrayA[3]
 ```
 
 ```{julia}
+arrayA[end]
+```
+
+```{julia}
 arrayB[2, 2:3]
 ```
 
@@ -242,7 +246,7 @@ We're going to eventually learn a lot more about arrays, as they are super usefu
 
 ### Broadcasting
 
-We often want to apply an operation or function to each element of an array. In Julia this is called "broadcasting" and is accomplished by the humble "dot" operator: '.'
+We often want to apply an operation or function to each element of an array. In Julia this is called "broadcasting" and is accomplished by the humble "dot" operator: `.`
 
 We can put this dot _in front of_ any arithmetic operator to make the operator apply to each element of a collection:
 
@@ -262,7 +266,7 @@ sqrt.([64 25 36])
 
 ### Macros
 
-_Macros_ are a kind of function that takes text as input and converts it to code that is then evaluated. They are a somewhat advanced topic in terms of developing a full undertanding. For now, I just want to mention them because some are hugely useful even when starting out. As an example, if you are doing a lot of "dot" operations, you can use the '@.' macro to convert all the operators in a line to dot operators:
+_Macros_ are a kind of function that takes text as input and converts it to code that is then evaluated. They are a somewhat advanced topic in terms of developing a full undertanding. For now, I just want to mention them because some are hugely useful even when starting out. As an example, if you are doing a lot of "dot" operations, you can use the `@.` macro to convert all the operators in a line to dot operators:
 
 ```{julia}
 begin
@@ -277,13 +281,13 @@ The above produces the same output as:
 results = 2 .* data .+ data.^2
 ```
 
-Another useful macro is @time :
+Another useful macro is `@time` :
 
 ```{julia}
 @time sum(rand(1000))
 ```
 
-The 'rand(x)' function produces 'x' random numbers between 0 and 1. The above returns the sum of 1000 such numbers. Julia tells you the time it took, followed by the sum.
+The `rand(x)` function produces `x` random numbers between 0 and 1. The above returns the sum of 1000 such numbers. Julia tells you the time it took, followed by the sum.
 
 ***Try this:*** Modify the above code so that it takes the square root of one million random numbers between 0 and 1, and then adds them up. 
 
@@ -302,7 +306,7 @@ We've defined that function. Now we can use it:
 @time sumSqrtRands(1_000_000)
 ```
 
-Below demonstrates another way to write functions, in this case with two _arguments_ (things you pass into the function):
+Below demonstrates another way to write functions, in this case with two _arguments_ (things you pass into the function, called _parameters_ inside the function):
 
 ```{julia}
 function xSquaredPlusY(x, y)
@@ -310,28 +314,28 @@ function xSquaredPlusY(x, y)
 end
 ```
 
-Try calling that function a few times, with different values of x and y, e.g.:
+Try calling that function a few times, with different values of `x` and `y`, e.g.:
 
 ```{julia}
 xSquaredPlusY(3, -2)
 ```
 
-***Try this:*** Can you figure out how to call the function in a way where you can input a series of numbers as the first argument (for example, 'x = [1, 3, 7]'), and '-2' as the second argument? (if you get an error, reviewing the Broadcasting section above might help)
+***Try this:*** Can you figure out how to call the function in a way where you can input a series of numbers as the first argument (for example, `x = [1, 3, 7]`), and `-2` as the second argument? (_Hint_: if you get an error, reviewing the Broadcasting section above might help)
 
 
 ### Packages
 
 Thousands of people around the world have contributed over 10,000 _packages_ that extend functionality of Julia. Installing these packages is easy.
 
-First, enter the _package mode_ of the REPL by typing ']' . You will then see the 'julia>' prompt change into a prompt that looks something like '(@v1.10) pkg>' . Then, type a command to add a package, e.g.:
+First, enter the _package mode_ of the REPL by typing the right square bracket symbol `]` . You will then see the `julia>` prompt change into a prompt that looks something like `(@v1.10) pkg>` . Then, type a command to add a package, e.g.:
 
-```
+```julia
 add Plots
 ```
 
 This tells Julia to download and install the officially registered package with that name. The Plots package is a big one, so this can take some time. 
 
-To get out of package mode, press 'delete' and this will return you to the normal Julia REPL mode.
+To get out of package mode, press the "delete" key and this will return you to the normal Julia REPL mode.
 
 To actually use the Plots package, we need to load it into the memory for this Julia session. To do that, simply write:
 
@@ -339,7 +343,7 @@ To actually use the Plots package, we need to load it into the memory for this J
 using Plots
 ```
 
-Now, let's use a function called 'plot()' that is included in this Plots package. Try:
+Now, let's use a function called `plot()` that is included in this Plots package. Try:
 
 ```{julia}
 x = -5:5
