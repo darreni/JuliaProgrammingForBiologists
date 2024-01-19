@@ -27,7 +27,7 @@ You can do a little more complex expression:
 
 ### Arithmetic operators
 
-Play around with other simple mathematical expressions. These are some of the main _mathematical operators_, which you are likely familiar with: `+` , `-`, `*`, `/`, `^`
+Play around with other simple mathematical expressions. These are some of the main _arithmetic operators_, which you are likely familiar with: `+` , `-`, `*`, `/`, `^`
 
 One that you might be less familiar with is the _remainder operator_ `%` which gives the remainder of a division, Try playing with these:
 
@@ -63,7 +63,7 @@ begin
 end
 ```
 
-***Try this:*** Pick a number for the radius of a circle, and assign that to a variable name and store that in Julia's memory. Then in a separate command, use that variable to calculate the area of the circle (which is given by π$r^{2}$). A neat thing is that Julia already knows the value of π; to get it, just type `pi` or alternatively `\pi` then tab.
+***Try this:*** Pick a number for the radius of a circle, and assign that to a variable name and store that in Julia's memory. Then in a separate command, use that variable to calculate the area of the circle (which is given by π$r^{2}$; to write the exponent of '2' though, you'll need to use '^2'). A neat thing is that Julia already knows the value of π; to get it, just type `pi` or alternatively `\pi` then tab.
 
 
 ### Different _Types_ of numbers
@@ -104,6 +104,23 @@ product = ratio1 * ratio2
 ```
 
 As your Julia skills increase, there are large benefits to being somewhat aware of types--this can help you write efficient programs and help with debugging your code. You can even define your own Types.
+
+### Ranges
+
+Julia has a neat data structure (i.e. a _type_) to store arithmetic series of numbers:
+
+```{julia}
+rangeOfNums = 1:100
+println(rangeOfNums)
+typeof(rangeOfNums)
+```
+
+Julia stores this range efficiently, until the actual numbers are needed. If we want to actually convert it to the numbers themselves, we could enter something like `collect(rangeOfNums)`
+
+If we want only the even numbers, we enter something like `collect(0:2:30)`.
+
+***Try this:*** Assign a vector containing the numbers counting down from 15 to -15, by 3.
+
 
 ### Characters and Strings
 
@@ -193,41 +210,161 @@ For example:
 5 <= 3 || 7 == 14/2
 ```
 
-***Try this:*** Assign a numerical value to a variable, then determine whether that value is greater than 5 or less than -3.
+***Try this:*** Write a short program in which you assign a numerical value to a variable, then determine whether that value is _greater than 5 or less than -3_. Your program should return 'true' or 'false'.
 
 ### Collections, e.g. Arrays
 
 Variables can contain more than a single item in them. A general term for such a data structure is a _collection_. An array is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Here we declare some kinds of arrays:
 
 ```{julia}
-array1 = [1, 2, 3, 4, 5]
+arrayA = [7.3, 3, 11.2, -5, 3.2]
 ```
 
 ```{julia}
-array2 = [1 2 3; 4 5 6]
+arrayB = [6 5 4; 3 2 1]
 ```
 
 Because these variables are more complex data structures that the simple ones we've looked at so far, Julia tells you the type of the returned value, before showing you the actual values.
 
 Note that a `Vector` is another name (an _alias_) for a 1-dimensional array, and a `Matrix` is another name for a 2-dimensional array.
 
-We're going to eventually learn a lot more about arrays, as they are super useful in data science, bioinformatics, and simulations. 
-
-### Ranges
-
-Julia has a neat data structure to store arithmetic series of numbers:
+We can ask Julia to return the values in parts of an array by _indexing_ into the array. For example:
 
 ```{julia}
-rangeOfNums = 1:100
-println(rangeOfNums)
-typeof(rangeOfNums)
+arrayA[3]
 ```
 
-Julia stores this range efficiently, until the actual numbers are needed. If we want to actually convert it to the numbers themselves, we could enter something like `collect(rangeOfNums)`
+```{julia}
+arrayB[2, 2:3]
+```
 
-If we want only the even numbers, we enter something like `collect(0:2:30)`.
+We're going to eventually learn a lot more about arrays, as they are super useful in data science, bioinformatics, and simulations.
 
-***Try this:*** Assign a vector containing the numbers counting down from 15 to -15, by 3.
+### Broadcasting
+
+We often want to apply an operation or function to each element of an array. In Julia this is called "broadcasting" and is accomplished by the humble "dot" operator: '.'
+
+We can put this dot _in front of_ any arithmetic operator to make the operator apply to each element of a collection:
+
+```{julia}
+arrayB.^2
+```
+
+```{julia}
+3 .* arrayA
+```
+
+We can also put this dot _right after_ a function to have the function apply to each element in a collection:
+
+```{julia}
+sqrt.([64 25 36])
+```
+
+### Macros
+
+_Macros_ are a kind of function that takes text as input and converts it to code that is then evaluated. They are a somewhat advanced topic in terms of developing a full undertanding. For now, I just want to mention them because some are hugely useful even when starting out. As an example, if you are doing a lot of "dot" operations, you can use the '@.' macro to convert all the operators in a line to dot operators:
+
+```{julia}
+begin
+  data = [3 7 -4 9]
+  results = @. 2data + data^2
+end
+```
+
+The above produces the same output as:
+
+```{julia}
+results = 2 .* data .+ data.^2
+```
+
+Another useful macro is @time :
+
+```{julia}
+@time sum(rand(1000))
+```
+
+The 'rand(x)' function produces 'x' random numbers between 0 and 1. The above returns the sum of 1000 such numbers. Julia tells you the time it took, followed by the sum.
+
+***Try this:*** Modify the above code so that it takes the square root of one million random numbers between 0 and 1, and then adds them up. 
+
+
+### Defining your own functions
+
+Julia facilitates the writing of your own functions. This can have huge benefits in terms of organizing your programs and making them efficient. There are several ways to define them:
+
+```{julia}
+sumSqrtRands(x) = sum(sqrt.(rand(x)))
+```
+
+We've defined that function. Now we can use it:
+
+```{julia}
+@time sumSqrtRands(1_000_000)
+```
+
+Below demonstrates another way to write functions, in this case with two _arguments_ (things you pass into the function):
+
+```{julia}
+function xSquaredPlusY(x, y)
+  x^2 + y
+end
+```
+
+Try calling that function a few times, with different values of x and y, e.g.:
+
+```{julia}
+xSquaredPlusY(3, -2)
+```
+
+***Try this:*** Can you figure out how to call the function in a way where you can input a series of numbers as the first argument (for example, 'x = [1, 3, 7]'), and '-2' as the second argument? (if you get an error, reviewing the Broadcasting section above might help)
+
+
+### Packages
+
+Thousands of people around the world have contributed over 10,000 _packages_ that extend functionality of Julia. Installing these packages is easy.
+
+First, enter the _package mode_ of the REPL by typing ']' . You will then see the 'julia>' prompt change into a prompt that looks something like '(@v1.10) pkg>' . Then, type a command to add a package, e.g.:
+
+```
+add Plots
+```
+
+This tells Julia to download and install the officially registered package with that name. The Plots package is a big one, so this can take some time. 
+
+To get out of package mode, press 'delete' and this will return you to the normal Julia REPL mode.
+
+To actually use the Plots package, we need to load it into the memory for this Julia session. To do that, simply write:
+
+```{julia}
+using Plots
+```
+
+Now, let's use a function called 'plot()' that is included in this Plots package. Try:
+
+```{julia}
+x = -5:5
+y = x .^ 2
+plot(x, y)
+```
+
+This will likely open another window on your computer, and show a plot. (If not, don't worry--we're going to set up another good way to plot in the next page.)
+
+If the above worked, you can see another way to run the plot() function here:
+
+```{julia}
+f(x) = x^2
+plot(f)
+```
+
+In our first use of the plot() function above, we passed in two argument, both vectors of numbers. In the second, we passed in just a mathematical function, and plot() figured out a good way to show us the mathematical relationship represented by that function.
+
+This flexibility in function calls is an example of _multiple dispatch_, a key feature of Julia. We'll come back to this topic in the future.
+
+### Next steps
+
+We've now learned a lot of basic concepts related to Julia programming, and it is now time to put them together in more complex ways. For that, we'll learn how to use Pluto notebooks on the next page. This will enable to write longer programs and organize and save them.
+
+
 
 
 
