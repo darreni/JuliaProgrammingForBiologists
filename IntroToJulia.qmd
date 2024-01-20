@@ -63,8 +63,10 @@ begin
 end
 ```
 
-***Try this:*** Pick a number for the radius of a circle, and assign that to a variable name and store that in Julia's memory. Then in a separate command, use that variable to calculate the area of the circle (which is given by π$r^{2}$; to write the exponent of '2' though, you'll need to use '^2'). A neat thing is that Julia already knows the value of π; to get it, just type `pi` or alternatively `\pi` then tab.
-
+::: {.callout-tip}
+## Calculate the area of a circular forest patch
+Pick a number for the radius (in km) of a circle, and assign that to a variable name and store that in Julia's memory. Then in a separate command, use that variable to calculate the area of the circle (which is given by π$r^{2}$; to write the exponent of '2' though, you'll need to use '^2'). A neat thing is that Julia already knows the value of π; to get it, just type `pi` or alternatively `\pi` then tab.
+:::
 
 ### Different _Types_ of numbers
 
@@ -119,8 +121,10 @@ Julia stores this range efficiently, until the actual numbers are needed. If we 
 
 If we want only the even numbers, we enter something like `collect(0:2:30)`.
 
-***Try this:*** Assign a vector containing the numbers counting down from 15 to -15, by 3.
-
+::: {.callout-tip}
+## Create a descending vector
+You have a population of 30 individuals that is declining by 3 individuals in each time step. Create a vector containing the numbers containing the population sizes at each time step.
+:::
 
 ### Characters and Strings
 
@@ -136,7 +140,10 @@ dinucleotide = nucleotide1 * nucleotide2
 
 Above, we create two variables of type `Char` and combined them (yes, Julia views combining characters or strings as a form of multiplication, ha ha) to produce a `String`.
 
-***Try this:*** If Julia uses the `*` symbol for combining two characters or strings into a longer string, what do you think it might use the `^` symbol for, when applied to a character or string? Make a guess, and then play around and find out.
+::: {.callout-tip}
+## Exponents on Strings
+If Julia uses the `*` symbol for combining two characters or strings into a longer string, what do you think it might use the `^` symbol for, when applied to a character or string? Make a guess, and then play around and find out.
+:::
 
 When you enter a `String` into Julia, you need to use double quotes (unlike a `Char` with single quotes).
 
@@ -148,7 +155,10 @@ ligation = string(oligo1, oligo2)
 
 The function `string` above concatenates different strings together.
 
-***Try this:*** Assign a few of your favorite species to different variable names, and then combine them into a single string, with commas separating their names.
+::: {.callout-tip}
+## Your favourite species
+Assign a few of your favorite species to different variable names, and then combine them into a single string, with commas separating their names.
+:::
 
 ### Unicode characters
 
@@ -163,11 +173,14 @@ To make the unicode symbols above, you would type `\chi` tab `\^2` tab, and on t
 
 Unicode also allows some fun.
 
-***Try this:*** Assign a variable `a` the value of a `Char` given by typing `\:seedling:` tab. Assign a variable `b` the value of a `Char` given by typing `\:deciduous_tree:` tab. Then execute this line:
+::: {.callout-tip}
+## Plant biology using Unicode 
+Assign a variable `a` the value of a `Char` given by typing `\:seedling:` tab. Assign a variable `b` the value of a `Char` given by typing `\:deciduous_tree:` tab. Then execute this line:
 
 ```julia
 string(a, " grows into ", b)
 ```
+:::
  
 We can also use unicode symbols in variable names:
 
@@ -193,7 +206,7 @@ These operators are used to compare two values (place to left and right of the o
 `>` : greater than?
 `>=` : greater than or equal?
 
-***Try this:*** Try a bunch of comparisons of values using the above. These are called _Boolean expressions_.
+Try a bunch of comparisons of values using the above. These are called _Boolean expressions_.
 
 We can use _Boolean operators_ to combine multiple comparisons. These are used as follows, where `x` and `y` are Boolean expression:
 `!x`  : not x
@@ -210,7 +223,10 @@ For example:
 5 <= 3 || 7 == 14/2
 ```
 
-***Try this:*** Write a short program in which you assign a numerical value to a variable, then determine whether that value is _greater than 5 or less than -3_. Your program should return `true` or `false`.
+::: {.callout-tip}
+## Select the extremes 
+Write a series of commands in which you pick a random number between 0 and 1 with the `rand()` function, and then return `true` if that number is either above 0.75 or below 0.25, and `false` otherwise.
+:::
 
 ### Collections, e.g. Arrays
 
@@ -289,7 +305,10 @@ Another useful macro is `@time` :
 
 The `rand(x)` function produces `x` random numbers between 0 and 1. The above returns the sum of 1000 such numbers. Julia tells you the time it took, followed by the sum.
 
-***Try this:*** Modify the above code so that it takes the square root of one million random numbers between 0 and 1, and then adds them up. 
+::: {.callout-tip}
+## Even more numbers!
+Modify the above code so that it takes the **square root** of each of **one million random numbers** between 0 and 1, and then adds them up.
+::: 
 
 
 ### Defining your own functions
@@ -320,7 +339,10 @@ Try calling that function a few times, with different values of `x` and `y`, e.g
 xSquaredPlusY(3, -2)
 ```
 
-***Try this:*** Can you figure out how to call the function in a way where you can input a series of numbers as the first argument (for example, `x = [1, 3, 7]`), and `-2` as the second argument? (_Hint_: if you get an error, reviewing the Broadcasting section above might help)
+::: {.callout-tip}
+## Apply your function to many elements at once
+Can you figure out how to call the above function in a way where you can input a series of numbers as the first argument (for example, `x = [1, 3, 7]`), and `-2` as the second argument? (_Hint_: if you get an error, reviewing the Broadcasting section above might help)
+:::
 
 
 ### Packages
@@ -367,21 +389,3 @@ This flexibility in function calls is an example of _multiple dispatch_, a key f
 ### Next steps
 
 We've now learned a lot of basic concepts related to Julia programming, and it is now time to put them together in more complex ways. For that, we'll learn how to use Pluto notebooks on the next page. This will enable to write longer programs and organize and save them.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```{julia}
-
-```

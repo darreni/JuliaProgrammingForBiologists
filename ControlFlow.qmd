@@ -18,11 +18,40 @@ for ice in 1:10
 end
 ```
 
-***Try this:*** Teach Julia how to sing the song "99 bottles of beer on the wall." This song goes like "99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of ..." and does that all the way down. (I don't think anyone has ever completed the song . . . Can your program succeed in doing so?)
+::: {.callout-tip}
+## Teach Julia to Sing
+Write a script that produces the song "99 bottles of beer on the wall." This song goes like "99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of ..." and so forth that all the way down. (I don't think anyone has ever completed the song . . . Can your program succeed in doing so?)
+:::
 
 
 
 [This is all I've prepared so far. More coming . . .]
+
+Outline of what's to come:
+
+for loop always introduces new iterator variable only within the loop
+
+for loop can iterate across a collection--example with string--use of symbol ∈
+
+Multiple nested loops
+
+While loops (with example of dispersal not out of range)
+
+Compound expressions (already have seen some)
+
+Conditional evaluation
+  If-elseif-else (example checking if het-hom-het genotype)
+  (ternary operator)
+  (short-circuit evaluation)
+
+Some exercise to practice with above
+
+Next page:
+
+Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)
+
+
+
 
 
 
