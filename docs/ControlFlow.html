@@ -220,7 +220,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#loops-for-and-while" id="toc-loops-for-and-while" class="nav-link active" data-scroll-target="#loops-for-and-while">Loops: <code>for</code> and <code>while</code></a></li>
+  <li><a href="#compound-expressions" id="toc-compound-expressions" class="nav-link" data-scroll-target="#compound-expressions">Compound expressions</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -248,6 +255,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<p>So far, what we have learned might be called <em>coding</em>, the way your write commands that do a fixed set of instructions. To do true <em>programming</em> we need to know how to write scripts in which the exact sequence of commands is determined dynamically. This is called <em>control flow</em>.</p>
+<section id="loops-for-and-while" class="level3">
+<h3 class="anchored" data-anchor-id="loops-for-and-while">Loops: <code>for</code> and <code>while</code></h3>
 <p>Loops are very useful in programming, because we often want to do a set of commands multiple times. For example:</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ice <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
@@ -267,6 +277,28 @@ The cube of 9 is 729
 The cube of 10 is 1000</code></pre>
 </div>
 </div>
+<p>Here we’ll use a random integer to determine how many times to do a loop:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rand_times <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>rand_times</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(i)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"I counted to </span><span class="sc">$</span>rand_times<span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+I counted to 10</code></pre>
+</div>
+</div>
+<p>Note that the <code>$</code> in the last line above causes <em>string interpolation</em> of the expression to the right of it.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -280,19 +312,173 @@ Teach Julia to Sing
 <p>Write a script that produces the song “99 bottles of beer on the wall.” This song goes like “99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of …” and so forth that all the way down. (I don’t think anyone has ever completed the song . . . Can your program succeed in doing so?)</p>
 </div>
 </div>
+<p>An interesting thing about <code>for</code> loops is that the iterator variable is internal to the loop (not “known” outside of the loop):</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">27</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Before the loop, i = </span><span class="sc">$</span>i<span class="st">"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"Inside the loop, i = </span><span class="sc">$</span>i<span class="st">"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"After the loop, i = </span><span class="sc">$</span>i<span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Before the loop, i = 27
+Inside the loop, i = 1
+Inside the loop, i = 2
+Inside the loop, i = 3
+After the loop, i = 27</code></pre>
+</div>
+</div>
+<section id="for-loops-can-iterate-across-many-kinds-of-collections" class="level4">
+<h4 class="anchored" data-anchor-id="for-loops-can-iterate-across-many-kinds-of-collections"><code>for</code> loops can iterate across many kinds of collections</h4>
+<p>You can iterate across all sorts of things, for example a matrix of strings:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>speciesGrid <span class="op">=</span> [<span class="st">"warblers"</span> <span class="st">"flamebacks"</span> <span class="st">"sticklebacks"</span>; </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"sparrows"</span>  <span class="st">"guppies"</span> <span class="st">"digital organisms"</span>] </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> speciesGrid</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"We study </span><span class="sc">$</span>i<span class="st">."</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>We study warblers.
+We study sparrows.
+We study flamebacks.
+We study guppies.
+We study sticklebacks.
+We study digital organisms.</code></pre>
+</div>
+</div>
+<p>Instead of the <code>in</code> in the <code>for</code> line, you can use the unicode character <code>∈</code> (produced by typing <code>\in</code> tab), which is a mathematical symbol meaning “is an element of”. :</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mySet <span class="op">=</span> [<span class="st">"banana"</span>, <span class="fl">5.3</span>, <span class="ch">'🐬'</span>]  <span class="co"># get the dolphin with \:dolphin: tab</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> thing <span class="op">∈</span> mySet</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(thing)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>banana
+5.3
+🐬</code></pre>
+</div>
+</div>
+</section>
+<section id="nested-loops" class="level4">
+<h4 class="anchored" data-anchor-id="nested-loops">Nested loops</h4>
+<p>Often it is useful to have nested loops. For instance, to produce all dinucleotide combinations:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bases <span class="op">=</span> [<span class="ch">'A'</span>, <span class="ch">'C'</span>, <span class="ch">'G'</span>, <span class="ch">'T'</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> bases</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j <span class="kw">in</span> bases</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(i, j, <span class="st">", "</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AA, AC, AG, AT, CA, CC, CG, CT, GA, GC, GG, GT, TA, TC, TG, TT, </code></pre>
+</div>
+</div>
+<p>You can produce the above more concisely by putting both iterator statements on the same line:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>bases <span class="op">=</span> [<span class="ch">'A'</span>, <span class="ch">'C'</span>, <span class="ch">'G'</span>, <span class="ch">'T'</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> bases, j <span class="kw">in</span> bases</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i, j, <span class="st">", "</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AA, AC, AG, AT, CA, CC, CG, CT, GA, GC, GG, GT, TA, TC, TG, TT, </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Produce all trinucleotides
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you modify the above to produce all possible trinucleotides (i.e., 3-base nucleotides)?</p>
+</div>
+</div>
+</section>
+<section id="while-loops" class="level4">
+<h4 class="anchored" data-anchor-id="while-loops"><code>while</code> loops</h4>
+<p>Let’s say you don’t know in advance how many times you want to go through a loop. Rather, you want to stop the loop when some condition is met. The <code>while</code> loop is perfect for that:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> sum <span class="op">&lt;=</span> <span class="fl">21</span>  <span class="co"># inspired by a card game</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  sum <span class="op">=</span> sum <span class="op">+</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(sum)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5
+6
+14
+17
+22</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Simulate dispersal of an organism
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are writing a simulation in which individuals move from their birth site to their breeding site, along a continuous range of length 1. The dispersal distance is drawn from a standard normal distribution, given by <code>randn()</code>, with the constraint that they are not allowed to move outside of the range. If an individual is born at location 0.7, write a script that determines its breeding location within the range (lowest possible value = 0; highest possible value = 1).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="compound-expressions" class="level3">
+<h3 class="anchored" data-anchor-id="compound-expressions">Compound expressions</h3>
+<p>A <em>compound expression</em> is a single large expression that is made up of multiple sub-expressions that are evaluated in order. When the compoud expression is evaluated, only the value generated by the last sub-expression is returned. There are basically two ways to generate compound expressions:</p>
+<section id="use-a-semicolon-chain" class="level4">
+<h4 class="anchored" data-anchor-id="use-a-semicolon-chain">Use a semicolon (<code>;</code>) chain</h4>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4</span>; y <span class="op">=</span> <span class="fl">3</span>; x <span class="op">+</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>7</code></pre>
+</div>
+</div>
+<p>The above <em>returns</em> the value of the last subexpression, but it does remember values assigned in the earlier subexpressions. (To prove this to yourself, enter <code>x</code> to see its value.)</p>
+<p>You can use compound expressions as part of even larger expressions, e.g.:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>myVar <span class="op">=</span> (x <span class="op">=</span> <span class="fl">4</span>; y <span class="op">=</span> <span class="fl">3</span>; x <span class="op">+</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>7</code></pre>
+</div>
+</div>
+<p>There, the compound expression in parentheses is evaluated and the resulting value is assigned to <code>myVar</code>.</p>
+</section>
+<section id="use-a-begin-block" class="level4">
+<h4 class="anchored" data-anchor-id="use-a-begin-block">Use a <code>begin</code> block</h4>
+<p>The above compound expression is equivalent to the one below:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>myVar2 <span class="op">=</span> <span class="cf">begin</span> x <span class="op">=</span> <span class="fl">4</span>; y <span class="op">=</span> <span class="fl">3</span>; x <span class="op">+</span> y <span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>7</code></pre>
+</div>
+</div>
+<p>The use of <code>begin</code> blocks is particularly useful when dividing expressions between multiple lines:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  string1 <span class="op">=</span> <span class="st">"Phylloscopus"</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  string2 <span class="op">=</span> <span class="st">"trochiloides"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  string1 <span class="op">*</span> <span class="st">" "</span> <span class="op">*</span> string2</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>"Phylloscopus trochiloides"</code></pre>
+</div>
+</div>
 <p>[This is all I’ve prepared so far. More coming . . .]</p>
-<p>Outline of what’s to come:</p>
-<p>for loop always introduces new iterator variable only within the loop</p>
-<p>for loop can iterate across a collection–example with string–use of symbol ∈</p>
-<p>Multiple nested loops</p>
-<p>While loops (with example of dispersal not out of range)</p>
-<p>Compound expressions (already have seen some)</p>
 <p>Conditional evaluation If-elseif-else (example checking if het-hom-het genotype) (ternary operator) (short-circuit evaluation)</p>
 <p>Some exercise to practice with above</p>
 <p>Next page:</p>
 <p>Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
