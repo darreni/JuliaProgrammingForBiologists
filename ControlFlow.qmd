@@ -152,6 +152,60 @@ begin
 end
 ```
 
+### Conditional evaluation: `if` and `? :`
+
+Often in our programs we want to execute some commands only if a condition is met. For this, we can use an `if` - `elseif` - `else` block:
+
+```{julia}
+coinflip = rand(["heads", "tails"])
+if coinflip == "heads"
+  println("Heads--You win!")
+elseif coinflip == "tails"
+  println("Tails--You lose :(")
+else 
+  println("The coin has a strange value")
+end
+```
+
+In an `if` block, the `elseif` and `else` parts are optional, but the `end` is essential. The indentation is customary and makes the code easier to read, but is not required. The value of the conditional expressions (e.g., just to the right of `if`) must be of type `Bool`, meaning either `true` or `false`. 
+
+::: {.callout-tip}
+## Determine homozygote or heterozygote
+Write a script in which you assign a diploid genotype to a variable, with the genotype encoded as a 2-element vector containing strings (e.g., `["A", "C"]` or `["A", "A"]`), and then the script tells you whether the genotype is homozygous (the two elements are the same) or heterozygous (the two elements are different). (_Hint_: Remember how to access one element of a vector, e.g. `x[1]` gives just the first element of `x`; Remember how to ask if two things are equal: `==`)
+:::
+
+In Julia, `if` blocks return a value. You can make use if that to do something like this:
+
+```{julia}
+homozygote = true
+genotype = if homozygote
+             "TT"
+           else
+             "TG"
+           end
+```
+
+#### Ternary operators
+
+The _ternary operator_, consisting of a `?` and `:` separating three expressions, can be thought of as a consise form of an `if` - `else` block. For instance, this is equivalent to the above:
+
+```{julia}
+homozygote ? "TT" : "TG"
+```
+
+This can be thought of as "True or false" ? "Do this if true" : "Do this if false"
+
+::: {.callout-tip}
+## Determine whether a number is positive or negative 
+Assign a non-zero number to a variable, and then use a ternary operater to report whether the number is positive or negative.
+:::
+
+### Short-circuit evaluation
+
+
+
+
+
 
 
 

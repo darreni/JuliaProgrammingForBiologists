@@ -73,7 +73,7 @@ If you now leave your notebook by clicking on the "Pluto.jl" logo in the upper l
 
 A nice thing about working in Pluto is that the file that you are saving is 100% runnable as a Julia file (without using Pluto).
 
-### Pluto has _no hidden state_
+### Pluto has no "hidden state"
 
 A way that Pluto differs from some other notebook environments (e.g. Jupyter) is that _the program state is completely described by the code in the notebook_. You don't have to wonder if each cell has been executed--the entire notebook is affected by any change you make (although Julia is clever and for efficiency figures out what cells depend on that change).
 

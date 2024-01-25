@@ -226,6 +226,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#loops-for-and-while" id="toc-loops-for-and-while" class="nav-link active" data-scroll-target="#loops-for-and-while">Loops: <code>for</code> and <code>while</code></a></li>
   <li><a href="#compound-expressions" id="toc-compound-expressions" class="nav-link" data-scroll-target="#compound-expressions">Compound expressions</a></li>
+  <li><a href="#conditional-evaluation-if-and" id="toc-conditional-evaluation-if-and" class="nav-link" data-scroll-target="#conditional-evaluation-if-and">Conditional evaluation: <code>if</code> and <code>? :</code></a></li>
+  <li><a href="#short-circuit-evaluation" id="toc-short-circuit-evaluation" class="nav-link" data-scroll-target="#short-circuit-evaluation">Short-circuit evaluation</a></li>
   </ul>
 </nav>
     </div>
@@ -293,9 +295,7 @@ The cube of 10 is 1000</code></pre>
 6
 7
 8
-9
-10
-I counted to 10</code></pre>
+I counted to 8</code></pre>
 </div>
 </div>
 <p>Note that the <code>$</code> in the last line above causes <em>string interpolation</em> of the expression to the right of it.</p>
@@ -407,11 +407,10 @@ Produce all trinucleotides
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(sum)</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>5
-6
-14
-17
-22</code></pre>
+<pre><code>6
+8
+15
+25</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -470,6 +469,77 @@ Simulate dispersal of an organism
 <pre><code>"Phylloscopus trochiloides"</code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="conditional-evaluation-if-and" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-evaluation-if-and">Conditional evaluation: <code>if</code> and <code>? :</code></h3>
+<p>Often in our programs we want to execute some commands only if a condition is met. For this, we can use an <code>if</code> - <code>elseif</code> - <code>else</code> block:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>coinflip <span class="op">=</span> <span class="fu">rand</span>([<span class="st">"heads"</span>, <span class="st">"tails"</span>])</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> coinflip <span class="op">==</span> <span class="st">"heads"</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"Heads--You win!"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elseif</span> coinflip <span class="op">==</span> <span class="st">"tails"</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"Tails--You lose :("</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"The coin has a strange value"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Tails--You lose :(</code></pre>
+</div>
+</div>
+<p>In an <code>if</code> block, the <code>elseif</code> and <code>else</code> parts are optional, but the <code>end</code> is essential. The indentation is customary and makes the code easier to read, but is not required. The value of the conditional expressions (e.g., just to the right of <code>if</code>) must be of type <code>Bool</code>, meaning either <code>true</code> or <code>false</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Determine homozygote or heterozygote
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a script in which you assign a diploid genotype to a variable, with the genotype encoded as a 2-element vector containing strings (e.g., <code>["A", "C"]</code> or <code>["A", "A"]</code>), and then the script tells you whether the genotype is homozygous (the two elements are the same) or heterozygous (the two elements are different). (<em>Hint</em>: Remember how to access one element of a vector, e.g.&nbsp;<code>x[1]</code> gives just the first element of <code>x</code>; Remember how to ask if two things are equal: <code>==</code>)</p>
+</div>
+</div>
+<p>In Julia, <code>if</code> blocks return a value. You can make use if that to do something like this:</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>homozygote <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>genotype <span class="op">=</span> <span class="cf">if</span> homozygote</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">"TT"</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>           <span class="cf">else</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">"TG"</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>           <span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>"TT"</code></pre>
+</div>
+</div>
+<section id="ternary-operators" class="level4">
+<h4 class="anchored" data-anchor-id="ternary-operators">Ternary operators</h4>
+<p>The <em>ternary operator</em>, consisting of a <code>?</code> and <code>:</code> separating three expressions, can be thought of as a consise form of an <code>if</code> - <code>else</code> block. For instance, this is equivalent to the above:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>homozygote ? <span class="st">"TT"</span> <span class="op">:</span> <span class="st">"TG"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>"TT"</code></pre>
+</div>
+</div>
+<p>This can be thought of as “True or false” ? “Do this if true” : “Do this if false”</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Determine whether a number is positive or negative
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assign a non-zero number to a variable, and then use a ternary operater to report whether the number is positive or negative.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="short-circuit-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="short-circuit-evaluation">Short-circuit evaluation</h3>
 <p>[This is all I’ve prepared so far. More coming . . .]</p>
 <p>Conditional evaluation If-elseif-else (example checking if het-hom-het genotype) (ternary operator) (short-circuit evaluation)</p>
 <p>Some exercise to practice with above</p>
@@ -477,7 +547,6 @@ Simulate dispersal of an organism
 <p>Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
