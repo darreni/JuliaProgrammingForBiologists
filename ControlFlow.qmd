@@ -187,7 +187,7 @@ genotype = if homozygote
 
 #### Ternary operators
 
-The _ternary operator_, consisting of a `?` and `:` separating three expressions, can be thought of as a consise form of an `if` - `else` block. For instance, this is equivalent to the above:
+The _ternary operator_, consisting of a `?` and `:` separating three expressions (hence "ternary"), can be thought of as a consise form of an `if` - `else` block. For instance, this is equivalent to the above:
 
 ```{julia}
 homozygote ? "TT" : "TG"
@@ -216,12 +216,22 @@ x > 0 && println("x is positive")
 
 Try changing `x` above to a negative value and run the above again.
 
+I think of the above construction as "Check if true AND (only if true) do this thing."
+
 ```{julia}
-x < 0 || println("x is not negative")
+y = 3.2
+y <= 0 || println("x is positive")
 ```
+
+Again, try changing the value of `y` to a negative value and run again.
+
+I think of the above as "Check if true OR (only if not true) do this thing."
 
 The above expressions may take a while to get used to. You don't have to use them, as you might find the `if` block a lot more intuitive. But you may see these expressions in code that others have written, so it is good to understand them. 
 
+### Next steps
+
+Now that we have have developed an understanding of loops and conditional evaluation, we are ready to learn more about functions, types, and multiple dispatch in Julia. Together, these concepts can be thought of as methods of control flow. They enable powerful and fascinating approaches to programming.
 
 
 
@@ -235,8 +245,6 @@ The above expressions may take a while to get used to. You don't have to use the
 
 
 [This is all I've prepared so far. More coming . . .]
-
-Some exercise to practice with above
 
 Next page:
 
