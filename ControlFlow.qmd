@@ -202,6 +202,31 @@ Assign a non-zero number to a variable, and then use a ternary operater to repor
 
 ### Short-circuit evaluation
 
+Another way of constructing conditional evaluations is to use the `&&` and `||` operators (which mean logical "and" and logical "or"). These operators come between two sub-expressions which are evaluated in order from left to right. Julia is efficient and only evaluates the rightmost sub-expression if it needs to (this is why it is called _short-circuit evaluation_: the evaluation doesn't always extend to the right sub-expression). Hence:
+
+* In `a && b`, `b` is evaluated only if `a` is `true` (because otherwise the whole statement is definitely `false`)
+* In `a || b`, `b` is evaluated only if `a` is `false` (because otherwise the whole statement is definitely `true`)
+
+The interesting thing is that the `b` subexpression does not have to produce `true` or `false`. Rather, it can do anything you want, and is only executed depending on whether `a` is true. For example:
+
+```{julia}
+x = 5
+x > 0 && println("x is positive")
+```
+
+Try changing `x` above to a negative value and run the above again.
+
+```{julia}
+x < 0 || println("x is not negative")
+```
+
+The above expressions may take a while to get used to. You don't have to use them, as you might find the `if` block a lot more intuitive. But you may see these expressions in code that others have written, so it is good to understand them. 
+
+
+
+
+
+
 
 
 
@@ -210,12 +235,6 @@ Assign a non-zero number to a variable, and then use a ternary operater to repor
 
 
 [This is all I've prepared so far. More coming . . .]
-
-
-Conditional evaluation
-  If-elseif-else (example checking if het-hom-het genotype)
-  (ternary operator)
-  (short-circuit evaluation)
 
 Some exercise to practice with above
 

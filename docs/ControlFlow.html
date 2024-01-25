@@ -290,12 +290,7 @@ The cube of 10 is 1000</code></pre>
 <pre><code>1
 2
 3
-4
-5
-6
-7
-8
-I counted to 8</code></pre>
+I counted to 3</code></pre>
 </div>
 </div>
 <p>Note that the <code>$</code> in the last line above causes <em>string interpolation</em> of the expression to the right of it.</p>
@@ -407,10 +402,12 @@ Produce all trinucleotides
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(sum)</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>6
+<pre><code>2
+6
 8
-15
-25</code></pre>
+14
+19
+23</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -484,7 +481,7 @@ Simulate dispersal of an organism
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"The coin has a strange value"</span>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Tails--You lose :(</code></pre>
+<pre><code>Heads--You win!</code></pre>
 </div>
 </div>
 <p>In an <code>if</code> block, the <code>elseif</code> and <code>else</code> parts are optional, but the <code>end</code> is essential. The indentation is customary and makes the code easier to read, but is not required. The value of the conditional expressions (e.g., just to the right of <code>if</code>) must be of type <code>Bool</code>, meaning either <code>true</code> or <code>false</code>.</p>
@@ -540,8 +537,28 @@ Determine whether a number is positive or negative
 </section>
 <section id="short-circuit-evaluation" class="level3">
 <h3 class="anchored" data-anchor-id="short-circuit-evaluation">Short-circuit evaluation</h3>
+<p>Another way of constructing conditional evaluations is to use the <code>&amp;&amp;</code> and <code>||</code> operators (which mean logical “and” and logical “or”). These operators come between two sub-expressions which are evaluated in order from left to right. Julia is efficient and only evaluates the rightmost sub-expression if it needs to (this is why it is called <em>short-circuit evaluation</em>: the evaluation doesn’t always extend to the right sub-expression). Hence:</p>
+<ul>
+<li>In <code>a &amp;&amp; b</code>, <code>b</code> is evaluated only if <code>a</code> is <code>true</code> (because otherwise the whole statement is definitely <code>false</code>)</li>
+<li>In <code>a || b</code>, <code>b</code> is evaluated only if <code>a</code> is <code>false</code> (because otherwise the whole statement is definitely <code>true</code>)</li>
+</ul>
+<p>The interesting thing is that the <code>b</code> subexpression does not have to produce <code>true</code> or <code>false</code>. Rather, it can do anything you want, and is only executed depending on whether <code>a</code> is true. For example:</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">5</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">println</span>(<span class="st">"x is positive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x is positive</code></pre>
+</div>
+</div>
+<p>Try changing <code>x</code> above to a negative value and run the above again.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">||</span> <span class="fu">println</span>(<span class="st">"x is not negative"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x is not negative</code></pre>
+</div>
+</div>
+<p>The above expressions may take a while to get used to. You don’t have to use them, as you might find the <code>if</code> block a lot more intuitive. But you may see these expressions in code that others have written, so it is good to understand them.</p>
 <p>[This is all I’ve prepared so far. More coming . . .]</p>
-<p>Conditional evaluation If-elseif-else (example checking if het-hom-het genotype) (ternary operator) (short-circuit evaluation)</p>
 <p>Some exercise to practice with above</p>
 <p>Next page:</p>
 <p>Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)</p>
