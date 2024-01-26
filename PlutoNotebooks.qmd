@@ -98,14 +98,17 @@ scatter(xValues, yValues)
 
 You will likely see a scatter plot of 10 data points. The data generation involved random draws from a standard normal distribution, so your graph won't look exactly the same as the one shown here. 
 
-***Try this:*** Can you figure out how to modify the above to get 1000 data points? Try it!
+::: {.callout-tip}
+## Add a lot more points 
+Can you figure out how to modify the above to get 1000 data points? Try it!
+:::
 
 ### Add text using Markdown
 
 You can add headers and comments to your notebook using Markdown, simply by entering `md` and then double quotes surrounding your text. Create a new cell at the top of your notebook and enter this:
 
 ```julia
-md"# _Welcome to my notebook_! 
+md"# _Welcome to my notebook!_ 
 
 This is a Pluto notebook for programming in the Julia language. Pluto notebooks are **reactive** to changes you make.
 "

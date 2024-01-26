@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./MultipleDispatch.html" rel="next">
 <link href="./PlutoNotebooks.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -212,6 +213,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Control Flow: Loops and Ifs</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MultipleDispatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types and Multiple Dispatch</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -282,7 +289,7 @@ The cube of 10 is 1000</code></pre>
 </div>
 <p>Here we’ll use a random integer to determine how many times to do a loop:</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rand_times <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rand_times <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)  <span class="co"># This returns a random integer in the range 1 to 10</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>rand_times</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(i)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
@@ -406,12 +413,9 @@ Produce all trinucleotides
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(sum)</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>3
-9
-17
-18
-21
-23</code></pre>
+<pre><code>8
+15
+25</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -485,7 +489,7 @@ Simulate dispersal of an organism
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"The coin has a strange value"</span>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Heads--You win!</code></pre>
+<pre><code>Tails--You lose :(</code></pre>
 </div>
 </div>
 <p>In an <code>if</code> block, the <code>elseif</code> and <code>else</code> parts are optional, but the <code>end</code> is essential. The indentation is customary and makes the code easier to read, but is not required. The value of the conditional expressions (e.g., just to the right of <code>if</code>) must be of type <code>Bool</code>, meaning either <code>true</code> or <code>false</code>.</p>
@@ -570,9 +574,6 @@ Determine whether a number is positive or negative
 <section id="next-steps" class="level3">
 <h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
 <p>Now that we have have developed an understanding of loops and conditional evaluation, we are ready to learn more about functions, types, and multiple dispatch in Julia. Together, these concepts can be thought of as methods of control flow. They enable powerful and fascinating approaches to programming.</p>
-<p>[This is all I’ve prepared so far. More coming . . .]</p>
-<p>Next page:</p>
-<p>Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)</p>
 
 
 </section>
@@ -832,6 +833,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./MultipleDispatch.html" class="pagination-link">
+        <span class="nav-page-text">Types and Multiple Dispatch</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

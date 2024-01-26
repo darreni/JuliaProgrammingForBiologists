@@ -25,6 +25,7 @@ website:
           - IntroToJulia.qmd
           - PlutoNotebooks.qmd
           - ControlFlow.qmd
+          - MultipleDispatch.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:

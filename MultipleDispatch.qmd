@@ -1,0 +1,14 @@
+---
+title: "Types and Multiple Dispatch"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+jupyter: julia-1.10
+---
+
+[This is all I've prepared so far. More coming . . .]
+
+[Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)]
