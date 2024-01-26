@@ -9,6 +9,198 @@ format:
 jupyter: julia-1.10
 ---
 
+If you've worked through the material in the previous pages, you now have the tools to write all sorts of reasonably complex programs to do interesting things. You might take a pause here and build up your skills in combining those tools in ways you find interesting. After spending some time doing that, come back to this page and continue below.
+
+Here, we'll build up to an understanding of one of the most powerful features of Julia: _multiple dispatch_. Rather than define that at the start, we'll build up an understanding. We'll start with better understanding of type specifications of objects, then learn how to define our own types of data structures, then learn about _single dispatch_, and finally explore multiple dispatch.
+
+### Specifying _types_ of objects
+
+Several pages back we learned about how Julia has _dynamic typing_ meaning you often don't need to think about the types of objects. But as your programming skills increase, it becomes increasingly beneficial to think about types. This facilitates organized code, interpretation of error messages, reading of documentation, and defining and using functions effectively.
+
+We can specify the type of an object using the `::` operator, which can be thought of as meaning "is an instance of":
+
+```{julia}
+x::Int64 = 6
+```
+
+The above declares an object `x` as being of type `Int64`, and then assigns the value `6` to it. If you try to assign something like `6.3` to it, you will get an error (try it!). However, Julia tries to be friendly so if you assign something that can be converted to `Int64` it works:
+
+```{julia}
+y::Int64 = 6.0
+y
+```
+
+```{julia}
+println(typeof(6.0))
+println(typeof(y))
+```
+
+Why would you want to force a variable to have a type, when Julia can usually type things correctly on the fly? Maybe you want to make sure that the code is working as you want it to, or you want to prevent code designed for one type of data to be accidentally used for another.
+
+### Create your own types: `struct`
+
+You can create your own data structures, which have their own types, using the `struct` keyword. For instance, let's say we are working with shapes:
+
+```{julia}
+struct Circle
+    radius
+end
+```
+
+So now we have defined a new type (`Circle`) that has one _field_ (`radius`). We can now create ("instantiate" or "construct") an actual object that is of this type by calling `Circle` like a function:
+
+```{julia}
+circA = Circle(1)
+```
+
+```{julia}
+typeof(circA)
+```
+
+So now, `circA` is a specific object in memory of type `Circle`. To get its radius (its only field), we type the name of the object then a `.` and then the field name:
+
+```{julia}
+circA.radius
+```
+
+Let's define and instantiate another kind of shape:
+
+```{julia}
+struct Square
+    side
+end
+sq1 = Square(5)
+```
+
+::: {.callout-tip}
+## More shapes! 
+Can you define a new Rectangle type? It needs to have two fields: length and width. Then, create a specific rectangle.
+:::
+
+### Defining functions for specific types
+
+Now that we have some shape objects, let's do something with them. Functions are great at doing things with objects, so let's define a function:
+
+```{julia}
+getArea(x::Circle) = π * (x.radius)^2    # write π with: \pi tab
+```
+
+We have now defined a function that requires a `Circle` object as input, and returns the area of the circle based on the `radius` field. We can call it on our actual objects in memory:
+
+```{julia}
+getArea(circA)
+```
+
+We also want to get areas of squares. So, we can define a function with the same name but applies only to `Square`s:
+
+```{julia}
+getArea(x::Square) = x.side^2
+```
+
+Now here is where it gets really neat. Let's call the `getArea()` function on our our actual square object in memory:
+
+```{julia}
+getArea(sq1)
+```
+
+And now let's call the same named function on our circle:
+
+```{julia}
+getArea(circA)
+```
+
+In each case, Julia applies the correct formula (for a square vs. a circle) because we've set up our function to have two actual _methods_, and it chooses the method to apply based on the _type of the argument_.
+
+::: {.callout-tip}
+## Add a method 
+Can you define another method for the `getArea()` function, this time applying to the `Rectangle` type (which you defined above)? Then call the function using the specific `Rectangle` you instantiated above.
+:::
+
+### _Multiple Dispatch_: When a method depends on multiple arguments to a function
+
+In the above example using shapes, we had an example of _single dispatch_, when the method of a function depends on the type of a single argument. This is common in a variety of computer languages. Julia is unusual in having the concept of _multiple dispatch_ at its core. This is when the _method_ of a function depends on the types of multiple arguments. We'll develop this idea using an example:
+
+#### Interacting cats and dogs
+
+```{julia}
+struct Dog
+  name::String
+  age::Int  # Int is an general type for all integer types (e.g. Int64)
+  sound::String 
+end
+```
+
+The above creates a `Dog` type. Now let's make two actual `Dog`s:
+
+```{julia}
+rosie = Dog("Rosie", 3, "woof")
+leah = Dog("Leah", 4, "howl")
+```
+
+Now let's make a `Cat` type and two instantiated `Cat`s:
+
+```{julia}
+struct Cat
+  name::String
+  age::Int  # Int is an general type for all integer types (e.g. Int64)
+  sound::String 
+end
+
+fluffy = Cat("Fluffy", 6, "meow")
+milo = Cat("Milo", 11, "rarr")
+```
+
+Now that we've made some dogs and cats, let's define the rules by which they interact:
+
+```{julia}
+function interact(x::Dog, y::Dog)
+  println("$(x.name) wags tail and makes a $(x.sound) toward $(y.name).")
+end
+```
+
+```{julia}
+function interact(x::Dog, y::Cat)
+  println("$(x.name) chases $(y.name).")
+end
+```
+
+```{julia}
+function interact(x::Cat, y::Dog)
+  println("$(x.name) runs from $(y.name).")
+end
+```
+
+```{julia}
+function interact(x::Cat, y::Cat)
+  println("$(x.name) stretches and says $(x.sound).")
+end
+```
+
+Now, let's call our function:
+
+```{julia}
+interact(rosie, leah)
+interact(rosie, fluffy)
+interact(fluffy, rosie)
+interact(fluffy, milo)
+```
+
+The above display that the `interact` function has four different methods depending on the types of the two input arguments. This is multiple dispatch.
+
 [This is all I've prepared so far. More coming . . .]
 
-[Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)]
+Named functions can have many different methods, depending on the types of the argument.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -192,7 +226,16 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#specifying-types-of-objects" id="toc-specifying-types-of-objects" class="nav-link active" data-scroll-target="#specifying-types-of-objects">Specifying <em>types</em> of objects</a></li>
+  <li><a href="#create-your-own-types-struct" id="toc-create-your-own-types-struct" class="nav-link" data-scroll-target="#create-your-own-types-struct">Create your own types: <code>struct</code></a></li>
+  <li><a href="#defining-functions-for-specific-types" id="toc-defining-functions-for-specific-types" class="nav-link" data-scroll-target="#defining-functions-for-specific-types">Defining functions for specific types</a></li>
+  <li><a href="#multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function" id="toc-multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function" class="nav-link" data-scroll-target="#multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function"><em>Multiple Dispatch</em>: When a method depends on multiple arguments to a function</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -220,10 +263,227 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>If you’ve worked through the material in the previous pages, you now have the tools to write all sorts of reasonably complex programs to do interesting things. You might take a pause here and build up your skills in combining those tools in ways you find interesting. After spending some time doing that, come back to this page and continue below.</p>
+<p>Here, we’ll build up to an understanding of one of the most powerful features of Julia: <em>multiple dispatch</em>. Rather than define that at the start, we’ll build up an understanding. We’ll start with better understanding of type specifications of objects, then learn how to define our own types of data structures, then learn about <em>single dispatch</em>, and finally explore multiple dispatch.</p>
+<section id="specifying-types-of-objects" class="level3">
+<h3 class="anchored" data-anchor-id="specifying-types-of-objects">Specifying <em>types</em> of objects</h3>
+<p>Several pages back we learned about how Julia has <em>dynamic typing</em> meaning you often don’t need to think about the types of objects. But as your programming skills increase, it becomes increasingly beneficial to think about types. This facilitates organized code, interpretation of error messages, reading of documentation, and defining and using functions effectively.</p>
+<p>We can specify the type of an object using the <code>::</code> operator, which can be thought of as meaning “is an instance of”:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">::</span><span class="dt">Int64 </span><span class="op">=</span> <span class="fl">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>6</code></pre>
+</div>
+</div>
+<p>The above declares an object <code>x</code> as being of type <code>Int64</code>, and then assigns the value <code>6</code> to it. If you try to assign something like <code>6.3</code> to it, you will get an error (try it!). However, Julia tries to be friendly so if you assign something that can be converted to <code>Int64</code> it works:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>y<span class="op">::</span><span class="dt">Int64 </span><span class="op">=</span> <span class="fl">6.0</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>6</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">typeof</span>(<span class="fl">6.0</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">typeof</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Float64
+Int64</code></pre>
+</div>
+</div>
+<p>Why would you want to force a variable to have a type, when Julia can usually type things correctly on the fly? Maybe you want to make sure that the code is working as you want it to, or you want to prevent code designed for one type of data to be accidentally used for another.</p>
+</section>
+<section id="create-your-own-types-struct" class="level3">
+<h3 class="anchored" data-anchor-id="create-your-own-types-struct">Create your own types: <code>struct</code></h3>
+<p>You can create your own data structures, which have their own types, using the <code>struct</code> keyword. For instance, let’s say we are working with shapes:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Circle</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    radius</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So now we have defined a new type (<code>Circle</code>) that has one <em>field</em> (<code>radius</code>). We can now create (“instantiate” or “construct”) an actual object that is of this type by calling <code>Circle</code> like a function:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>circA <span class="op">=</span> <span class="fu">Circle</span>(<span class="fl">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Circle(1)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(circA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Circle</code></pre>
+</div>
+</div>
+<p>So now, <code>circA</code> is a specific object in memory of type <code>Circle</code>. To get its radius (its only field), we type the name of the object then a <code>.</code> and then the field name:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>circA.radius</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p>Let’s define and instantiate another kind of shape:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Square</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    side</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>sq1 <span class="op">=</span> <span class="fu">Square</span>(<span class="fl">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Square(5)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More shapes!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you define a new Rectangle type? It needs to have two fields: length and width. Then, create a specific rectangle.</p>
+</div>
+</div>
+</section>
+<section id="defining-functions-for-specific-types" class="level3">
+<h3 class="anchored" data-anchor-id="defining-functions-for-specific-types">Defining functions for specific types</h3>
+<p>Now that we have some shape objects, let’s do something with them. Functions are great at doing things with objects, so let’s define a function:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(x<span class="op">::</span><span class="dt">Circle</span>) <span class="op">=</span> <span class="cn">π</span> <span class="op">*</span> (x.radius)<span class="op">^</span><span class="fl">2</span>    <span class="co"># write π with: \pi tab</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>getArea (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>We have now defined a function that requires a <code>Circle</code> object as input, and returns the area of the circle based on the <code>radius</code> field. We can call it on our actual objects in memory:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(circA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>3.141592653589793</code></pre>
+</div>
+</div>
+<p>We also want to get areas of squares. So, we can define a function with the same name but applies only to <code>Square</code>s:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(x<span class="op">::</span><span class="dt">Square</span>) <span class="op">=</span> x.side<span class="op">^</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>getArea (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<p>Now here is where it gets really neat. Let’s call the <code>getArea()</code> function on our our actual square object in memory:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(sq1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>25</code></pre>
+</div>
+</div>
+<p>And now let’s call the same named function on our circle:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(circA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>3.141592653589793</code></pre>
+</div>
+</div>
+<p>In each case, Julia applies the correct formula (for a square vs.&nbsp;a circle) because we’ve set up our function to have two actual <em>methods</em>, and it chooses the method to apply based on the <em>type of the argument</em>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Add a method
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you define another method for the <code>getArea()</code> function, this time applying to the <code>Rectangle</code> type (which you defined above)? Then call the function using the specific <code>Rectangle</code> you instantiated above.</p>
+</div>
+</div>
+</section>
+<section id="multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function"><em>Multiple Dispatch</em>: When a method depends on multiple arguments to a function</h3>
+<p>In the above example using shapes, we had an example of <em>single dispatch</em>, when the method of a function depends on the type of a single argument. This is common in a variety of computer languages. Julia is unusual in having the concept of <em>multiple dispatch</em> at its core. This is when the <em>method</em> of a function depends on the types of multiple arguments. We’ll develop this idea using an example:</p>
+<section id="interacting-cats-and-dogs" class="level4">
+<h4 class="anchored" data-anchor-id="interacting-cats-and-dogs">Interacting cats and dogs</h4>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Dog</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  name<span class="op">::</span><span class="dt">String</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  age<span class="op">::</span><span class="dt">Int  </span><span class="co"># Int is an general type for all integer types (e.g. Int64)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  sound<span class="op">::</span><span class="dt">String </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The above creates a <code>Dog</code> type. Now let’s make two actual <code>Dog</code>s:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rosie <span class="op">=</span> <span class="fu">Dog</span>(<span class="st">"Rosie"</span>, <span class="fl">3</span>, <span class="st">"woof"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>leah <span class="op">=</span> <span class="fu">Dog</span>(<span class="st">"Leah"</span>, <span class="fl">4</span>, <span class="st">"howl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>Dog("Leah", 4, "howl")</code></pre>
+</div>
+</div>
+<p>Now let’s make a <code>Cat</code> type and two instantiated <code>Cat</code>s:</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Cat</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  name<span class="op">::</span><span class="dt">String</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  age<span class="op">::</span><span class="dt">Int  </span><span class="co"># Int is an general type for all integer types (e.g. Int64)</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  sound<span class="op">::</span><span class="dt">String </span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>fluffy <span class="op">=</span> <span class="fu">Cat</span>(<span class="st">"Fluffy"</span>, <span class="fl">6</span>, <span class="st">"meow"</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>milo <span class="op">=</span> <span class="fu">Cat</span>(<span class="st">"Milo"</span>, <span class="fl">11</span>, <span class="st">"rarr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>Cat("Milo", 11, "rarr")</code></pre>
+</div>
+</div>
+<p>Now that we’ve made some dogs and cats, let’s define the rules by which they interact:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> wags tail and makes a </span><span class="sc">$</span>(x.sound)<span class="st"> toward </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>interact (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> chases </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>interact (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> runs from </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>interact (generic function with 3 methods)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> stretches and says </span><span class="sc">$</span>(x.sound)<span class="st">."</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>interact (generic function with 4 methods)</code></pre>
+</div>
+</div>
+<p>Now, let’s call our function:</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, leah)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, fluffy)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(fluffy, rosie)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(fluffy, milo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rosie wags tail and makes a woof toward Leah.
+Rosie chases Fluffy.
+Fluffy runs from Rosie.
+Fluffy stretches and says meow.</code></pre>
+</div>
+</div>
+<p>The above display that the <code>interact</code> function has four different methods depending on the types of the two input arguments. This is multiple dispatch.</p>
 <p>[This is all I’ve prepared so far. More coming . . .]</p>
-<p>[Structs and multiple dispatch (example with dog and cat structs, with names and sounds, with different versions of interact function based on types)]</p>
+<p>Named functions can have many different methods, depending on the types of the argument.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

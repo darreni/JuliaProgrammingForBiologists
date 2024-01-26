@@ -258,7 +258,25 @@ arrayA[end]
 arrayB[2, 2:3]
 ```
 
+We can even use such indexing to change the value stored one of the "boxes" in an array:
+
+```{julia}
+arrayB[2, 2] = -129
+arrayB
+```
+
 We're going to eventually learn a lot more about arrays, as they are super useful in data science, bioinformatics, and simulations.
+
+#### Tuples
+
+Another kind of collection is called a _tuple_. It is a lot like a vector (a 1-dimensional array) but is _immutable_. This means that once defined, you cannot change specific values stored in a particular tuple. We create them using parentheses and commas:
+
+```{julia}
+myTuple = (1.3, 2.7, -12)
+typeof(myTuple)
+```
+
+Tuples are useful for efficiency--because they are not mutable, Julia can store and use them in a more efficient way than arrays. They are also used when calling functions (we'll explore this later).
 
 ### Broadcasting
 
