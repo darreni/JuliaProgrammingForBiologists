@@ -276,7 +276,23 @@ myTuple = (1.3, 2.7, -12)
 typeof(myTuple)
 ```
 
-Tuples are useful for efficiency--because they are not mutable, Julia can store and use them in a more efficient way than arrays. They are also used when calling functions (we'll explore this later).
+The response tells us that the object we created is of `Tuple` type, and it tells us the types of each element in the tuple. 
+
+We can also create _named tuples_ in which we give names to the values:
+
+```{julia}
+nt = (base = "C", position = 35, chrom = "Z")
+```
+
+We can get the value of a certain element by using that name, like this:
+
+```{julia}
+nt.base
+```
+
+The above is one of the uses of the "`.`" symbol, to access a named element within a tuple. (Another use, quite different, is described after the next heading below).
+
+Tuples are useful for storing and calling fixed bits of info together.  Because they are not mutable, Julia can store and use them in a more efficient way than arrays. They are also used when calling functions (we'll explore this later).
 
 ### Broadcasting
 
@@ -289,7 +305,7 @@ arrayB.^2
 ```
 
 ```{julia}
-3 .* arrayA
+3 .* [5, -1, 3]
 ```
 
 We can also put this dot _right after_ a function to have the function apply to each element in a collection:
@@ -309,7 +325,7 @@ begin
 end
 ```
 
-The above produces the same output as:
+The line with the `@.` macro produces the same output as:
 
 ```{julia}
 results = 2 .* data .+ data.^2

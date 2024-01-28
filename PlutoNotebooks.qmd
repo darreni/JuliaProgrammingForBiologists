@@ -90,10 +90,12 @@ If you have not downloaded the Plots package, Pluto will nicely do it for you.
 Now, lets generate some data and graph it:
 
 ```{julia}
-numPoints = 10
-xValues = randn(numPoints) # random draw from standard normal distribution
-yValues = xValues .+ 0.5 .* randn(numPoints)
-scatter(xValues, yValues)
+begin
+  numPoints = 10
+  xValues = randn(numPoints) # random draw from standard normal distribution
+  yValues = xValues .+ 0.5 .* randn(numPoints)
+  scatter(xValues, yValues)
+end
 ```
 
 You will likely see a scatter plot of 10 data points. The data generation involved random draws from a standard normal distribution, so your graph won't look exactly the same as the one shown here. 
