@@ -137,6 +137,12 @@ rosie = Dog("Rosie", 3, "woof")
 leah = Dog("Leah", 4, "howl")
 ```
 
+We can learn about what is within a certain object in memory by using the 'dump()' function (which can be thought of as "dumping" or showing everything in the object):
+
+```{julia}
+dump(rosie)
+```
+
 Now let's make a `Cat` type and two instantiated `Cat`s:
 
 ```{julia}
@@ -185,11 +191,41 @@ interact(fluffy, rosie)
 interact(fluffy, milo)
 ```
 
-The above display that the `interact` function has four different methods depending on the types of the two input arguments. This is multiple dispatch.
+The above display that the `interact()` function has four different methods depending on the types of the two input arguments. This is multiple dispatch.
 
-[This is all I've prepared so far. More coming . . .]
+#### _Importance of multiple dispatch_
 
-Named functions can have many different methods, depending on the types of the argument.
+The examples above are just an initial look at the power of multiple dispatch. If Julia did not have multiple dispatch, then the method of the function call would depend only the first argument (i.e., single dispatch). You could still write a general `interact()` function code that checks whether the second argument is a Cat, a Dog, etc., and have `if` statements to govern what to do in the different cases. But multiple dispatch provides an efficient, concise way to ensure just the appropriate code is evaluated, without explicit `if` statements.  
+
+One reason it is important to understand multiple dispatch is that it helps you understand how to use built-in Julia functions, and helps you understand errors when you get them. For example, enter this incorrect expression:
+
+```julia
+sqrt([9, 4])
+```
+The REPL responds by saying: 
+`ERROR: MethodError: no method matching sqrt(::Vector{Int64})`
+
+It is telling you that there is no _method_ for the 'sqrt' function that uses an input an object of type `Vector{Int64}` (meaning a vector of integers). If we can understand this message, we might then realize that we have to either enter a single number as input (`sqrt(9)`) or broadcast over all elements of the vector using the dot operator (`sqrt.([9, 4])`).
+
+If we want to see what methods a function can use, we can use the `methods()` function:
+
+```{julia}
+methods(interact)
+```
+
+The REPL then tells us that there are four methods and summarizes what types go into them.
+
+If curious, you can try this on any function--for instance, try `methods(+)` to see that there are at least 189 methods for the `+()` function depending on the arguments passed into it.
+
+### Next steps
+
+This and the previous pages have brought you through what I consider to be an introductory tour of the central concepts needed to program in Julia. You can use these building blocks to compose programs that do all sorts of complex things--virtually anything you can imagine, as long as you can think through the logic of what you want your program to do.
+
+Two things though that we have not said much about yet are 1) how to make nice plots, and 2) how to import data in order to analyze and graph it. We will now explore those two topics on the next pages.
+
+
+
+
 
 
 

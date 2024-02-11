@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./Plots.html" rel="next">
 <link href="./ControlFlow.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -95,6 +96,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -218,6 +222,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Types and Multiple Dispatch</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plots</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -234,6 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-your-own-types-struct" id="toc-create-your-own-types-struct" class="nav-link" data-scroll-target="#create-your-own-types-struct">Create your own types: <code>struct</code></a></li>
   <li><a href="#defining-functions-for-specific-types" id="toc-defining-functions-for-specific-types" class="nav-link" data-scroll-target="#defining-functions-for-specific-types">Defining functions for specific types</a></li>
   <li><a href="#multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function" id="toc-multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function" class="nav-link" data-scroll-target="#multiple-dispatch-when-a-method-depends-on-multiple-arguments-to-a-function"><em>Multiple Dispatch</em>: When a method depends on multiple arguments to a function</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
   </ul>
 </nav>
     </div>
@@ -417,59 +428,69 @@ Add a method
 <pre><code>Dog("Leah", 4, "howl")</code></pre>
 </div>
 </div>
-<p>Now let’s make a <code>Cat</code> type and two instantiated <code>Cat</code>s:</p>
+<p>We can learn about what is within a certain object in memory by using the ‘dump()’ function (which can be thought of as “dumping” or showing everything in the object):</p>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Cat</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  name<span class="op">::</span><span class="dt">String</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  age<span class="op">::</span><span class="dt">Int  </span><span class="co"># Int is an general type for all integer types (e.g. Int64)</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  sound<span class="op">::</span><span class="dt">String </span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>fluffy <span class="op">=</span> <span class="fu">Cat</span>(<span class="st">"Fluffy"</span>, <span class="fl">6</span>, <span class="st">"meow"</span>)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>milo <span class="op">=</span> <span class="fu">Cat</span>(<span class="st">"Milo"</span>, <span class="fl">11</span>, <span class="st">"rarr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dump</span>(rosie)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Dog
+  name: String "Rosie"
+  age: Int64 3
+  sound: String "woof"</code></pre>
+</div>
+</div>
+<p>Now let’s make a <code>Cat</code> type and two instantiated <code>Cat</code>s:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Cat</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  name<span class="op">::</span><span class="dt">String</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  age<span class="op">::</span><span class="dt">Int  </span><span class="co"># Int is an general type for all integer types (e.g. Int64)</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  sound<span class="op">::</span><span class="dt">String </span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>fluffy <span class="op">=</span> <span class="fu">Cat</span>(<span class="st">"Fluffy"</span>, <span class="fl">6</span>, <span class="st">"meow"</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>milo <span class="op">=</span> <span class="fu">Cat</span>(<span class="st">"Milo"</span>, <span class="fl">11</span>, <span class="st">"rarr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>Cat("Milo", 11, "rarr")</code></pre>
 </div>
 </div>
 <p>Now that we’ve made some dogs and cats, let’s define the rules by which they interact:</p>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> wags tail and makes a </span><span class="sc">$</span>(x.sound)<span class="st"> toward </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> wags tail and makes a </span><span class="sc">$</span>(x.sound)<span class="st"> toward </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>interact (generic function with 1 method)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> chases </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> chases </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>interact (generic function with 2 methods)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> runs from </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> runs from </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>interact (generic function with 3 methods)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> stretches and says </span><span class="sc">$</span>(x.sound)<span class="st">."</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> stretches and says </span><span class="sc">$</span>(x.sound)<span class="st">."</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>interact (generic function with 4 methods)</code></pre>
 </div>
 </div>
 <p>Now, let’s call our function:</p>
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, leah)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, fluffy)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(fluffy, rosie)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(fluffy, milo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, leah)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, fluffy)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(fluffy, rosie)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(fluffy, milo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rosie wags tail and makes a woof toward Leah.
 Rosie chases Fluffy.
@@ -477,12 +498,32 @@ Fluffy runs from Rosie.
 Fluffy stretches and says meow.</code></pre>
 </div>
 </div>
-<p>The above display that the <code>interact</code> function has four different methods depending on the types of the two input arguments. This is multiple dispatch.</p>
-<p>[This is all I’ve prepared so far. More coming . . .]</p>
-<p>Named functions can have many different methods, depending on the types of the argument.</p>
-
-
+<p>The above display that the <code>interact()</code> function has four different methods depending on the types of the two input arguments. This is multiple dispatch.</p>
 </section>
+<section id="importance-of-multiple-dispatch" class="level4">
+<h4 class="anchored" data-anchor-id="importance-of-multiple-dispatch"><em>Importance of multiple dispatch</em></h4>
+<p>The examples above are just an initial look at the power of multiple dispatch. If Julia did not have multiple dispatch, then the method of the function call would depend only the first argument (i.e., single dispatch). You could still write a general <code>interact()</code> function code that checks whether the second argument is a Cat, a Dog, etc., and have <code>if</code> statements to govern what to do in the different cases. But multiple dispatch provides an efficient, concise way to ensure just the appropriate code is evaluated, without explicit <code>if</code> statements.</p>
+<p>One reason it is important to understand multiple dispatch is that it helps you understand how to use built-in Julia functions, and helps you understand errors when you get them. For example, enter this incorrect expression:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>([<span class="fl">9</span>, <span class="fl">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The REPL responds by saying: <code>ERROR: MethodError: no method matching sqrt(::Vector{Int64})</code></p>
+<p>It is telling you that there is no <em>method</em> for the ‘sqrt’ function that uses an input an object of type <code>Vector{Int64}</code> (meaning a vector of integers). If we can understand this message, we might then realize that we have to either enter a single number as input (<code>sqrt(9)</code>) or broadcast over all elements of the vector using the dot operator (<code>sqrt.([9, 4])</code>).</p>
+<p>If we want to see what methods a function can use, we can use the <code>methods()</code> function:</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(interact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+# 4 methods for generic function <b>interact</b> from [35mMain[39m:<ul><li> interact(x::<b>Cat</b>, y::<b>Cat</b>) in Main at In[22]:1</li> <li> interact(x::<b>Cat</b>, y::<b>Dog</b>) in Main at In[21]:1</li> <li> interact(x::<b>Dog</b>, y::<b>Cat</b>) in Main at In[20]:1</li> <li> interact(x::<b>Dog</b>, y::<b>Dog</b>) in Main at In[19]:1</li> </ul>
+</div>
+</div>
+<p>The REPL then tells us that there are four methods and summarizes what types go into them.</p>
+<p>If curious, you can try this on any function–for instance, try <code>methods(+)</code> to see that there are at least 189 methods for the <code>+()</code> function depending on the arguments passed into it.</p>
+</section>
+</section>
+<section id="next-steps" class="level3">
+<h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
+<p>This and the previous pages have brought you through what I consider to be an introductory tour of the central concepts needed to program in Julia. You can use these building blocks to compose programs that do all sorts of complex things–virtually anything you can imagine, as long as you can think through the logic of what you want your program to do.</p>
+<p>Two things though that we have not said much about yet are 1) how to make nice plots, and 2) how to import data in order to analyze and graph it. We will now explore those two topics on the next pages.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -740,6 +781,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./Plots.html" class="pagination-link">
+        <span class="nav-page-text">Plots</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

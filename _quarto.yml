@@ -26,6 +26,7 @@ website:
           - PlutoNotebooks.qmd
           - ControlFlow.qmd
           - MultipleDispatch.qmd
+          - Plots.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:
