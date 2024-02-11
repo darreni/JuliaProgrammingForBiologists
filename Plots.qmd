@@ -100,6 +100,16 @@ p2 = plot!(x -> (x^2 - 5))
 
 In the above, the arguments given to `plot!()` are _anonymous functions_. This means that are not given names and are not stored in memory. Rather, the syntax `x -> f(x)` simply provides a mapping of x onto y values, and the `plot!()` function interprets that and shows us a part of the relationship.
 
+#### Add text to the plot
+
+We can use the `annotate!()` function to add text to our plot, at the desired coordinates:
+
+```{julia}
+annotate!(-3, 10, "Here's some text", :left)
+```
+
+This adds text at location `-3, 10` and the `:left` indicates that it should be left-aligned to that location.
+
 #### Parametric plots
 
 Another way we can invoke a plot is to provide it two functions, both of which depend on a variable that ranges from a minimum value to a maximum value. We call the function in this format: `plot(x_function, y_function, minimum, maximum)` :
@@ -111,7 +121,7 @@ plot!(aspect_ratio = :equal)
 
 ```{julia}
 plot(x -> x*sin(x), x -> x*cos(x), 0, 2pi)
-p3 = plot!(aspect_ratio = :equal)
+p3 = plot!(aspect_ratio = :equal, legend=false)
 ```
 
 ### 3D plots
@@ -132,10 +142,10 @@ This is one kind of 3D plot, where we have a value for z at every value of x and
 
 ```{julia}
 xes = -1:0.01:1
-p5 = surface(xes, xes, (x, y) -> x^2 + y^2)
+p5 = surface(xes, xes, (x, y) -> x^2 + y^2, legend=false)
 ```
 
-Here, the first argument is the `x` values, the second is the `y` values, and the thir is the `z` values, which in this case we provided as an anonymous function relating `x` and `y` to `z`.
+Here, the first argument is the `x` values, the second is the `y` values, and the third is the `z` values, which in this case we provided as an anonymous function relating `x` and `y` to `z`.
 
 #### Heatmaps
 
@@ -189,6 +199,8 @@ bigPlot = plot(p4, p5, p1, p2, p3, p6,
                                 s{0.8w} s
                                 s{0.2h}])
 ```
+
+The `{0.8w}` and `{0.2h}` mean that that subplot should take up 0.8 proportion of the width or 0.2 proportion of the height.
 
 ### Save your plot
 
