@@ -1,0 +1,252 @@
+---
+title: "Load & Graph Data"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+    fig-width: 6
+    fig-height: 4
+jupyter: julia-1.10
+---
+
+Here we'll bring together much of our Julia knowledge to actually analyze a large dataset. 
+
+The example here will be based on a dataset from this paper:
+
+McCallum, Q., K. Askelson, F.F. Fogarty, L. Natola, E. Nikelski, A. Huang, and D. Irwin. 2024. Pronounced differentiation on the Z chromosome and parts of the autosomes in crowned sparrows contrasts with mitochondrial paraphyly: implications for speciation. _Journal of Evolutionary Biology_, voae004, https://doi.org/10.1093/jeb/voae004
+
+We will load in a large dataset of genotypes throughout the genomes of Golden-crowned Sparrows and two forms of White-crowned Sparrows: _pugetensis_ and _gambelii_. We will then use my own custom-designed Julia package called SNPlots.jl to analyze and graph aspects of this dataset.
+
+To work through this example, start with a new Pluto notebook. Give it a name and save it, so your work will be continuously saved. You will need a set of files that I will send you--these include one file for the SNPlots.jl package of functions and four data files within a folder called `Sparrow_data_McCallumetal2024`.
+
+### Set the working directory
+
+First, set the working directory to match the folder that I sent you called `JuliaPlutoDemoSNPplots` :
+
+```julia
+cd("PATHNAME/JuliaPlutoDemoSNPplots") # where PATHNAME is appropriate to your computer directory structure
+```
+
+(The Julia function `cd()` changes directory.)
+
+Check that the working directory is now set correctly, using the `pwd()` function (print working directory):
+
+```julia
+pwd()
+```
+
+### Load the SNPlots package
+
+I wrote this set of functions to facilitate the analysis of and graphing of genomic data. The scope is quite modest so far, mainly targeted towards producing certain figures that I wanted in our papers. 
+
+The SNPlots package is not yet released to the world, so please don't spread widely yet. I anticipate releasing it when the first paper is published using figures it produces.
+
+We first need to load two packages used by SNPlots:
+
+```julia
+using MultivariateStats # for doing Principal Compponents Analysis
+```
+
+```julia
+using CairoMakie # the plotting package used by SNPlots.jl
+```
+
+Now load SNPlots:
+
+```julia
+begin
+	include("SNPlots.jl")
+	using .SNPlots
+end
+```
+
+This way of loading a package is appropriate when the source file is on your local computer (rather than being a registered Julia package).
+
+To confirm that the SNPlots package is loaded, enter this:
+
+```julia
+SNPlots.greet_SNPlots()
+```
+
+You should receive a greeting. 😄
+
+### Set up the paths and data file names
+
+```julia
+begin
+	genotype_file_name = "Sparrow_data_McCallumetal2024/SparrowDemo_genotypes.012"
+	individuals_file_name = genotype_file_name * ".indv"
+	position_file_name = genotype_file_name * ".pos"
+	metadataFile = "Sparrow_data_McCallumetal2024/SparrowDemo.Fst_groups.txt"
+end
+```
+
+#### Load three more packages for importing data
+
+These are for storing data as type DataFrame, and reading in delimited files:
+
+```julia
+using DataFrames, CSV, DelimitedFiles
+```
+
+### _Enough setup, let's load data!_
+
+First import metadata about thee samples:
+
+```julia
+metadata = DataFrame(CSV.File(metadataFile))
+```
+
+Above, the `CSV.file()` function interprets the correct delimitation format of the data file, and the `DataFrame()` function creates a `DataFrame` object (a wonderful way to store data where columns are variables and rows are individuals).
+
+Now, Import the list of individuals (row names) of the genotype matrix:
+
+```julia
+begin
+	ind = DataFrame(CSV.File(individuals_file_name; header=["ind"], types=[String]))
+	indNum = size(ind, 1) # number of individuals
+end
+```
+
+Check that the metadata file and .indv file have same number of individuals:
+
+```julia
+if nrow(metadata) != indNum
+    println("WARNING: number of rows in metadata file different than number of individuals in .indv file")
+else println("Good news: number of rows in metadata file matches the number of individuals in .indv file")
+end
+```
+
+Combine individual names and metadata into one data structure (enabling confirmation that names match and are in correct order):
+
+```julia
+ind_with_metadata = hcat(ind, metadata)
+```
+
+Load SNP positions:
+
+```julia
+pos_whole_genome = DataFrame(CSV.File(position_file_name; header=["chrom", "position"], types=[String, Int]))
+```
+
+Load the genotype matrix:
+
+```julia
+begin # read in genotype data 
+	@time geno = readdlm(genotype_file_name, '\t', Int16, '\n')
+	loci_count = size(geno, 2) - 1   # because the first column is not a SNP (just a count from zero)
+	print(string("Read in genotypic data at ", loci_count," loci for ", indNum, " individuals. \n"))
+  genosOnly = geno[:, Not(1)] #remove first column, which was just a row index
+end
+```
+
+In the data matrix, rows represent individuals and columns represent SNPs, and genotypes are as follows:
+
+0: homozygous reference
+1: heterozygous
+2: homozygous alternate
+-1: missing genotype
+
+##### [If you want to filter individuals or SNPs with too much missing data, I have scripts that can be added here]
+
+#### Choose our groups to plot, and their colours
+
+```julia
+groups_to_plot = ["GCSP","PSWS","GWCS"]
+```
+
+```julia
+group_colors = ["gold","red","blue"]
+```
+
+#### To do a PCA, we first need to impute missing genotypes
+
+Prepare data matrix to be ready for imputation, by replacing `-1` with `missing` data type:
+
+```julia
+begin
+	genosOnly_with_missing = Matrix{Union{Missing, Int16}}(genosOnly)
+	genosOnly_with_missing[genosOnly_with_missing .== -1] .= missing;
+	genosOnly_with_missing = Matrix{Union{Missing, Float32}}(genosOnly_with_missing) 
+end
+```
+
+Load `Impute` package:
+
+```julia
+using Impute
+```
+
+Now actually impute the missing genotype values:
+
+```julia
+@time imputed_genos = Impute.svd(genosOnly_with_missing)
+```
+
+### _Let's make the PCA plot!_
+
+```julia
+begin
+PCAmodel = SNPlots.plotPCA(imputed_genos, ind_with_metadata,
+        groups_to_plot, group_colors;
+        sampleSet="Zonotrichia sparrows", regionText="whole_genome",
+        flip1=false, flip2=false, showPlot=true)
+PCAmodel.PCAfig
+end
+```
+
+Gold symbols represent Golden-crowned Sparrows.
+Blue represent the _gambelii_ form of White-crowned Sparrows.
+Red represent that the _pugetensis_ form of White-crowned Sparrows.
+
+### Now let's produce a genotype-by_individual plot
+
+Some initial setup of parameters for the plot:
+
+```julia
+begin 
+	group1 = "GCSP"   # the alleles most common in this  group will be assigned the same color in the graph
+	groupsToCompare = "GCSP_PSWS" # The groups to compare for the Fst filter below
+	Fst_cutoff =  0.8
+	missingFractionAllowed = 0.2
+end
+```
+
+Calculate allele frequencies and sample sizes per group:
+
+```julia
+freqs, sampleSizes = SNPlots.getFreqsAndSampleSizes(genosOnly_with_missing, ind_with_metadata.Fst_group, groups_to_plot)
+```
+
+Calculate Fst (allele frequency differentiation) between pairs of groups:
+
+```julia
+Fst, FstNumerator, FstDenominator, pairwiseNamesFst = SNPlots.getFst(freqs, sampleSizes, groups_to_plot)
+```
+
+Choose the chromosome to plot:
+
+```julia
+begin
+	chr = "CM018231.2" # the name of a scaffold in the assembly
+	regionInfo = SNPlots.chooseChrRegion(pos_whole_genome, chr) #; positionMin=1) # this gets the maximum position for the chromosome
+end
+```
+
+##### _OK, let's make the plot!_
+
+```julia
+begin
+	plotInfo = SNPlots.plotGenotypeByIndividual(groupsToCompare, Fst_cutoff,
+		missingFractionAllowed, regionInfo, pos_whole_genome, Fst, pairwiseNamesFst, 
+	    genosOnly_with_missing, ind_with_metadata, freqs, 
+		groups_to_plot, group_colors)
+	plotInfo[1] # this outputs the plot above
+end
+```
+
+The figure shows the genotypes of individuals at SNPs that have Fst higher than `Fst_cutoff` in the groups being compared (given by `groupsToCompare`). The two alleles have different shades of purple, with triangles indicating heterozygotes. The bottom of the plot indicates the location of SNPs on the chromosome, and the blue shading indicates SNP density across the chromosome.
+
+The `SNPlots.plotGenotypeByIndividual()` function produces this complex plot from the repeated use of low-level plotting functions to simply draw lines, filled shapes, and text in the plotting window. If you learn the commands to draw such elements and the logic by which to determine where to draw them, you can design your own functions to make all sorts of complex figures.  

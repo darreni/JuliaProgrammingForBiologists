@@ -27,6 +27,7 @@ website:
           - ControlFlow.qmd
           - MultipleDispatch.qmd
           - Plots.qmd
+          - LoadData&Analyze&Graph.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:
