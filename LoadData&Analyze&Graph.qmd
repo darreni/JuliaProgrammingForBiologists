@@ -19,7 +19,7 @@ McCallum, Q., K. Askelson, F.F. Fogarty, L. Natola, E. Nikelski, A. Huang, and D
 
 We will load in a large dataset of genotypes throughout the genomes of Golden-crowned Sparrows and two forms of White-crowned Sparrows: _pugetensis_ and _gambelii_. We will then use my own custom-designed Julia package called SNPlots.jl to analyze and graph aspects of this dataset.
 
-To work through this example, start with a new Pluto notebook. Give it a name and save it, so your work will be continuously saved. You will need a set of files that I will send you--these include one file for the SNPlots.jl package of functions and four data files within a folder called `Sparrow_data_McCallumetal2024`.
+To work through this example, start with a new Pluto notebook. Give it a name and save it, so your work will be continuously saved. You will need a set of files that I will send you--these include one file for the `SNPlots.jl` package of functions and four data files within a folder called `Sparrow_data_McCallumetal2024`.
 
 ### Set the working directory
 
@@ -37,7 +37,7 @@ Check that the working directory is now set correctly, using the `pwd()` functio
 pwd()
 ```
 
-### Load the SNPlots package
+### Load the `SNPlots` package
 
 I wrote this set of functions to facilitate the analysis of and graphing of genomic data. The scope is quite modest so far, mainly targeted towards producing certain figures that I wanted in our papers. 
 
@@ -85,7 +85,7 @@ end
 
 #### Load three more packages for importing data
 
-These are for storing data as type DataFrame, and reading in delimited files:
+These are for storing data as type `DataFrame`, and reading in delimited files:
 
 ```julia
 using DataFrames, CSV, DelimitedFiles
@@ -138,18 +138,18 @@ begin # read in genotype data
 	@time geno = readdlm(genotype_file_name, '\t', Int16, '\n')
 	loci_count = size(geno, 2) - 1   # because the first column is not a SNP (just a count from zero)
 	print(string("Read in genotypic data at ", loci_count," loci for ", indNum, " individuals. \n"))
-  genosOnly = geno[:, Not(1)] #remove first column, which was just a row index
+  	genosOnly = geno[:, Not(1)] #remove first column, which was just a row index
 end
 ```
 
 In the data matrix, rows represent individuals and columns represent SNPs, and genotypes are as follows:
 
-0: homozygous reference
-1: heterozygous
-2: homozygous alternate
+0: homozygous reference; 
+1: heterozygous; 
+2: homozygous alternate; 
 -1: missing genotype
 
-##### [If you want to filter individuals or SNPs with too much missing data, I have scripts that can be added here]
+#### [If you want to filter individuals or SNPs with too much missing data, I have scripts that can be added here]
 
 #### Choose our groups to plot, and their colours
 
@@ -201,7 +201,7 @@ Gold symbols represent Golden-crowned Sparrows.
 Blue represent the _gambelii_ form of White-crowned Sparrows.
 Red represent that the _pugetensis_ form of White-crowned Sparrows.
 
-### Now let's produce a genotype-by_individual plot
+### Now let's produce a genotype-by-individual plot
 
 Some initial setup of parameters for the plot:
 
@@ -217,13 +217,15 @@ end
 Calculate allele frequencies and sample sizes per group:
 
 ```julia
-freqs, sampleSizes = SNPlots.getFreqsAndSampleSizes(genosOnly_with_missing, ind_with_metadata.Fst_group, groups_to_plot)
+freqs, sampleSizes = SNPlots.getFreqsAndSampleSizes(genosOnly_with_missing,
+							ind_with_metadata.Fst_group, groups_to_plot)
 ```
 
 Calculate Fst (allele frequency differentiation) between pairs of groups:
 
 ```julia
-Fst, FstNumerator, FstDenominator, pairwiseNamesFst = SNPlots.getFst(freqs, sampleSizes, groups_to_plot)
+Fst, FstNumerator, FstDenominator, pairwiseNamesFst = SNPlots.getFst(freqs,
+											sampleSizes, groups_to_plot)
 ```
 
 Choose the chromosome to plot:
@@ -249,4 +251,13 @@ end
 
 The figure shows the genotypes of individuals at SNPs that have Fst higher than `Fst_cutoff` in the groups being compared (given by `groupsToCompare`). The two alleles have different shades of purple, with triangles indicating heterozygotes. The bottom of the plot indicates the location of SNPs on the chromosome, and the blue shading indicates SNP density across the chromosome.
 
-The `SNPlots.plotGenotypeByIndividual()` function produces this complex plot from the repeated use of low-level plotting functions to simply draw lines, filled shapes, and text in the plotting window. If you learn the commands to draw such elements and the logic by which to determine where to draw them, you can design your own functions to make all sorts of complex figures.  
+If the function works on your computer like it does on mine, it will create a separate plot window and show the figure both there and in your Pluto notebook.
+
+::: {.callout-tip}
+## Produce such plots for a series of chromosomes
+Can you write a loop to cycle through a number of different chromosomes and make a plot for each? You would use a lot of the code in the previous two cells above. You could do this for these scaffolds, expressed here a a vector of strings: `["CM018230.2", "CM018231.2", "CM018232.2", "CM018233.2", "CM018234.2"]` 
+:::
+
+### A take-home message:
+
+The `SNPlots.plotGenotypeByIndividual()` function produces this complex plot from the repeated use of low-level plotting functions to simply draw lines, filled shapes, and text in the plotting window. *If you learn the commands to draw such simple elements and the logic by which to determine where to draw them, you can design your own functions to make all sorts of complex figures.*

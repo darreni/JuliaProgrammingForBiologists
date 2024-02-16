@@ -243,11 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#set-the-working-directory" id="toc-set-the-working-directory" class="nav-link active" data-scroll-target="#set-the-working-directory">Set the working directory</a></li>
-  <li><a href="#load-the-snplots-package" id="toc-load-the-snplots-package" class="nav-link" data-scroll-target="#load-the-snplots-package">Load the SNPlots package</a></li>
+  <li><a href="#load-the-snplots-package" id="toc-load-the-snplots-package" class="nav-link" data-scroll-target="#load-the-snplots-package">Load the <code>SNPlots</code> package</a></li>
   <li><a href="#set-up-the-paths-and-data-file-names" id="toc-set-up-the-paths-and-data-file-names" class="nav-link" data-scroll-target="#set-up-the-paths-and-data-file-names">Set up the paths and data file names</a></li>
   <li><a href="#enough-setup-lets-load-data" id="toc-enough-setup-lets-load-data" class="nav-link" data-scroll-target="#enough-setup-lets-load-data"><em>Enough setup, let’s load data!</em></a></li>
   <li><a href="#lets-make-the-pca-plot" id="toc-lets-make-the-pca-plot" class="nav-link" data-scroll-target="#lets-make-the-pca-plot"><em>Let’s make the PCA plot!</em></a></li>
-  <li><a href="#now-lets-produce-a-genotype-by_individual-plot" id="toc-now-lets-produce-a-genotype-by_individual-plot" class="nav-link" data-scroll-target="#now-lets-produce-a-genotype-by_individual-plot">Now let’s produce a genotype-by_individual plot</a></li>
+  <li><a href="#now-lets-produce-a-genotype-by-individual-plot" id="toc-now-lets-produce-a-genotype-by-individual-plot" class="nav-link" data-scroll-target="#now-lets-produce-a-genotype-by-individual-plot">Now let’s produce a genotype-by-individual plot</a></li>
+  <li><a href="#a-take-home-message" id="toc-a-take-home-message" class="nav-link" data-scroll-target="#a-take-home-message">A take-home message:</a></li>
   </ul>
 </nav>
     </div>
@@ -281,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The example here will be based on a dataset from this paper:</p>
 <p>McCallum, Q., K. Askelson, F.F. Fogarty, L. Natola, E. Nikelski, A. Huang, and D. Irwin. 2024. Pronounced differentiation on the Z chromosome and parts of the autosomes in crowned sparrows contrasts with mitochondrial paraphyly: implications for speciation. <em>Journal of Evolutionary Biology</em>, voae004, https://doi.org/10.1093/jeb/voae004</p>
 <p>We will load in a large dataset of genotypes throughout the genomes of Golden-crowned Sparrows and two forms of White-crowned Sparrows: <em>pugetensis</em> and <em>gambelii</em>. We will then use my own custom-designed Julia package called SNPlots.jl to analyze and graph aspects of this dataset.</p>
-<p>To work through this example, start with a new Pluto notebook. Give it a name and save it, so your work will be continuously saved. You will need a set of files that I will send you–these include one file for the SNPlots.jl package of functions and four data files within a folder called <code>Sparrow_data_McCallumetal2024</code>.</p>
+<p>To work through this example, start with a new Pluto notebook. Give it a name and save it, so your work will be continuously saved. You will need a set of files that I will send you–these include one file for the <code>SNPlots.jl</code> package of functions and four data files within a folder called <code>Sparrow_data_McCallumetal2024</code>.</p>
 <section id="set-the-working-directory" class="level3">
 <h3 class="anchored" data-anchor-id="set-the-working-directory">Set the working directory</h3>
 <p>First, set the working directory to match the folder that I sent you called <code>JuliaPlutoDemoSNPplots</code> :</p>
@@ -291,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="load-the-snplots-package" class="level3">
-<h3 class="anchored" data-anchor-id="load-the-snplots-package">Load the SNPlots package</h3>
+<h3 class="anchored" data-anchor-id="load-the-snplots-package">Load the <code>SNPlots</code> package</h3>
 <p>I wrote this set of functions to facilitate the analysis of and graphing of genomic data. The scope is quite modest so far, mainly targeted towards producing certain figures that I wanted in our papers.</p>
 <p>The SNPlots package is not yet released to the world, so please don’t spread widely yet. I anticipate releasing it when the first paper is published using figures it produces.</p>
 <p>We first need to load two packages used by SNPlots:</p>
@@ -317,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="load-three-more-packages-for-importing-data" class="level4">
 <h4 class="anchored" data-anchor-id="load-three-more-packages-for-importing-data">Load three more packages for importing data</h4>
-<p>These are for storing data as type DataFrame, and reading in delimited files:</p>
+<p>These are for storing data as type <code>DataFrame</code>, and reading in delimited files:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span>, <span class="bu">CSV</span>, <span class="bu">DelimitedFiles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
@@ -345,12 +346,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@time</span> geno <span class="op">=</span> <span class="fu">readdlm</span>(genotype_file_name, <span class="ch">'\t'</span>, <span class="dt">Int16</span>, <span class="ch">'\n'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    loci_count <span class="op">=</span> <span class="fu">size</span>(geno, <span class="fl">2</span>) <span class="op">-</span> <span class="fl">1</span>   <span class="co"># because the first column is not a SNP (just a count from zero)</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">string</span>(<span class="st">"Read in genotypic data at "</span>, loci_count,<span class="st">" loci for "</span>, indNum, <span class="st">" individuals. </span><span class="sc">\n</span><span class="st">"</span>))</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  genosOnly <span class="op">=</span> geno[<span class="op">:</span>, <span class="fu">Not</span>(<span class="fl">1</span>)] <span class="co">#remove first column, which was just a row index</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    genosOnly <span class="op">=</span> geno[<span class="op">:</span>, <span class="fu">Not</span>(<span class="fl">1</span>)] <span class="co">#remove first column, which was just a row index</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the data matrix, rows represent individuals and columns represent SNPs, and genotypes are as follows:</p>
-<p>0: homozygous reference 1: heterozygous 2: homozygous alternate -1: missing genotype</p>
-<section id="if-you-want-to-filter-individuals-or-snps-with-too-much-missing-data-i-have-scripts-that-can-be-added-here" class="level5">
-<h5 class="anchored" data-anchor-id="if-you-want-to-filter-individuals-or-snps-with-too-much-missing-data-i-have-scripts-that-can-be-added-here">[If you want to filter individuals or SNPs with too much missing data, I have scripts that can be added here]</h5>
+<p>0: homozygous reference; 1: heterozygous; 2: homozygous alternate; -1: missing genotype</p>
+<section id="if-you-want-to-filter-individuals-or-snps-with-too-much-missing-data-i-have-scripts-that-can-be-added-here" class="level4">
+<h4 class="anchored" data-anchor-id="if-you-want-to-filter-individuals-or-snps-with-too-much-missing-data-i-have-scripts-that-can-be-added-here">[If you want to filter individuals or SNPs with too much missing data, I have scripts that can be added here]</h4>
 </section>
 <section id="choose-our-groups-to-plot-and-their-colours" class="level4">
 <h4 class="anchored" data-anchor-id="choose-our-groups-to-plot-and-their-colours">Choose our groups to plot, and their colours</h4>
@@ -382,8 +383,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Gold symbols represent Golden-crowned Sparrows. Blue represent the <em>gambelii</em> form of White-crowned Sparrows. Red represent that the <em>pugetensis</em> form of White-crowned Sparrows.</p>
 </section>
-<section id="now-lets-produce-a-genotype-by_individual-plot" class="level3">
-<h3 class="anchored" data-anchor-id="now-lets-produce-a-genotype-by_individual-plot">Now let’s produce a genotype-by_individual plot</h3>
+<section id="now-lets-produce-a-genotype-by-individual-plot" class="level3">
+<h3 class="anchored" data-anchor-id="now-lets-produce-a-genotype-by-individual-plot">Now let’s produce a genotype-by-individual plot</h3>
 <p>Some initial setup of parameters for the plot:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    group1 <span class="op">=</span> <span class="st">"GCSP"</span>   <span class="co"># the alleles most common in this  group will be assigned the same color in the graph</span></span>
@@ -392,9 +393,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    missingFractionAllowed <span class="op">=</span> <span class="fl">0.2</span></span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Calculate allele frequencies and sample sizes per group:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>freqs, sampleSizes <span class="op">=</span> SNPlots.<span class="fu">getFreqsAndSampleSizes</span>(genosOnly_with_missing, ind_with_metadata.Fst_group, groups_to_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>freqs, sampleSizes <span class="op">=</span> SNPlots.<span class="fu">getFreqsAndSampleSizes</span>(genosOnly_with_missing,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                            ind_with_metadata.Fst_group, groups_to_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Calculate Fst (allele frequency differentiation) between pairs of groups:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Fst, FstNumerator, FstDenominator, pairwiseNamesFst <span class="op">=</span> SNPlots.<span class="fu">getFst</span>(freqs, sampleSizes, groups_to_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Fst, FstNumerator, FstDenominator, pairwiseNamesFst <span class="op">=</span> SNPlots.<span class="fu">getFst</span>(freqs,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                                            sampleSizes, groups_to_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Choose the chromosome to plot:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    chr <span class="op">=</span> <span class="st">"CM018231.2"</span> <span class="co"># the name of a scaffold in the assembly</span></span>
@@ -410,10 +413,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    plotInfo[<span class="fl">1</span>] <span class="co"># this outputs the plot above</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The figure shows the genotypes of individuals at SNPs that have Fst higher than <code>Fst_cutoff</code> in the groups being compared (given by <code>groupsToCompare</code>). The two alleles have different shades of purple, with triangles indicating heterozygotes. The bottom of the plot indicates the location of SNPs on the chromosome, and the blue shading indicates SNP density across the chromosome.</p>
-<p>The <code>SNPlots.plotGenotypeByIndividual()</code> function produces this complex plot from the repeated use of low-level plotting functions to simply draw lines, filled shapes, and text in the plotting window. If you learn the commands to draw such elements and the logic by which to determine where to draw them, you can design your own functions to make all sorts of complex figures.</p>
-
-
+<p>If the function works on your computer like it does on mine, it will create a separate plot window and show the figure both there and in your Pluto notebook.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Produce such plots for a series of chromosomes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you write a loop to cycle through a number of different chromosomes and make a plot for each? You would use a lot of the code in the previous two cells above. You could do this for these scaffolds, expressed here a a vector of strings: <code>["CM018230.2", "CM018231.2", "CM018232.2", "CM018233.2", "CM018234.2"]</code></p>
+</div>
+</div>
 </section>
+</section>
+<section id="a-take-home-message" class="level3">
+<h3 class="anchored" data-anchor-id="a-take-home-message">A take-home message:</h3>
+<p>The <code>SNPlots.plotGenotypeByIndividual()</code> function produces this complex plot from the repeated use of low-level plotting functions to simply draw lines, filled shapes, and text in the plotting window. <em>If you learn the commands to draw such simple elements and the logic by which to determine where to draw them, you can design your own functions to make all sorts of complex figures.</em></p>
+
+
 </section>
 
 </main> <!-- /main -->
