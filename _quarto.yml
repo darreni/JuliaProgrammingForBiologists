@@ -5,6 +5,7 @@ project:
 website:
   title: "JuliaProgrammingForBiologists"
   page-navigation: true
+  bread-crumbs: false
   navbar:
     left:
       - href: index.qmd

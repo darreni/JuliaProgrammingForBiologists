@@ -27,9 +27,9 @@ You can do a little more complex expression:
 
 ### Arithmetic operators
 
-Play around with other simple mathematical expressions. These are some of the main _arithmetic operators_, which you are likely familiar with: `+` , `-`, `*`, `/`, `^`
+Play around with other simple mathematical expressions. These are some of the main _arithmetic operators_, which you are likely familiar with: `+` , `-`, `*`, `/`, `^`. Try using parentheses to control the order of operations (for example: compare the returned value of `3 + 5 / 2^3` and `(3 + 5) / 2^3`).
 
-One that you might be less familiar with is the _remainder operator_ `%` which gives the remainder of a division, Try playing with these:
+One that operator that you might be less familiar with is the _remainder operator_ `%` which gives the remainder of a division. Try it out:
 
 ```{julia}
 7 % 2
@@ -48,13 +48,31 @@ sqrt(16)
 
 ### Assigning values to variable names
 
-Each of the above expressions returns a _value_ that we can give a name and store in memory, using the equal sign `=`, the _assignment operator_. We can then use variable names in subsequent expressions:
+Each of the above expressions returns a _value_ that we can give a name and store in memory, using the equal sign `=`, the _assignment operator_. For example:
+
+```{julia}
+x = 2sqrt(9)
+```
+
+The above command does several interesting things:
+
+* It _evaluates_ the expression on the **right** side of the equal sign.
+* It checks whether there is already an object in memory with the name given on the **left** side of the equal sign (in this case, `x`). If not, it creates that object.
+* It assigns the value produced by the right side to the object named by the left side.
+
+We can then use that named object's value in subsequent expressions:
+
+```{julia}
+4x
+```
+
+Assigning values to named objects allows us to save values in memory and then combine them in our calcuations:
 
 ```{julia}
 pop1 = 50; pop2 = 200; totalPop = pop1 + pop2
 ```
 
-The semicolons above are used to separate distinct expressions that Julia should evaluate before continuing to the next. This is called a _compound expresssion_ and is a convenient to enter several commands on the same line. Another way to enter a compound expression is with a begin-end block:
+The semicolons above are used to separate distinct expressions that Julia should evaluate before continuing to the next. This is called a _compound expresssion_ and is a convenient to enter several commands on the same line. Another way to enter a compound expression is with a _begin-end_ block:
 
 ```{julia}
 begin
@@ -65,7 +83,7 @@ end
 
 ::: {.callout-tip}
 ## Calculate the area of a circular forest patch
-Pick a number for the radius (in km) of a circle, and assign that to a variable name and store that in Julia's memory. Then in a separate command, use that variable to calculate the area of the circle (which is given by π$r^{2}$; to write the exponent of '2' though, you'll need to use '^2'). A neat thing is that Julia already knows the value of π; to get it, just type `pi` or alternatively `\pi` then tab.
+Pick a number for the radius (in km) of a circle, and assign that to a variable name and store that in Julia's memory. Then in a separate command, use that variable to calculate the area of the circle (the standard formula for this is π$r^{2}$; to write the exponent of '2' though, you'll need to use '^2'). A neat thing is that Julia already knows the value of π; to get it, just type `pi` or alternatively `\pi` then tab.
 :::
 
 ### Different _Types_ of numbers
@@ -84,9 +102,9 @@ Julia responds by saying that the value `3` is of the `Int64` type. This means t
 typeof(3.0)
 ```
 
-Julia responds by sayng `3.0` is of the `Float64` type. This means a 64-bit floating-point number.
+Julia responds by sayng `3.0` is of the `Float64` type. This means a 64-bit floating-point number. By writing the `.0` after the `3` we have told Julia we want this number treated as a floating-point number.
 
-Much of the time, we don't need to think about variable types, because Julia is smart and handles types through somethign called _dynamic typing_. Here's an example:
+Much of the time, we don't need to think about variable types, because Julia is smart and handles types through something called _dynamic typing_. Here's an example:
 
 ```{julia}
 a = 2
@@ -105,7 +123,7 @@ ratio2 = 5//7
 product = ratio1 * ratio2
 ```
 
-As your Julia skills increase, there are large benefits to being somewhat aware of types--this can help you write efficient programs and help with debugging your code. You can even define your own Types.
+As your Julia skills increase, there are large benefits to being somewhat aware of types; this can help you write efficient programs and help with debugging your code. You can even define your own Types.
 
 ### Ranges
 
@@ -123,12 +141,12 @@ If we want only the even numbers, we enter something like `collect(0:2:30)`.
 
 ::: {.callout-tip}
 ## Create a descending vector
-You have a population of 30 individuals that is declining by 3 individuals in each time step. Create a vector containing the numbers containing the population sizes at each time step.
+You have a population of 30 individuals that is decreasing by 3 individuals in each time step. Use the `collect()` function to create a list of numbers (a.k.a. a _vector_) representing the population sizes at each time step (until the population goes extinct).
 :::
 
 ### Characters and Strings
 
-Programming in biology often involves manipulating text such as "ACGT". For this, we can use two other variable types in Julia: characters (officially `Char`) and strings (officially `String`), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha).
+Programming in biology often involves manipulating text such as "ACGT". For this, we can use two other variable types in Julia: _characters_ (officially `Char`) and _strings_ (officially `String`), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha).
 
 We enter characters with single quotes, and can combine them to make strings:
 
@@ -196,22 +214,29 @@ You can find how to write a whole bunch of unicode symbols here: <https://docs.j
 
 ### Comparisons and Booleans
 
-In programming it is often important to check if certain conditions are `true` or `false`. These are called Booleans (of type `Bool` in Julia). 
+In programming it is often important to check if certain conditions are `true` or `false`. These values are called Booleans (of type `Bool` in Julia). 
 
-These operators are used to compare two values (place to left and right of the operator), resulting in `true` or `false`:
-`==` : equal?
-`!=` : not equal?
-`<` : less than?
-`<=` : less than or equal?
-`>` : greater than?
-`>=` : greater than or equal?
+These _comparison operators_ are used to compare two values (place to left and right of the operator), resulting in `true` or `false`:\
+`==` : equal?\
+`!=` : not equal?\
+`<` : less than?\
+`<=` : less than or equal?\
+`>` : greater than?\
+`>=` : greater than or equal?\
 
-Try a bunch of comparisons of values using the above. These are called _Boolean expressions_.
+Try a bunch of comparisons of values using the above. These are called _Boolean expressions_. For example:
+```{julia}
+sqrt(9) == 3
+```
 
-We can use _Boolean operators_ to combine multiple comparisons. These are used as follows, where `x` and `y` are Boolean expression:
-`!x`  : not x
-`x && y`  : x and y
-`x || y`  : x or y
+```{julia}
+x = 8; sqrt(x) >= 3
+```
+
+We can use _Boolean operators_ to combine multiple comparisons. These are used as follows, where `x` and `y` are Boolean expression:\
+`!x`  : not x\
+`x && y`  : x and y\
+`x || y`  : x or y\
 
 For example:
 
@@ -223,18 +248,24 @@ For example:
 5 <= 3 || 7 == 14/2
 ```
 
+```{julia}
+!(5 <= 3 || 7 == 14/2)
+```
+
 ::: {.callout-tip}
 ## Select the extremes 
-Write a series of commands in which you pick a random number between 0 and 1 with the `rand()` function, and then return `true` if that number is either above 0.75 or below 0.25, and `false` otherwise.
+Write a series of commands in which you pick a random number between 0 and 1 with the `rand()` function, and return `true` if that number is either above 0.75 or below 0.25, and `false` otherwise.
+
+(If you solve the above and have time, can you figure out a way to _chain_ your Boolean expressions into a form similar to `value1 < x < value2` ?)
 :::
 
 ### Collections, e.g. Arrays
 
-Variables can contain more than a single item in them. A general term for such a data structure is a _collection_. An array is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Here we declare some kinds of arrays:
+Variables can contain more than a single item in them. A general term for such a data structure is a _collection_. An array is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Below we create some kinds of arrays:
 
 ```{julia}
 arrayA = [7.3, 3, 11.2, -5, 3.2]
-```
+``` 
 
 ```{julia}
 arrayB = [6 5 4; 3 2 1]
@@ -242,7 +273,7 @@ arrayB = [6 5 4; 3 2 1]
 
 Because these variables are more complex data structures that the simple ones we've looked at so far, Julia tells you the type of the returned value, before showing you the actual values.
 
-Note that a `Vector` is another name (an _alias_) for a 1-dimensional array, and a `Matrix` is another name for a 2-dimensional array.
+Note that a `Vector` is another name (an _alias_) for a 1-dimensional array, and a `Matrix` is another name for a 2-dimensional array. Inside the curly brackets, Julia indicates the Type that each element of the array belongs to (this is `Float64` in the first case, and `Int64` in the second).
 
 We can ask Julia to return the values in parts of an array by _indexing_ into the array. For example:
 
@@ -341,7 +372,7 @@ The `rand(x)` function produces `x` random numbers between 0 and 1. The above re
 
 ::: {.callout-tip}
 ## Even more numbers!
-Modify the above code so that it takes the **square root** of each of **one million random numbers** between 0 and 1, and then adds them up.
+Modify the above code so that it takes the **square** of each of **one million random numbers** between 0 and 1, and then adds them up.
 ::: 
 
 
@@ -407,7 +438,7 @@ y = x .^ 2
 plot(x, y)
 ```
 
-This will likely open another window on your computer, and show a plot. (If not, don't worry--we're going to set up another good way to plot in the next page.)
+This will likely open another window on your computer, and show a plot. (If not, don't worry; we're going to set up another good way to plot in the next page.)
 
 If the above worked, you can see another way to run the plot() function here:
 

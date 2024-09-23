@@ -15,4 +15,6 @@ My intended audience with these tutorials is biologists with no or little previo
 
 This is a work in progress, and we'll see where it goes . . .
 
+[![](Julia_logo.jpg){width=15% fig-align=center}](https://julialang.org)
+
 To advance through pages of the tutorial, click on the right arrow below.
