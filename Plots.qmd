@@ -98,7 +98,7 @@ plot!(x -> 3cos(x))
 p2 = plot!(x -> (x^2 - 5))
 ```
 
-In the above, the arguments given to `plot!()` are _anonymous functions_. This means that are not given names and are not stored in memory. Rather, the syntax `x -> f(x)` simply provides a mapping of x onto y values, and the `plot!()` function interprets that and shows us a part of the relationship.
+In the above, the arguments given to `plot!()` are _anonymous functions_. This means they are not given names and are not stored in memory. Rather, the syntax `x -> f(x)` simply provides a mapping of x onto y values, and the `plot!()` function interprets that and shows us a part of the relationship.
 
 #### Add text to the plot
 

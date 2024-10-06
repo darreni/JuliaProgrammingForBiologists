@@ -1,0 +1,78 @@
+---
+title: "Use an Integrated Development Environment (IDE)"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+    fig-width: 6
+    fig-height: 4
+jupyter: julia-1.10
+---
+
+We have now learned two interfaces for coding in Julia: 1) using the REPL; 2) using Pluto). The REPL is good for interactive use, using single commands or short scripts. Pluto is excellent for developing somewhat longer scripts in a stepwise manner, but still not great for really long and comnplex programs. For developing large programming projects, we often will want to use a highly capable text editor (e.g. Emacs, Vim) or an Integrated Development Environment (IDE). (If you've used _RStudio_, then you've already used an IDE--but it only works with R and Python.)
+
+**Visual Studio Code** (or **VS Code** for short) has become the widely recommended IDE for Julia. VS Code can be used to program in just about any language (e.g. R, Python, C, HTML), so investment of time in learning it can be rewarding whatever languages you may use in the future. VS Code is highly customizable through the loading of extensions, and there are excellent and easily loaded extensions that facilitate programming in Julia using VS Code.
+
+One hesitation I have in introducing VS Code is that because it is a highly capable and customizable IDE, it looks visually complex and can have a somewhat steep learning curve. For this reason, if you are enjoying the simplicity of using Julia just via the REPL and/or Pluto, then it might be wise to stick to those until you build up more experience, and then try VS Code.
+
+### Install VS Code with the Julia extension
+
+To install VS Code, follow the instructions under the "Getting Started" heading on this web page: <https://code.visualstudio.com/docs/languages/julia>  (Note that you already have Julia installed, so you can skip that step.) I will repeat the key steps here too:
+
+* Install VS Code for your computer here: <https://code.visualstudio.com/download>.
+* Start VS Code, and in the top menu bar choose View->Extensions, then type in `Julia` in the "Search Extensions" box, then select the Julia extension and click its install button.  
+
+### Start a Julia script file
+
+To stay organized, first choose File->Open Folder, and click the New Folder button at the lower left, and name a new folder something creative like "MyFirstJuliaVSCodeFolder".
+
+Then open a new file in the folder--there are many ways to do this--one of these is to click on the Explorer symbol (looks like some pages of paper) at upper left, then to the right of your folder name, click on the symbol that looks like a page with a plus sign. This is the New File command. A blank space for a file name will appear, and then choose a name **ending in `.jl`**. For example, `myFirstJuliaFile.jl`. The last `.jl` part is crucial, as it tells VS Code that this file is in the Julia language.
+
+After you press return, a window to the right opens with the name of your file at the top. This window is a text editor showing the contents of your file. It is empty at the start, so put something in there! For example, this is what I typed there:
+
+``` julia
+# This is a Julia file created in VS Code
+# by Darren Irwin
+# 6 October 2024
+
+myText = "I can count to "
+
+repeats = 3
+
+for i in 1:repeats
+println(myText * string(i))
+end
+```
+
+### Run your script
+
+Once you are happy with what is there, you save (File->Save) and then run the file by clicking the right-pointing triangle at upper right of the text window. This will open a REPL window (probably at bottom of your screen), run the code in the REPL, and output the results there.
+
+### Interact with the REPL
+
+Another way to interact with the REPL is to cut-and-paste code from your script into the REPL, running individual commands as you go. In this way, you can test out commands in the REPL, and when you know they work as intended you can include them in your growing script. 
+
+### Include a plot
+
+Let's see how VS Code displays plots. Add this to your Julia file (the one you made above) and then run the file again:
+
+``` julia
+using Plots
+f(x) = x^2 - 3
+plot(f)
+```
+
+If your computer works like mine, you see a panel to the right that shows the plot. (The plot shows an upward-opening parabola.)
+
+### Explore VS Code
+
+VS Code has far more features and complexities than I can summarize here. One key to using it is to learn just enough to do what you need to do, and don't worry about the rest. Here are a couple helpful things to note at this point:
+
+* After you run some Julia code and have a REPL open, you should see three little circles somewhere on the left side of the screen. This is a Julia symbol. If you click on this, you will see a list of the objects in Julia's active memory--which can be very useful for seeing what your code has produced. (If you've run the above code first, you will see objects such as `myText` and `repeats` and their values.)
+* An important tool in VS Code is the Command Palette. You can find this by clicking on the symbol that looks like a gear, in the lower left of the VS Code window, and choosing `Command Palette` in the popup window. Then a search bar opens at the top of the page, and you can type text related to the command you are looking for--for example, try `save` and then choose `File: Save` to save the current file you are working on. 
+
+
+
+

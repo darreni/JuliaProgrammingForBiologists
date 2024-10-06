@@ -8,7 +8,7 @@
 
 <meta name="author" content="Darren Irwin">
 
-<title>Julia Programming For Biologists – JuliaProgrammingForBiologists</title>
+<title>Use an Integrated Development Environment (IDE) – JuliaProgrammingForBiologists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./LoadData&amp;Analyze&amp;Graph.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -110,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Julia Programming For Biologists</h1>
+          <h1 class="quarto-secondary-nav-title">Use an Integrated Development Environment (IDE)</h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -140,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -205,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./UseVSCode.html" class="sidebar-item-text sidebar-link">
+  <a href="./UseVSCode.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Use an Integrated Development Environment (IDE)</span></a>
   </div>
 </li>
@@ -216,15 +250,26 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#install-vs-code-with-the-julia-extension" id="toc-install-vs-code-with-the-julia-extension" class="nav-link active" data-scroll-target="#install-vs-code-with-the-julia-extension">Install VS Code with the Julia extension</a></li>
+  <li><a href="#start-a-julia-script-file" id="toc-start-a-julia-script-file" class="nav-link" data-scroll-target="#start-a-julia-script-file">Start a Julia script file</a></li>
+  <li><a href="#run-your-script" id="toc-run-your-script" class="nav-link" data-scroll-target="#run-your-script">Run your script</a></li>
+  <li><a href="#interact-with-the-repl" id="toc-interact-with-the-repl" class="nav-link" data-scroll-target="#interact-with-the-repl">Interact with the REPL</a></li>
+  <li><a href="#include-a-plot" id="toc-include-a-plot" class="nav-link" data-scroll-target="#include-a-plot">Include a plot</a></li>
+  <li><a href="#explore-vs-code" id="toc-explore-vs-code" class="nav-link" data-scroll-target="#explore-vs-code">Explore VS Code</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Julia Programming For Biologists</h1>
+<h1 class="title d-none d-lg-block">Use an Integrated Development Environment (IDE)</h1>
 </div>
 
 
@@ -247,20 +292,60 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Welcome! I am starting this website on January 11, 2024, for the purpose of teaching tutorials about the Julia programming language, in the context of biology.</p>
-<p>Julia is a relatively new programming language (started around 2012; first official release in 2018) that is both highly readable (by humans) and fast. This is intended to solve the “2-language” problem, a common workflow in which development of a new program is done first in a highly readable language (e.g., R or Python) and then converted by an expert programmer into a fast language (e.g., C), such that the resulting code can be difficult to read by non-experts. Hence Julia aims to be a language that provides easy entry for new programmers while also having the power and efficiency to appeal to experts. It is used by NASA, Moderna, Pfizer, and many other organizations, and is used widely by scientists doing climate modelling of Earth and imaging black holes in distant galaxies.</p>
-<p>If you are in doubt that you need a faster or more readable language than the one you are using, ask yourself this: Have you ever heard other scientists mention how long their bioinformatic processing or evolutionary simulations can take? It is often on the scale of days, weeks, months. What if that were instead minutes, hours, days? How might that accelerate your research, and allow you to expand the scope of your science? Have you ever heard someone say “I can’t program”? Did they decide that because they are fundamentally unable to learn the logic of programming, or because many of the languages often taught in programming are really difficult to learn?</p>
-<p>I have used Julia in my own work for about 2 years now, after having much experience with Matlab and then R, and dabbling a bit in Python, C, C++, and Java. The developers of Julia have praise for aspects of all of these languages, and their goal was to combine all the good aspects into one efficient and readable language. I think they have succeeded marvelously.</p>
-<p>My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. My goal is to get you programming quickly, givig just enough underlying explanation of computer science principles to enable fast progress.</p>
-<p>This is a work in progress, and we’ll see where it goes . . .</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://julialang.org"><img src="Julia_logo.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:15.0%"></a></p>
-</figure>
-</div>
-<p>To advance through pages of the tutorial, click on the right arrow below.</p>
+<p>We have now learned two interfaces for coding in Julia: 1) using the REPL; 2) using Pluto). The REPL is good for interactive use, using single commands or short scripts. Pluto is excellent for developing somewhat longer scripts in a stepwise manner, but still not great for really long and comnplex programs. For developing large programming projects, we often will want to use a highly capable text editor (e.g.&nbsp;Emacs, Vim) or an Integrated Development Environment (IDE). (If you’ve used <em>RStudio</em>, then you’ve already used an IDE–but it only works with R and Python.)</p>
+<p><strong>Visual Studio Code</strong> (or <strong>VS Code</strong> for short) has become the widely recommended IDE for Julia. VS Code can be used to program in just about any language (e.g.&nbsp;R, Python, C, HTML), so investment of time in learning it can be rewarding whatever languages you may use in the future. VS Code is highly customizable through the loading of extensions, and there are excellent and easily loaded extensions that facilitate programming in Julia using VS Code.</p>
+<p>One hesitation I have in introducing VS Code is that because it is a highly capable and customizable IDE, it looks visually complex and can have a somewhat steep learning curve. For this reason, if you are enjoying the simplicity of using Julia just via the REPL and/or Pluto, then it might be wise to stick to those until you build up more experience, and then try VS Code.</p>
+<section id="install-vs-code-with-the-julia-extension" class="level3">
+<h3 class="anchored" data-anchor-id="install-vs-code-with-the-julia-extension">Install VS Code with the Julia extension</h3>
+<p>To install VS Code, follow the instructions under the “Getting Started” heading on this web page: <a href="https://code.visualstudio.com/docs/languages/julia" class="uri">https://code.visualstudio.com/docs/languages/julia</a> (Note that you already have Julia installed, so you can skip that step.) I will repeat the key steps here too:</p>
+<ul>
+<li>Install VS Code for your computer here: <a href="https://code.visualstudio.com/download" class="uri">https://code.visualstudio.com/download</a>.</li>
+<li>Start VS Code, and in the top menu bar choose View-&gt;Extensions, then type in <code>Julia</code> in the “Search Extensions” box, then select the Julia extension and click its install button.</li>
+</ul>
+</section>
+<section id="start-a-julia-script-file" class="level3">
+<h3 class="anchored" data-anchor-id="start-a-julia-script-file">Start a Julia script file</h3>
+<p>To stay organized, first choose File-&gt;Open Folder, and click the New Folder button at the lower left, and name a new folder something creative like “MyFirstJuliaVSCodeFolder”.</p>
+<p>Then open a new file in the folder–there are many ways to do this–one of these is to click on the Explorer symbol (looks like some pages of paper) at upper left, then to the right of your folder name, click on the symbol that looks like a page with a plus sign. This is the New File command. A blank space for a file name will appear, and then choose a name <strong>ending in <code>.jl</code></strong>. For example, <code>myFirstJuliaFile.jl</code>. The last <code>.jl</code> part is crucial, as it tells VS Code that this file is in the Julia language.</p>
+<p>After you press return, a window to the right opens with the name of your file at the top. This window is a text editor showing the contents of your file. It is empty at the start, so put something in there! For example, this is what I typed there:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a Julia file created in VS Code</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by Darren Irwin</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6 October 2024</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>myText <span class="op">=</span> <span class="st">"I can count to "</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>repeats <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>repeats</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(myText <span class="op">*</span> <span class="fu">string</span>(i))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="run-your-script" class="level3">
+<h3 class="anchored" data-anchor-id="run-your-script">Run your script</h3>
+<p>Once you are happy with what is there, you save (File-&gt;Save) and then run the file by clicking the right-pointing triangle at upper right of the text window. This will open a REPL window (probably at bottom of your screen), run the code in the REPL, and output the results there.</p>
+</section>
+<section id="interact-with-the-repl" class="level3">
+<h3 class="anchored" data-anchor-id="interact-with-the-repl">Interact with the REPL</h3>
+<p>Another way to interact with the REPL is to cut-and-paste code from your script into the REPL, running individual commands as you go. In this way, you can test out commands in the REPL, and when you know they work as intended you can include them in your growing script.</p>
+</section>
+<section id="include-a-plot" class="level3">
+<h3 class="anchored" data-anchor-id="include-a-plot">Include a plot</h3>
+<p>Let’s see how VS Code displays plots. Add this to your Julia file (the one you made above) and then run the file again:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> x<span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If your computer works like mine, you see a panel to the right that shows the plot. (The plot shows an upward-opening parabola.)</p>
+</section>
+<section id="explore-vs-code" class="level3">
+<h3 class="anchored" data-anchor-id="explore-vs-code">Explore VS Code</h3>
+<p>VS Code has far more features and complexities than I can summarize here. One key to using it is to learn just enough to do what you need to do, and don’t worry about the rest. Here are a couple helpful things to note at this point:</p>
+<ul>
+<li>After you run some Julia code and have a REPL open, you should see three little circles somewhere on the left side of the screen. This is a Julia symbol. If you click on this, you will see a list of the objects in Julia’s active memory–which can be very useful for seeing what your code has produced. (If you’ve run the above code first, you will see objects such as <code>myText</code> and <code>repeats</code> and their values.)</li>
+<li>An important tool in VS Code is the Command Palette. You can find this by clicking on the symbol that looks like a gear, in the lower left of the VS Code window, and choosing <code>Command Palette</code> in the popup window. Then a search bar opens at the top of the page, and you can type text related to the command you are looking for–for example, try <code>save</code> and then choose <code>File: Save</code> to save the current file you are working on.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -690,11 +775,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./LoadData&amp;Analyze&amp;Graph.html" class="pagination-link" aria-label="Load &amp; Graph Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Load &amp; Graph Data</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="About">
-        <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
