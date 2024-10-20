@@ -1,0 +1,361 @@
+---
+title: "Randomization in Simulation and Statistics"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+    fig-width: 6
+    fig-height: 4
+jupyter: julia-1.10
+---
+
+The concept of random events is central to our understanding of many biological processes (e.g. mutation, genetic drift) and to hypothesis testing using data from a sample. Hence, we biologists often need to use random numbers in our computer programming. Random numbers enable us to model probabilistic processes, where different outcomes occur some pre-defined proportion of the time, if we were to do the process a very large number of times. 
+
+An interesting fact though is that computers cannot truly pick totally random numbers. Rather, there are deterministic algorithms that do a great job of producing series of numbers that have little apparent relationship with each other, and that appear to occur with equal probability over some range of values. These are often called 'pseudorandom numbers'.
+
+These algorithms start with a _random number seed_, and if you give a certain algorithm the same seed and run it twice, it will produce the same series of 'random' numbers. This can be useful if for instance you are testing a simulation and you want to ensure it produces the same output after you've made some small change to the code. Other times though, you want your random numbers to be as unpredictable as possible. For this we can use an arbitrary seed that we have never tried before; different seeds will produce totally different random sequences. A neat trick is to look up the time on the computer's clock and use digits representing the number of milliseconds (after the last whole second) as the random number seed; this way the programmer cannot even predict the seed before running the code.
+
+Most of the time though, we don't need to think at all about the way Julia is generating random numbers, as it uses an excellent algorithm and uses an arbitrary seed based on difficult-to-predict aspects of the computer's state. So generating random numbers in Julia is easy!
+
+### The `rand()` function
+
+To get a random number between 0 and 1, we simply write the `rand()` function with no arguments:
+
+```{julia}
+rand()
+```
+
+The output of this default use of the funtion is a floating-point number (that is, it is of type `Float64`).
+
+Try running that a few times to see that the output is indeed random.
+
+Better yet, let's run it 10 times in one command:
+
+```{julia}
+rand(10)
+```
+
+This shows that including an integer as the one argument tells Julia to generate that many random numbers (each a `Float64` between 0 and 1).
+
+But the `rand()` function makes great use of multiple dispatch. If we include a type as the one argument, it gives us a random value for that type:
+
+```{julia}
+rand(Int8)
+```
+
+The returned value here is a random integer within the range of possible `Int8` values.
+
+To randomly produce `true` or `false`:
+
+```{julia}
+rand(Bool)
+```
+
+If we instead put a range as the one argument, Julia returns a number in that range:
+
+```{julia}
+rand(1:6)  
+```
+
+The above simulates the role of a 6-sided die. Try it a few times.
+
+Or we can give a vector or tuple containing a set of values to choose from:
+
+```{julia}
+rand([0, pi, 2pi])  # the brackets indicate a vector (i.e., an array)
+```
+
+```{julia}
+rand(('A', 'C', 'G', 'T'))  # the parentheses indicate a tuple
+```
+
+We can even write the above example more concisely, by providing all the `Char`s together as a `String`:
+
+```{julia}
+rand("ACGT")  
+```
+
+There is great flexibility in how we can use the `rand()` function:
+
+```{julia}
+rand([1, "DNA", false], (2,5))  
+```
+
+Above, we provided as arguments both the set of possible outcomes and a tuple indicating the dimensions and size of the matrix to produce.
+
+### Setting up to get random numbers that are reproducible (!?!)
+
+If we want our code to produce and use the same sequence of 'random' numbers, we need to load the Random package:
+
+```{julia}
+using Random
+```
+
+The `rand()` function can accept an optional first argument that specifies the random number generator. Here, we will use the Xoshiro algorithm (now the default in Julia) and give it an arbitrary seed of 321:
+
+```{julia}
+rand(Xoshiro(321), 5)
+```
+
+Let's see if we run that again:
+```{julia}
+rand(Xoshiro(321), 5)
+```
+
+We get the same sequence of numbers. The numbers are 'random' in some sense, but repeatable. _Try changing the value of the seed, and see what happens._
+
+Instead of setting up a random number generator each time we call the `rand()` function, we might want to set up a random number generator and then use that throughout our program. That way, the set of numbers in our program is never repeated within our program, but the whole program will run the same each time. For this, we set up a random number generator ('rng') and use that each time:
+
+```{julia}
+rng = Xoshiro(321)
+rand(rng, 5)
+```
+
+```{julia}
+rand(rng, 5)
+```
+
+Now our two sets of numbers above are different (so 'random' with respect to each other), but reproducible on a larger level. (You can test this by rerunning the three lines of code above.)
+
+We can use our generator to choose among specified options using a construction like this:
+
+```{julia}
+rand(rng, ["yes","no","maybe"], 5)
+```
+
+::: {.callout-tip}
+## Make some DNA
+Write a function that produces a pseudo-random DNA sequence (using the letters A, C, G, T), of a length provided to the function. Ensure that your function always provides the same sequence, such that the only thing that differs between function calls is the length of the sequence. (You might find this useful: the function `join()` useful, as it assembles a string out of elements in a vector, e.g. 'join([2,"A"])' returns `"2A"`.)
+:::
+
+::: {.content-hidden}
+
+```{julia}
+makeDNA = function(length::Int)
+    rng = Xoshiro(321)
+    join(rand(rng, "ACGT", length))
+end
+makeDNA(10)
+```
+
+```{julia}
+makeDNA(30)
+```
+
+:::
+
+### Normally-distributed random numbers 
+
+Often in the context of biology, we want normally-disributed random numbers. To draw from a normal distribution with mean 0 and standard deviation 1, use this function:
+
+```{julia}
+randn()
+```
+
+::: {.callout-tip}
+## Make a cell move
+Make a graph showing the path of a cell that has moved randomly in 2-dimensional space. (_Hint: Start the cell at a certain location give by an x and y value, and then alter the x and y values by adding independent random values_)
+:::
+
+::: {.content-hidden}
+
+```{julia}
+x = [0.0]
+y = [0.0]
+timesteps = 1_000_000
+for i in 1:timesteps
+    push!(x, x[end] + randn())
+    push!(y, y[end] + randn())
+end
+using Plots
+plot(x, y)
+```
+
+:::
+
+### Make a null distribution
+
+Now that we know how to randomly sample from a set of outcomes, we can generate our own null distributions and use them in statistical tests of our data. Here is a simple example, borrowed from the UBC BIOL 300 teaching material (thanks to Mike Whitlock) and based on the data in this paper:
+
+Hill, RA, and RA Burton 2005. Red enhances human performance in contests. Nature 435:293
+
+In the 2004 olympics, athletes in four combat sports (boxing, taekwondo, Greco-Roman wrestling, and freestyle wrestling) were randomly assigned red or blue clothing. Given the random assignment, if color has no effect on the probability of winnning, then we expect about half of matches to be won by each color. In actuality, there were more red than blue winners in 16 rounds of competition, and more blue than red winners in only 4 rounds. Is this convincing enough evidence that color had a psychological effect on the athletes, or is it plausible that this outcome was just by chance?
+
+Well, let's generate a null distribution for the number of rounds won by red (out of 20 rounds), assuming color had no actual effect. To do this we can simulate red randomly winning or losing, do that 20 times, and record the number of red wins as one possible result when color has no effect. We can then do that whole process a large number of times and observe the proportion of times that we get a result of 16 red wins or something equally or more extreme. (This is an estimate of the _P-value_.)
+
+```{julia}
+function getSimulatedRedWins()
+    redWins = 0  # initialize the counter at zero
+    for i in 1:20  # loop through 20 rounds
+        winner = rand(["red","blue"])  # pick a random winner for one round
+        if winner == "red"  # if red winner, add one to the count of red wins
+            redWins = redWins + 1 
+        end
+    end
+    return redWins
+end
+
+getSimulatedRedWins()
+```
+
+::: {.callout-tip}
+## Try another way of writing the above function
+A fun thing about programming is there are many ways to solve a problem. Try different approaches for writing the function above. Can you figure out a way that doesn't use a `for` loop?
+
+Also, can you make the above function more general in some way? For instance, can you make it such that the number of rounds (20) is not fixed but can entered as an argument to the function?
+:::
+
+We now have a function to get one simulated value for the number of red wins under the null hypothesis of no advantage for red. Lets run this many many times and generate a null distribution:
+
+```{julia}
+function getManySimResults(numSims)
+    simRedWins = Vector{Int8}(undef, numSims) 
+    for i in 1:numSims  # loop through simulations
+        simRedWins[i] = getSimulatedRedWins()
+    end
+    return simRedWins
+end
+
+nullValues = getManySimResults(1_000_000)
+
+using Plots
+
+histogram(nullValues, bins = (0:21) .- 0.5, legend=false, xlabel = "Number of red wins",
+    ylabel = "Number of simulations",)
+```
+
+The graph shows the distribution of the number of red wins out of 20 trials, under the null hypothesis that the probabilities of red vs. blue winning are both 50%.
+
+### Estimate a P-value
+
+We can now compare our real data (16/20 wins were for red) and ask how much of our null distribution is that extreme or even more extreme. Hence we'll add up the proportion of simulations with 16 or more red wins. Then, we'll multiply by 2 to include the other extremes on the blue-winning side (making this a two-tailed test): 
+
+```{julia}
+numExtremeSims = 2sum(nullValues .>= 16)
+```
+
+Our estimated P-value will be that number divided by the number of simulations:
+
+```{julia}
+pValue = numExtremeSims / length(nullValues)
+```
+
+If you have a statistics background, you might have noticed the above situation is perfectly suited for a binomial test. In fact, the distribution that we simulated is extremely close to a binomial distribution. The only reason it differs is because our number of simulated outcomes is finite--meaning there are chance differences between or simulated distribution and the theoretical distribution, which is given by the binomial theorem.
+
+We can compare our estimated P-value above with the P-value produce by a binomial test. For this, we'll add a package to our Julia environment and then use it:
+
+```julia
+using Pkg  # this loads the Pkg package
+Pkg.add("HypothesisTests")  # this downloads and installs the HypothesisTests package 
+```
+
+```{julia}
+using HypothesisTests
+BinomialTest(16, 20, 0.5)
+```
+
+This command shows that the p-value of a precise binomial test (0.0118) is extremely close to our estimate based on a large number of simulations. (Doing an even larger number of simulations will tend to make the estimate even closer to the precise value from the binomial test.)
+
+The P-value is below the usual significance threshold of 0.05, so the authors rejected the null of no effect of colour on winning, and concluded there is an advantage provided by wearing red rather than blue.
+
+### Permutation (or Randomization) test
+
+Above, we used simulated data sets to generate a null distribution for a single variable (number of red wins out of 20 trials). We can use a related approach when interested in the association of two variables. We do this by assuming the null hypothesis of no association is true, and then repeatedly and randomly shuffle the values in the dataset to make a bunch of new datasets. We calculate a summary statistic from each shuffled dataset, and the distribution of those summary statistics is our null distribution for that statistic. If the statistic from our real data is in the extreme tails of that distribution, we can then reject the null and conclude that there is in fact an association between the variables. This procedure is called a _permutation test_ or _randomization test_.
+
+Let's do a permutation test on data from this publication:
+
+Johnson _et al_. (1999) Female remating propensity contingent on sexual cannibalism in sagebrush crickets, _Cyphoderris strepitans_: a mechanism of cryptic female choice. _Behavioral Ecology_ 10: 227-233. 
+
+When these crickets mate, the male offers his hindwings for the female to eat. The question was: Why would they do such a thing?!? One idea: if the females get some nutrients from the wings, maybe they wait longer to remate (with another male), the implication being that males who feed females their wings might father more offspring.
+
+Let's load a dataset containing times to remating for two experimental groups of females: those mated initially with a winged male (and who mostly ate his wings) and those mated initially with a wingless male (where wings had been surgically removed).
+
+```{julia}
+using CSV, DataFrames
+cricketData = DataFrame(CSV.File("example_data/cricketData.csv"))
+```
+
+Let's make some quick histograms showing the distribution of remating time for each group:
+
+```{julia}
+#times = cricketData.Log_remating_time[cricketData.Male_state .== "Male_wingless"]
+using Plots
+p1 = histogram(cricketData.Log_remating_time[cricketData.Male_state .== "Male_wingless"], bins=0:0.5:5, xlims=[0,5], title="females mated to wingless males", ylabel="frequency")
+
+p2 = histogram(cricketData.Log_remating_time[cricketData.Male_state .== "Male_winged"], bins=0:0.5:5, xlims=[0,5], title="females mated to winged males", xlabel="Remating time", ylabel="frequency")
+
+plot(p1, p2,
+    layout = @layout [p
+                      p])
+```
+
+If we want to test whether the two groups differ (beyond chance differences due to sampling error), we might be uncomfortable with a 2-sample t-test because that would require assumptions of normality and equal variance. Instead, we can do a permutation test. 
+
+The permutation test assumes nothing about the underlying distributions, simply holding up the null hypothesis of no difference in distributions between the two categories. We'll test this by generating a null distribution for the difference in mean remating time between the two categories, and then compare our real difference to that null distribution.
+
+Let's make a function to calculate the difference in means:
+
+```{julia}
+function calculateCricketMeanDiffs(data::DataFrame)
+    winged = subset(data, :Male_state => x -> x .== "Male_winged").Log_remating_time
+    wingless = subset(data, :Male_state => x -> x .== "Male_wingless").Log_remating_time
+    sum(winged)/length(winged) - sum(wingless)/length(wingless)
+end
+```
+
+Now use that to calculate the difference in real group means:
+
+```{julia}
+realDiff = calculateCricketMeanDiffs(cricketData)
+```
+
+So we have our real difference. Let's comnpare that to possible differences we get if there is no real association between male state and remating time. We'll shuffle the values of one variable (using the well-named `shuffle()` function) and construct a null distribution of mean differences:
+
+```{julia}
+using Random  # needed for the shuffle() function
+function permuteOnce(data::DataFrame)
+    permutedData = copy(data)  # this makes a copy of the dataframe, so original not altered
+    shuffle!(permutedData.Log_remating_time)  # can specify a random number generator as a first argument, if desired
+    return permutedData
+end
+
+# Test the function above:
+permuteOnce(cricketData)
+```
+
+```{julia}
+function permuteMany(data::DataFrame, reps::Int)
+    nullDiffs = Vector{Float64}(undef, reps) 
+    for i in 1:reps
+        permutedData = permuteOnce(data)
+        nullDiffs[i] = calculateCricketMeanDiffs(permutedData)
+    end
+    return nullDiffs
+end
+
+permutedDiffs = permuteMany(cricketData, 10_000)
+```
+
+Now let's plot our null distribution and our real value:
+
+```{julia}
+histogram(permutedDiffs)
+plot!([realDiff, realDiff], [0, 200], color="red", width=5)
+
+```
+
+So our real value (shown in red) is quite extreme compared to the null distribution of our test statistic, given the null hypothesis of no association between the experimental group and the response variable. This causes us to doubt the null. We can estimate the p-value by determining how many simulated values were beyond our actual value (times 2 to make it a 2-tailed test):
+
+```{julia}
+pValue = 2sum(permutedDiffs .>= realDiff) / length(permutedDiffs)
+```
+
+Our estimate of the p-value tends to become more precise if we increase the number of permutations (see several cells up, where we called the `permuteMany()` function).
+
+The p-value is far below the usual standard alpha of 0.05, so we are comfortable in rejecting the null and concluding that experimental removal of male hindwings does appear to shorten the remating time of females mated to that male (at least in this species of cricket).
+
+### _Have fun with randomness!_
+
+I find experimenting with randomness can be one of the most enjoyable aspects of writing computer simulations. I think this is one reason humans enjoy games of chance--there is a surprising aspect to randomness, but also a strange sense of order can go along with it. Using functions like `rand()`, `randn()`, and `shuffle()`, I encourage you to have fun incorporating randomness into your programming.

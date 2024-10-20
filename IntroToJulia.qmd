@@ -254,7 +254,7 @@ For example:
 
 ::: {.callout-tip}
 ## Select the extremes 
-Write a series of commands in which you pick a random number between 0 and 1 with the `rand()` function, and return `true` if that number is either above 0.75 or below 0.25, and `false` otherwise.
+The expression `rand()` gets a random number between 0 and 1. Write a series of commands that pick such a random number, and then return `true` if that number is either above 0.75 or below 0.25, and `false` otherwise.
 
 (If you solve the above and have time, can you figure out a way to _chain_ your Boolean expressions into a form similar to `value1 < x < value2` ?)
 :::
