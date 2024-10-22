@@ -30,6 +30,7 @@ website:
           - Plots.qmd
           - LoadData&Analyze&Graph.qmd
           - UseVSCode.qmd
+          - ArraysAndDataFrames.qmd
           - Randomization.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 

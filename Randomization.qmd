@@ -127,7 +127,7 @@ rand(rng, ["yes","no","maybe"], 5)
 
 ::: {.callout-tip}
 ## Make some DNA
-Write a function that produces a pseudo-random DNA sequence (using the letters A, C, G, T), of a length provided to the function. Ensure that your function always provides the same sequence, such that the only thing that differs between function calls is the length of the sequence. (You might find this useful: the function `join()` useful, as it assembles a string out of elements in a vector, e.g. 'join([2,"A"])' returns `"2A"`.)
+Write a function that produces a pseudo-random DNA sequence (using the letters A, C, G, T), of a length provided to the function. Ensure that your function always provides the same sequence, such that the only thing that differs between function calls is the length of the sequence. (You might find this useful: the function `join()` useful, as it assembles a string out of elements in a vector, e.g. `join([2,"A"])` returns `"2A"`.)
 :::
 
 ::: {.content-hidden}
