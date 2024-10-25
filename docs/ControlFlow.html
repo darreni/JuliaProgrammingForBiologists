@@ -256,6 +256,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Randomization in Simulation and Statistics</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BuildSimulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Build a Simulation</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -308,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="loops-for-and-while" class="level3">
 <h3 class="anchored" data-anchor-id="loops-for-and-while">Loops: <code>for</code> and <code>while</code></h3>
 <p>Loops are very useful in programming, because we often want to do a set of commands multiple times. For example:</p>
-<div id="51037c9b" class="cell" data-execution_count="1">
+<div id="a980fa78" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ice <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  iceCubed <span class="op">=</span> ice<span class="op">^</span><span class="fl">3</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"The cube of "</span>, ice, <span class="st">" is "</span>, iceCubed)</span>
@@ -327,7 +333,7 @@ The cube of 10 is 1000</code></pre>
 </div>
 </div>
 <p>Here we’ll use a random integer to determine how many times to do a loop:</p>
-<div id="783dd072" class="cell" data-execution_count="2">
+<div id="52a79388" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rand_times <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)  <span class="co"># This returns a random integer in the range 1 to 10</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>rand_times</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(i)</span>
@@ -335,9 +341,7 @@ The cube of 10 is 1000</code></pre>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"I counted to </span><span class="sc">$</span>rand_times<span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1
-2
-3
-I counted to 3</code></pre>
+I counted to 1</code></pre>
 </div>
 </div>
 <p>Note that the <code>$</code> in the last line above causes <em>string interpolation</em> of the expression to the right of it.</p>
@@ -355,7 +359,7 @@ Teach Julia to Sing
 </div>
 </div>
 <p>An interesting thing about <code>for</code> loops is that the iterator variable is internal to the loop (not “known” outside of the loop):</p>
-<div id="93a20290" class="cell" data-execution_count="3">
+<div id="3cf3bdfd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">27</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Before the loop, i = </span><span class="sc">$</span>i<span class="st">"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
@@ -373,7 +377,7 @@ After the loop, i = 27</code></pre>
 <section id="for-loops-can-iterate-across-many-kinds-of-collections" class="level4">
 <h4 class="anchored" data-anchor-id="for-loops-can-iterate-across-many-kinds-of-collections"><code>for</code> loops can iterate across many kinds of collections</h4>
 <p>You can iterate across all sorts of things, for example a matrix of strings:</p>
-<div id="4bbbbc84" class="cell" data-execution_count="4">
+<div id="af4b11e6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>speciesGrid <span class="op">=</span> [<span class="st">"warblers"</span> <span class="st">"flamebacks"</span> <span class="st">"sticklebacks"</span>; </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"sparrows"</span>  <span class="st">"guppies"</span> <span class="st">"digital organisms"</span>] </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> speciesGrid</span>
@@ -389,7 +393,7 @@ We study digital organisms.</code></pre>
 </div>
 </div>
 <p>Instead of the <code>in</code> in the <code>for</code> line, you can use the unicode character <code>∈</code> (produced by typing <code>\in</code> tab), which is a mathematical symbol meaning “is an element of”. :</p>
-<div id="543f4684" class="cell" data-execution_count="5">
+<div id="5ecb1a6e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mySet <span class="op">=</span> [<span class="st">"banana"</span>, <span class="fl">5.3</span>, <span class="ch">'🐬'</span>]  <span class="co"># get the dolphin with \:dolphin: tab</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> thing <span class="op">∈</span> mySet</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(thing)</span>
@@ -404,7 +408,7 @@ We study digital organisms.</code></pre>
 <section id="nested-loops" class="level4">
 <h4 class="anchored" data-anchor-id="nested-loops">Nested loops</h4>
 <p>Often it is useful to have nested loops. For instance, to produce all dinucleotide combinations:</p>
-<div id="569e8b11" class="cell" data-execution_count="6">
+<div id="f14440da" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bases <span class="op">=</span> [<span class="ch">'A'</span>, <span class="ch">'C'</span>, <span class="ch">'G'</span>, <span class="ch">'T'</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> bases</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j <span class="kw">in</span> bases</span>
@@ -416,7 +420,7 @@ We study digital organisms.</code></pre>
 </div>
 </div>
 <p>You can produce the above more concisely by putting both iterator statements on the same line:</p>
-<div id="ba389b81" class="cell" data-execution_count="7">
+<div id="b5a8242f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>bases <span class="op">=</span> [<span class="ch">'A'</span>, <span class="ch">'C'</span>, <span class="ch">'G'</span>, <span class="ch">'T'</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> bases, j <span class="kw">in</span> bases</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i, j, <span class="st">", "</span>)</span>
@@ -442,17 +446,16 @@ Produce all trinucleotides
 <section id="while-loops" class="level4">
 <h4 class="anchored" data-anchor-id="while-loops"><code>while</code> loops</h4>
 <p>Let’s say you don’t know in advance how many times you want to go through a loop. Rather, you want to stop the loop when some condition is met. The <code>while</code> loop is perfect for that:</p>
-<div id="5cf82f1c" class="cell" data-execution_count="8">
+<div id="2f1bcfb5" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> <span class="fl">0</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> sum <span class="op">&lt;=</span> <span class="fl">21</span>  <span class="co"># inspired by a card game</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  sum <span class="op">=</span> sum <span class="op">+</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(sum)</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>9
-12
-18
-26</code></pre>
+<pre><code>7
+16
+24</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -475,7 +478,7 @@ Simulate dispersal of an organism
 <p>A <em>compound expression</em> is a single large expression that is made up of multiple sub-expressions that are evaluated in order. When the compoud expression is evaluated, only the value generated by the last sub-expression is returned. There are basically two ways to generate compound expressions:</p>
 <section id="use-a-semicolon-chain" class="level4">
 <h4 class="anchored" data-anchor-id="use-a-semicolon-chain">Use a semicolon (<code>;</code>) chain</h4>
-<div id="4665cc75" class="cell" data-execution_count="9">
+<div id="7674d4ec" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4</span>; y <span class="op">=</span> <span class="fl">3</span>; x <span class="op">+</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>7</code></pre>
@@ -483,7 +486,7 @@ Simulate dispersal of an organism
 </div>
 <p>The above <em>returns</em> the value of the last subexpression, but it does remember values assigned in the earlier subexpressions. (To prove this to yourself, enter <code>x</code> to see its value.)</p>
 <p>You can use compound expressions as part of even larger expressions, e.g.:</p>
-<div id="047207e8" class="cell" data-execution_count="10">
+<div id="f98f7f21" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>myVar <span class="op">=</span> (x <span class="op">=</span> <span class="fl">4</span>; y <span class="op">=</span> <span class="fl">3</span>; x <span class="op">+</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>7</code></pre>
@@ -494,14 +497,14 @@ Simulate dispersal of an organism
 <section id="use-a-begin-block" class="level4">
 <h4 class="anchored" data-anchor-id="use-a-begin-block">Use a <code>begin</code> block</h4>
 <p>The above compound expression is equivalent to the one below:</p>
-<div id="bf6bd8be" class="cell" data-execution_count="11">
+<div id="914654d0" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>myVar2 <span class="op">=</span> <span class="cf">begin</span> x <span class="op">=</span> <span class="fl">4</span>; y <span class="op">=</span> <span class="fl">3</span>; x <span class="op">+</span> y <span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>7</code></pre>
 </div>
 </div>
 <p>The use of <code>begin</code> blocks is particularly useful when dividing expressions between multiple lines:</p>
-<div id="06f693ba" class="cell" data-execution_count="12">
+<div id="c4e14f1a" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  string1 <span class="op">=</span> <span class="st">"Phylloscopus"</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  string2 <span class="op">=</span> <span class="st">"trochiloides"</span></span>
@@ -516,7 +519,7 @@ Simulate dispersal of an organism
 <section id="conditional-evaluation-if-and" class="level3">
 <h3 class="anchored" data-anchor-id="conditional-evaluation-if-and">Conditional evaluation: <code>if</code> and <code>? :</code></h3>
 <p>Often in our programs we want to execute some commands only if a condition is met. For this, we can use an <code>if</code> - <code>elseif</code> - <code>else</code> block:</p>
-<div id="0b6401bc" class="cell" data-execution_count="13">
+<div id="11baa80a" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>coinflip <span class="op">=</span> <span class="fu">rand</span>([<span class="st">"heads"</span>, <span class="st">"tails"</span>])</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> coinflip <span class="op">==</span> <span class="st">"heads"</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"Heads--You win!"</span>)</span>
@@ -526,7 +529,7 @@ Simulate dispersal of an organism
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"The coin has a strange value"</span>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Tails--You lose :(</code></pre>
+<pre><code>Heads--You win!</code></pre>
 </div>
 </div>
 <p>In an <code>if</code> block, the <code>elseif</code> and <code>else</code> parts are optional, but the <code>end</code> is essential. The indentation is customary and makes the code easier to read, but is not required. The value of the conditional expressions (e.g., just to the right of <code>if</code>) must be of type <code>Bool</code>, meaning either <code>true</code> or <code>false</code>.</p>
@@ -544,7 +547,7 @@ Determine homozygote or heterozygote
 </div>
 </div>
 <p>In Julia, <code>if</code> blocks return a value. You can make use if that to do something like this:</p>
-<div id="a9312535" class="cell" data-execution_count="14">
+<div id="f7947f6c" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>homozygote <span class="op">=</span> <span class="cn">true</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>genotype <span class="op">=</span> <span class="cf">if</span> homozygote</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">"TT"</span></span>
@@ -558,7 +561,7 @@ Determine homozygote or heterozygote
 <section id="ternary-operators" class="level4">
 <h4 class="anchored" data-anchor-id="ternary-operators">Ternary operators</h4>
 <p>The <em>ternary operator</em>, consisting of a <code>?</code> and <code>:</code> separating three expressions (hence “ternary”), can be thought of as a consise form of an <code>if</code> - <code>else</code> block. For instance, this is equivalent to the above:</p>
-<div id="86312203" class="cell" data-execution_count="15">
+<div id="8009546a" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>homozygote ? <span class="st">"TT"</span> <span class="op">:</span> <span class="st">"TG"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>"TT"</code></pre>
@@ -588,7 +591,7 @@ Determine whether a number is positive or negative
 <li>In <code>a || b</code>, <code>b</code> is evaluated only if <code>a</code> is <code>false</code> (because otherwise the whole statement is definitely <code>true</code>)</li>
 </ul>
 <p>The interesting thing is that the <code>b</code> subexpression does not have to produce <code>true</code> or <code>false</code>. Rather, it can do anything you want, and is only executed depending on whether <code>a</code> is true. For example:</p>
-<div id="ee3c7144" class="cell" data-execution_count="16">
+<div id="e220d409" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">5</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">println</span>(<span class="st">"x is positive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -597,7 +600,7 @@ Determine whether a number is positive or negative
 </div>
 <p>Try changing <code>x</code> above to a negative value and run the above again.</p>
 <p>I think of the above construction as “Check if true AND (only if true) do this thing.”</p>
-<div id="b49d2dd5" class="cell" data-execution_count="17">
+<div id="93ffecb8" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fl">3.2</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">||</span> <span class="fu">println</span>(<span class="st">"x is positive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

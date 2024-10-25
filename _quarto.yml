@@ -32,6 +32,7 @@ website:
           - UseVSCode.qmd
           - ArraysAndDataFrames.qmd
           - Randomization.qmd
+          - BuildSimulation.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:
