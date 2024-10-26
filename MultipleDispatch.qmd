@@ -77,6 +77,30 @@ sq1 = Square(5)
 Can you define a new Rectangle type? It needs to have two fields: length and width. Then, create a specific rectangle.
 :::
 
+#### _Mutable_ vs. _immutable_ types
+
+The types defined above by the `struct` keyword are used to instatiate immutable objects. This means we get an error if we try to alter a field within an object:
+
+```julia
+sq1.side = 7
+```
+
+The REPL responds with an error saying "immutable struct of type Square cannot be changed". To set up the ability to change our objects after they are created, we need to use the `mutable struct` phrase to define the type:
+
+```{julia}
+mutable struct SquareMutable
+  side
+end
+```
+
+```{julia}
+sqA = SquareMutable(3.5)
+```
+
+```{julia}
+sqA.side = 9.7
+```
+
 ### Defining functions for specific types
 
 Now that we have some shape objects, let's do something with them. Functions are great at doing things with objects, so let's define a function:
