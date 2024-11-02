@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.10
+jupyter: julia-1.11
 ---
 
 We have now learned two interfaces for coding in Julia: 1) using the REPL; 2) using Pluto). The REPL is good for interactive use, using single commands or short scripts. Pluto is excellent for developing somewhat longer scripts in a stepwise manner, but still not great for really long and comnplex programs. For developing large programming projects, we often will want to use a highly capable text editor (e.g. Emacs, Vim) or an Integrated Development Environment (IDE). (If you've used _RStudio_, then you've already used an IDE--but it only works with R and Python.)

@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.10
+jupyter: julia-1.11
 ---
 
 Now that we've learned a lot of programming methods, let's build a more complex simulation. We could choose all sorts of things to simulate. Here I have chosen a somewhat whimsical example of a hypothetical biological process that has some resemblance to known examples (e.g. male lizards that have three mating strategies, each of which is better than one of the others). We'll use this to explore the steps involved in building a simulation.

@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.10
+jupyter: julia-1.11
 ---
 
 To download and install Julia, go to this URL and follow instructions: <https://julialang.org/downloads/>
@@ -18,6 +18,11 @@ _If you have a Mac_, the above will direct you to simply open a Terminal window 
 `curl -fsSL https://install.julialang.org | sh`
 
 The above command installs the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer.
+
+::: {.callout-note}
+## If desired: update Julia 
+If you already have Julia and Juliaup installed, and you want to update Julia to the latest available stable version, use the command `juliaup update`. (You can see other useful Juliaup commands [here](https://github.com/JuliaLang/juliaup))
+:::
 
 ### Now, run Julia!
 

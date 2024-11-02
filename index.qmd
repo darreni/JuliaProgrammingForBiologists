@@ -11,7 +11,7 @@ If you are in doubt that you need a faster or more readable language than the on
 
 I have used Julia in my own work for about 2 years now, after having much experience with Matlab and then R, and dabbling a bit in Python, C, C++, and Java. The developers of Julia have praise for aspects of all of these languages, and their goal was to combine all the good aspects into one efficient and readable language. I think they have succeeded marvelously.
 
-My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. My goal is to get you programming quickly, givig just enough underlying explanation of computer science principles to enable fast progress.
+My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. My goal is to get you programming quickly, giving just enough underlying explanation of computer science principles to enable fast progress.
 
 This is a work in progress, and we'll see where it goes . . .
 

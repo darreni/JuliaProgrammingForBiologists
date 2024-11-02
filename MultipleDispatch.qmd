@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.10
+jupyter: julia-1.11
 ---
 
 If you've worked through the material in the previous pages, you now have the tools to write all sorts of reasonably complex programs to do interesting things. You might take a pause here and build up your skills in combining those tools in ways you find interesting. After spending some time doing that, come back to this page and continue below.

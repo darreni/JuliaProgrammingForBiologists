@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.10
+jupyter: julia-1.11
 ---
 
 The concept of random events is central to our understanding of many biological processes (e.g. mutation, genetic drift) and to hypothesis testing using data from a sample. Hence, we biologists often need to use random numbers in our computer programming. Random numbers enable us to model probabilistic processes, where different outcomes occur some pre-defined proportion of the time, if we were to do the process a very large number of times. 

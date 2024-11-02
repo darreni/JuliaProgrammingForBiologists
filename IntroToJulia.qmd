@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.10
+jupyter: julia-1.11
 ---
 
 Now that we have Julia running, we can learn how to enter expressions that Julia will evaluate. 
@@ -414,7 +414,7 @@ Can you figure out how to call the above function in a way where you can input a
 
 Thousands of people around the world have contributed over 10,000 _packages_ that extend functionality of Julia. Installing these packages is easy.
 
-First, enter the _package mode_ of the REPL by typing the right square bracket symbol `]` . You will then see the `julia>` prompt change into a prompt that looks something like `(@v1.10) pkg>` . Then, type a command to add a package, e.g.:
+First, enter the _package mode_ of the REPL by typing the right square bracket symbol `]` . You will then see the `julia>` prompt change into a prompt that looks something like `(@v1.11) pkg>` . Then, type a command to add a package, e.g.:
 
 ```julia
 add Plots

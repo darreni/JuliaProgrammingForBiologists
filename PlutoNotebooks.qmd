@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.10
+jupyter: julia-1.11
 ---
 
 Now that we know how to use the Julia REPL to interact with Julia and are building our understanding of programming, we likely want an environment in which we can compose programs and save them for use later. Pluto notebooks provides a _reactive notebook_ environment for doing this.
