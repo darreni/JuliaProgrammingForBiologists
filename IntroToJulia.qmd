@@ -1,5 +1,5 @@
 ---
-title: "Quick Introduction to Julia"
+title: "Introductory tour of Julia"
 author: "Darren Irwin"
 execute:
   echo: true
@@ -9,7 +9,7 @@ format:
 jupyter: julia-1.11
 ---
 
-Now that we have Julia running, we can learn how to enter expressions that Julia will evaluate. 
+Now that we have Julia running, we can learn how to enter _expressions_ that Julia will evaluate. 
 
 The simplest expressions are just a single number or string of text, e.g. try entering something like:
 
@@ -161,6 +161,7 @@ Above, we create two variables of type `Char` and combined them (yes, Julia view
 ::: {.callout-tip}
 ## Exponents on Strings
 If Julia uses the `*` symbol for combining two characters or strings into a longer string, what do you think it might use the `^` symbol for, when applied to a character or string? Make a guess, and then play around and find out.
+(_If you are stuck, try entering `'T'^2` and think about what the REPL returns_)
 :::
 
 When you enter a `String` into Julia, you need to use double quotes (unlike a `Char` with single quotes).
@@ -180,14 +181,14 @@ Assign a few of your favorite species to different variable names, and then comb
 
 ### Unicode characters
 
-One fun thing about Julia is that you can use unicode variables in variable names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:
+One fun thing about Julia is that you can use Unicode variables in variable names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:
 
 ```{julia}
 χ² = 30.4
 β = 2χ²
 ```
 
-To make the unicode symbols above, you would type `\chi` tab `\^2` tab, and on the next line `\beta` tab. Notice also that the expression `2χ²` is evaluated the same as `2*χ²` or `2 * χ²`.
+To make the Unicode symbols above, you would type `\chi` tab `\^2` tab, and on the next line `\beta` tab. Notice also that the expression `2χ²` is evaluated the same as `2*χ²` or `2 * χ²`.
 
 Unicode also allows some fun.
 
@@ -200,7 +201,7 @@ string(a, " grows into ", b)
 ```
 :::
  
-We can also use unicode symbols in variable names:
+We can also use Unicode symbols in variable names:
 
 ```{julia}
 🐬 = 47    # write with: \:dolphin: tab
@@ -210,14 +211,14 @@ totalMarineMammals = 🐬 + 🐳
 
 Note the use of the `#` symbol to make comments to the right of code.
 
-You can find how to write a whole bunch of unicode symbols here: <https://docs.julialang.org/en/v1/manual/unicode-input/>
+You can find how to write a whole bunch of Unicode symbols by clicking [here](https://docs.julialang.org/en/v1/manual/unicode-input/)
 
 ### Comparisons and Booleans
 
 In programming it is often important to check if certain conditions are `true` or `false`. These values are called Booleans (of type `Bool` in Julia). 
 
 These _comparison operators_ are used to compare two values (place to left and right of the operator), resulting in `true` or `false`:\
-`==` : equal?\
+`==` : equal?  (_notice the two equal symbols_)\
 `!=` : not equal?\
 `<` : less than?\
 `<=` : less than or equal?\
@@ -284,6 +285,8 @@ arrayA[3]
 ```{julia}
 arrayA[end]
 ```
+
+What do you think using `begin` as an index would do? Try it!
 
 ```{julia}
 arrayB[2, 2:3]

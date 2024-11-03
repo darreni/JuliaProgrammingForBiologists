@@ -1,0 +1,201 @@
+---
+title: "A Bit about Numbers"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+jupyter: julia-1.11
+---
+
+We have now learned some about how Julia remembers numbers as belonging to different _types_. Why is this? Isn't a number just a number? Well, when it comes to storing them in computer, the answer is no. To understand why, let's learn a little about how computers store information.
+
+### Binary memory
+
+The great majority of computers today (and certainly your own personal computer) store information as a series of `1`s and `0`s. (You can equally well think of these as on/off or true/false.) A single 1/0 switch is called **bit**---the smallest unit of information that a computer can store. 
+
+A set of 8 bits is called a **byte**. The memory on a computer consists of gigantic grids of such bytes. When we talk about memory sizes of computers, we use terms like _kilobytes_ (KB; 1,000 bytes, or 8,000 bits) or _megabytes_ (MB; 1,000,000 bytes), and so forth.
+
+### Binary counting
+
+So how are numbers other than `0` and `1` stored? As a series of `0`s and `1`s, which are interpreted as a group according to some rule. For example, we can simply count in binary to convert our decimal (base-10) numbers to the way computers often store integers:
+
+Decimal `0` is stored as binary `0`.
+Decimal `1` is stored as binary `1`.
+Decimal `2` is stored as binary `10`.
+Decimal `3` is stored as binary `11`.
+Decimal `4` is stored as binary `100`.
+Decimal `5` is stored as binary `101`.
+
+And so forth. You can see that storing larger integers requires more bits.
+
+The take-home message here: _For integers, there is a tradeoff between memory size and the range of integers that can be stored_.
+
+### What about non-integers?
+
+The above works fine for integers, but we often want to store numbers like `7.1` or `0.005` or `sqrt(2)`. For this, people have come up with a clever way of encoding numbers called **floating-point numbers**, because you can think of it as storing numbers as an integer multiplied by a number that represents the magnitude (which adjusts where the decimal point goes). 
+
+This floating-point number system works great, but there is a limitation: In a fixed set of bits, there is a limit to the precision of such numbers. In other words, there are only certain values such numbers can take, with gaps between them. The more bits we dedicate to storing such numbers, the smaller these gaps are.
+
+The take-home message here: _For floating-point numbers, there is a tradeoff between memory size and precision of the numbers stored_.
+
+### Numbers in Julia
+
+To learn a bit about how numbers are represented by different Julia types, we can use the `bitstring()` function:
+
+```{julia}
+bitstring(1)
+```
+
+This shows us that the number `1` is stored as 63 `0`s and then a `1`. This is Julia's default way of storing integers, as type `Int64` (a 64-bit integer).
+
+Let's try the same but use `1.0` instead:
+
+```{julia}
+bitstring(1.0)
+```
+
+Here we have quite a different representation. This is because the number is now stored as type `Float64` (a 64-bit floating-point number).
+
+##### the `about()` function
+
+We can learn more about how numbers are encoded by adding a nice little package called `About`:
+
+```julia
+using Pkg; Pkg.add("About")
+```
+
+This package has one function, wisely named `about()` as it tells us about objects (note though that it can only tell you about relatively simple objects).
+
+```{julia}
+using About
+about(1)
+```
+
+The highlighting tells you how the number is encoded (one bit for the positive sign, the rest for the integer)
+
+```{julia}
+about(1.0)
+```
+
+The result shows you which bits are for which components of the floating-point number.
+
+::: {.callout-note}
+## Try `about()` on other objects
+Play around with this function to learn about how other _types_ of things are stored. (For example, `about('x')`, `about("ACGT"`, `about(3//7)`, `about(sqrt(2))`, `about(pi)`.)
+:::
+
+### Choosing types wisely
+
+Why does all this matter? Well, if you don't actually need 64 bits for your numbers, then you can tell Julia to store them in fewer bits, and this can increase efficiency (i.e., reduce memory and increase speed). 
+
+For example, if you know that a variable will only need to store integers ranging between -128 and 127, then you can specify that variable as an 8-bit integer:
+
+```{julia}
+x8 = Int8(39)
+```
+
+```{julia}
+typeof(x8)
+```
+
+```{julia}
+bitstring(x8)
+```
+
+```{julia}
+about(x8)
+```
+
+We have succeeded in storing the number `39` in only 8 bits rather than 64. 
+
+As another example, let's say we need to store a floating-point number but we don't need a lot of precision. Let's store it as a 16-bit floating-point number:
+
+```{julia}
+pi16 = Float16(3.14159)
+```
+
+Julia's response indicates the rough level of precision that the number has been stored in (only `3.14`). That may not be a wise choice for that one number, but imagine if you had millions of numbers stored in memory---perhaps that precision is good enough for what you are using them for, and cuts the memory by 75% (compared to `Float64`).
+
+##### Check the capacity of types for your numbers
+
+If you are working with integers, you can find the minimum storable integer for a type like this:
+
+```{julia}
+typemin(Int16)
+```
+
+And the maximum like this:
+
+```{julia}
+typemax(Int16)
+```
+
+Hence we know that type `Int16` can store integers from -32768 to 32767.
+
+::: {.callout-note}
+## Weird math
+What happens if you take encode the number 32767 encoded as an `Int16` and add `10` to it? Try out by entering `Int16(32767) + Int16(10)`. Can you figure out what happened? 
+(_Hint: this is called "overflow"._)
+:::
+
+### Beware of other weird math
+
+In addition to overflow (with integers), we want to be aware of the consequences of floating-point imprecision. An example:
+
+```{julia}
+0.1 + 0.2 == 0.3   # note the "==" makes this a Boolean statement, asking whether this equation is true
+```
+
+The REPL returns `false`. What?!?
+
+This is a result of the imprecision of floating-point numbers. Let's ask what the left side of the equation is evaluated as:
+
+```{julia}
+0.1 + 0.2
+```
+
+We see it is slightly different from `3.0`. This is because both 0.1 and 0.2 are stored with a bit of imprecision, and their total is actually a smidgin bigger than 3.0.
+
+We are now at risk of a deep dive into computer since, but I will pull us back from the brink. The makers of Julia have provided us biologists a solution to the above. Just use the "approximately equal" symbol: `≈` (to get this, type `\approx` then press the "tab" key.)
+
+```{julia}
+0.1 + 0.2 ≈ 0.3   # note the "≈" is the Boolean operator for approximately equal
+```
+
+The REPL now says it is a `true` statement, within the (im)precision of the data type being used.
+
+(The `≈` symbol is a short way of calling the `isapprox()` function--those interested can look that up for the gory details.)
+
+### `BigInt` and `BigFloat`
+
+For most uses, `Int64` and `Float64` provide excellent flexibility with numbers. In those rare cases where you need even bigger integers or even more precision on your floats, Julia `BigInt` and `BigFloat` types. These will use as many bits as you need to provide the number of numbers that you want. 
+
+For example, let's start with the largest integer that can be stored as an `Int16`:
+
+```{julia}
+myLargeNum1 = typemax(Int64)
+```
+
+If we add `1` to that, we would have an overflow problem. Instead, let's make it a `BigInt` and add `1`:
+
+```{julia}
+myLargeNum2 = BigInt(myLargeNum1) + 1
+```
+
+```{julia}
+about(myLargeNum2)
+```
+
+This uses 16 bytes (128 bits), twice as much as our starting number. Its memory footprint can grow even bigger if we need it to.
+
+The `BigInt` type can be useful for storing precise values of things like factorials:
+
+```{julia}
+factorial(BigInt(50))
+```
+
+### Next steps
+
+Thinking about efficiency of number types will be particularly important when storing large numbers of numbers in **Arrays** or **DataFrames**, which we will explore on the next page.

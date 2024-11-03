@@ -30,6 +30,7 @@ website:
           - Plots.qmd
           - LoadData&Analyze&Graph.qmd
           - UseVSCode.qmd
+          - Numbers.qmd
           - ArraysAndDataFrames.qmd
           - Randomization.qmd
           - BuildSimulation.qmd

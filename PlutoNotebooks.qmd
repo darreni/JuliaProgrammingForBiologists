@@ -103,6 +103,8 @@ You will likely see a scatter plot of 10 data points. The data generation involv
 ::: {.callout-tip}
 ## Add a lot more points 
 Can you figure out how to modify the above to get 1000 data points? Try it!
+
+_If wanting a bigger challenge_: Can you figure out how to make the cloud of points more like a round cloud, where the `xValues` and `yValues` are not so strongly associated?
 :::
 
 ### Add text using Markdown
