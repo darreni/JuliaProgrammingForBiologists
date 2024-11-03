@@ -19,14 +19,14 @@ A set of 8 bits is called a **byte**. The memory on a computer consists of gigan
 
 ### Binary counting
 
-So how are numbers other than `0` and `1` stored? As a series of `0`s and `1`s, which are interpreted as a group according to some rule. For example, we can simply count in binary to convert our decimal (base-10) numbers to the way computers often store integers:
+So how can numbers other than `0` and `1` be stored? As a series of `0`s and `1`s, which are interpreted as a group according to some rule. For example, we can simply count in binary to convert our decimal (base-10) numbers to the way computers often store integers:
 
-Decimal `0` is stored as binary `0`.
-Decimal `1` is stored as binary `1`.
-Decimal `2` is stored as binary `10`.
-Decimal `3` is stored as binary `11`.
-Decimal `4` is stored as binary `100`.
-Decimal `5` is stored as binary `101`.
+Decimal `0` can be stored as binary `0`.\
+Decimal `1` can be stored as binary `1`.\
+Decimal `2` can be stored as binary `10`.\
+Decimal `3` can be stored as binary `11`.\
+Decimal `4` can be stored as binary `100`.\
+Decimal `5` can be stored as binary `101`.\
 
 And so forth. You can see that storing larger integers requires more bits.
 
@@ -58,7 +58,7 @@ bitstring(1.0)
 
 Here we have quite a different representation. This is because the number is now stored as type `Float64` (a 64-bit floating-point number).
 
-##### the `about()` function
+#### The `about()` function
 
 We can learn more about how numbers are encoded by adding a nice little package called `About`:
 
@@ -81,9 +81,9 @@ about(1.0)
 
 The result shows you which bits are for which components of the floating-point number.
 
-::: {.callout-note}
+::: {.callout-tip}
 ## Try `about()` on other objects
-Play around with this function to learn about how other _types_ of things are stored. (For example, `about('x')`, `about("ACGT"`, `about(3//7)`, `about(sqrt(2))`, `about(pi)`.)
+Play around with this function to learn about how other _types_ of things are stored. (For example, `about('x')`, `about("ACGT")`, `about(3//7)`, `about(sqrt(2))`, `about(pi)`.)
 :::
 
 ### Choosing types wisely
@@ -118,7 +118,7 @@ pi16 = Float16(3.14159)
 
 Julia's response indicates the rough level of precision that the number has been stored in (only `3.14`). That may not be a wise choice for that one number, but imagine if you had millions of numbers stored in memory---perhaps that precision is good enough for what you are using them for, and cuts the memory by 75% (compared to `Float64`).
 
-##### Check the capacity of types for your numbers
+#### Check the capacity of types for your numbers
 
 If you are working with integers, you can find the minimum storable integer for a type like this:
 
@@ -134,7 +134,7 @@ typemax(Int16)
 
 Hence we know that type `Int16` can store integers from -32768 to 32767.
 
-::: {.callout-note}
+::: {.callout-tip}
 ## Weird math
 What happens if you take encode the number 32767 encoded as an `Int16` and add `10` to it? Try out by entering `Int16(32767) + Int16(10)`. Can you figure out what happened? 
 (_Hint: this is called "overflow"._)
@@ -158,7 +158,7 @@ This is a result of the imprecision of floating-point numbers. Let's ask what th
 
 We see it is slightly different from `3.0`. This is because both 0.1 and 0.2 are stored with a bit of imprecision, and their total is actually a smidgin bigger than 3.0.
 
-We are now at risk of a deep dive into computer since, but I will pull us back from the brink. The makers of Julia have provided us biologists a solution to the above. Just use the "approximately equal" symbol: `≈` (to get this, type `\approx` then press the "tab" key.)
+We are now at risk of a deep dive into computer science, but I will pull us back from the brink. The makers of Julia have provided us biologists a solution to the above. Just use the "approximately equal" symbol: `≈` (to get this, type `\approx` then press the "tab" key.)
 
 ```{julia}
 0.1 + 0.2 ≈ 0.3   # note the "≈" is the Boolean operator for approximately equal
@@ -168,9 +168,29 @@ The REPL now says it is a `true` statement, within the (im)precision of the data
 
 (The `≈` symbol is a short way of calling the `isapprox()` function--those interested can look that up for the gory details.)
 
+Julia provides another solution to this situation: We can use the `Rational` type to encode rational numbers precisely, as ratios of integers:
+
+```{julia}
+1//10
+```
+
+We can see that Julia is treating this expression in a different way than `0.1` or `1/10` (which Julia would convert to `0.1`). With `1//10`, Julia is remembering both the numerator and denominator, storing this as a ratio of integers. We can check the type:
+
+```{julia}
+typeof(1//10)
+```
+
+Now that the ratios are now stored precisely, let's check our Boolean statement:
+
+```{julia}
+1//10 + 2//10 == 3//10
+```
+
+Precise math now works! However, there is a limitation to use of the `Rational` type: it cannot store irrational numbers like `sqrt(3)` or π. 
+
 ### `BigInt` and `BigFloat`
 
-For most uses, `Int64` and `Float64` provide excellent flexibility with numbers. In those rare cases where you need even bigger integers or even more precision on your floats, Julia `BigInt` and `BigFloat` types. These will use as many bits as you need to provide the number of numbers that you want. 
+For most uses, `Int64` and `Float64` provide excellent flexibility with numbers. In those rare cases where you need even bigger integers or even more precision on your floats, Julia provides `BigInt` and `BigFloat` types. These use as many bits as you need to provide the number of numbers that you want. 
 
 For example, let's start with the largest integer that can be stored as an `Int16`:
 

@@ -1,5 +1,5 @@
 ---
-title: "Introductory tour of Julia"
+title: "Introductory Tour of Julia"
 author: "Darren Irwin"
 execute:
   echo: true
