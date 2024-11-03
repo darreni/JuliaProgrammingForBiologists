@@ -9,11 +9,11 @@ Julia is a relatively new programming language (started around 2012; first offic
 
 If you are in doubt that you need a faster or more readable language than the one you are using, ask yourself this: Have you ever heard other scientists mention how long their bioinformatic processing or evolutionary simulations can take? It is often on the scale of days, weeks, months. What if that were instead minutes, hours, days? How might that accelerate your research, and allow you to expand the scope of your science? Have you ever heard someone say "I can't program"? Did they decide that because they are fundamentally unable to learn the logic of programming, or because many of the languages often taught in programming are really difficult to learn?
 
-I have used Julia in my own work for about 2 years now, after having much experience with Matlab and then R, and dabbling a bit in Python, C, C++, and Java. The developers of Julia have praise for aspects of all of these languages, and their goal was to combine all the good aspects into one efficient and readable language. I think they have succeeded marvelously.
+I have used Julia in my own work for about 3 years now, after having much experience with Matlab and then R, and dabbling a bit in Python, C, C++, and Java. The developers of Julia have praise for aspects of all of these languages, and their goal was to combine all the good aspects into one efficient and readable language. I think they have succeeded marvelously. (I am not the only one---see [this paper in _Nature Methods_](https://www.nature.com/articles/s41592-023-01832-z) for a discussion of the merits of using Julia in biology.)
 
-My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. My goal is to get you programming quickly, giving just enough underlying explanation of computer science principles to enable fast progress.
+My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. In particular, I am using these to teach a new graduate-level course "Computer Programming for Biologists" at UBC in November 2024. My goal is to get students programming quickly, giving just enough underlying explanation of computer science principles to enable fast progress. 
 
-This is a work in progress, and we'll see where it goes . . .
+These tutorials are a work in progress, and there will be additions and revisions from time to time . . .
 
 [![](Julia_logo.jpg){width=15% fig-align=center}](https://julialang.org)
 
