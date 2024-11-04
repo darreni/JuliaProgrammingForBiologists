@@ -13,11 +13,15 @@ To download and install Julia, go to this URL and follow instructions: <https://
 
 That website will likely detect your operating system and suggest the right approach.
 
-_If you have a Mac_, the above will direct you to simply open a Terminal window (look for the Terminal application in your `Applications/Utilities` directory) and type the command below at the Terminal prompt:
+**If you have a Mac:** The above will direct you to simply open a Terminal window (look for the Terminal application in your `Applications/Utilities` directory) and type the command below at the Terminal prompt:
 
 `curl -fsSL https://install.julialang.org | sh`
 
-The above command installs the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer.
+**If you have a PC:** I think the above will direct you to simply open a command-line interface window (using e.g., Windows Powershell or Windows Terminal) and type the command below at the prompt:
+
+`winget install julia -s msstore`
+
+The above commands (whether Mac or PC) install the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer.
 
 ::: {.callout-note}
 ## If desired: update Julia 
