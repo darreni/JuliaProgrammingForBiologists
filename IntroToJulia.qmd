@@ -88,7 +88,7 @@ Pick a number for the radius (in km) of a circle, and assign that to a variable 
 
 ### Different _Types_ of numbers
 
-When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. Two main ways that Julia can store numbers are as _integers_ or as _floating-point numbers_. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact. 
+When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. Two main ways that Julia can store numbers are as **integers** or as **floating-point numbers**. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact. 
 
 We can learn about the _Type_ that Julia uses to store values by using the `typeof()` function:
 
@@ -146,7 +146,7 @@ You have a population of 30 individuals that is decreasing by 3 individuals in e
 
 ### Characters and Strings
 
-Programming in biology often involves manipulating text such as "ACGT". For this, we can use two other variable types in Julia: _characters_ (officially `Char`) and _strings_ (officially `String`), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha).
+Programming in biology often involves manipulating text such as "ACGT". For this, we can use two other variable types in Julia: **characters** (officially `Char`) and **strings** (officially `String`), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha).
 
 We enter characters with single quotes, and can combine them to make strings:
 
@@ -181,7 +181,7 @@ Assign a few of your favorite species to different variable names, and then comb
 
 ### Unicode characters
 
-One fun thing about Julia is that you can use Unicode variables in variable names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:
+One fun thing about Julia is that you can use Unicode characters in variable names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:
 
 ```{julia}
 χ² = 30.4
@@ -215,7 +215,7 @@ You can find how to write a whole bunch of Unicode symbols by clicking [here](ht
 
 ### Comparisons and Booleans
 
-In programming it is often important to check if certain conditions are `true` or `false`. These values are called Booleans (of type `Bool` in Julia). 
+In programming it is often important to check if certain conditions are `true` or `false`. These values are called **Booleans** (of type `Bool` in Julia). 
 
 These _comparison operators_ are used to compare two values (place to left and right of the operator), resulting in `true` or `false`:\
 `==` : equal?  (_notice the two equal symbols_)\
@@ -225,7 +225,7 @@ These _comparison operators_ are used to compare two values (place to left and r
 `>` : greater than?\
 `>=` : greater than or equal?\
 
-Try a bunch of comparisons of values using the above. These are called _Boolean expressions_. For example:
+Try a bunch of comparisons of values using the above. These are called **Boolean expressions**. For example:
 ```{julia}
 sqrt(9) == 3
 ```
@@ -234,7 +234,7 @@ sqrt(9) == 3
 x = 8; sqrt(x) >= 3
 ```
 
-We can use _Boolean operators_ to combine multiple comparisons. These are used as follows, where `x` and `y` are Boolean expression:\
+We can use _Boolean operators_ to combine multiple comparisons. These are used as follows, where `x` and `y` are Boolean expressions:\
 `!x`  : not x\
 `x && y`  : x and y\
 `x || y`  : x or y\
@@ -255,14 +255,14 @@ For example:
 
 ::: {.callout-tip}
 ## Select the extremes 
-The expression `rand()` gets a random number between 0 and 1. Write a series of commands that pick such a random number, and then return `true` if that number is either above 0.75 or below 0.25, and `false` otherwise.
+The expression `rand()` gets a random number between 0 and 1. Write a series of commands that picks such a random number, and then returns `true` if that number is either above 0.75 or below 0.25, and `false` otherwise.
 
 (If you solve the above and have time, can you figure out a way to _chain_ your Boolean expressions into a form similar to `value1 < x < value2` ?)
 :::
 
 ### Collections, e.g. Arrays
 
-Variables can contain more than a single item in them. A general term for such a data structure is a _collection_. An array is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Below we create some kinds of arrays:
+Objects can contain more than a single item in them. A general term for such a data structure is a _collection_. An **array** is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Below we create some kinds of arrays:
 
 ```{julia}
 arrayA = [7.3, 3, 11.2, -5, 3.2]
@@ -272,9 +272,9 @@ arrayA = [7.3, 3, 11.2, -5, 3.2]
 arrayB = [6 5 4; 3 2 1]
 ```
 
-Because these variables are more complex data structures that the simple ones we've looked at so far, Julia tells you the type of the returned value, before showing you the actual values.
+Because these variables are more complex data structures that the simple ones we've looked at so far, Julia tells you the _type_ of the returned value, before showing you the actual values.
 
-Note that a `Vector` is another name (an _alias_) for a 1-dimensional array, and a `Matrix` is another name for a 2-dimensional array. Inside the curly brackets, Julia indicates the Type that each element of the array belongs to (this is `Float64` in the first case, and `Int64` in the second).
+Note that a `Vector` is another name (an _alias_) for a 1-dimensional array, and a `Matrix` is another name for a 2-dimensional array. Inside the curly brackets, Julia indicates the type that each element of the array belongs to (this is `Float64` in the first case, and `Int64` in the second).
 
 We can ask Julia to return the values in parts of an array by _indexing_ into the array. For example:
 
