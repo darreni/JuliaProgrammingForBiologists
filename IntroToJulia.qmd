@@ -9,7 +9,11 @@ format:
 jupyter: julia-1.11
 ---
 
-Now that we have Julia running, we can learn how to enter _expressions_ that Julia will evaluate. 
+On this page we'll take an introductory tour of Julia. This will just touch on a variety of topics, providing just enough detail to get you going. (We'll go more in-depth on various topics later.)
+
+### Expressions
+
+Now that we have Julia running (on the last page), we can learn how to enter **expressions** that Julia will evaluate. 
 
 The simplest expressions are just a single number or string of text, e.g. try entering something like:
 
@@ -46,7 +50,7 @@ We can also use some _functions_ in our expressions. A function is something tha
 sqrt(16)
 ```
 
-### Assigning values to variable names
+### Naming and sssigning values to objects
 
 Each of the above expressions returns a _value_ that we can give a name and store in memory, using the equal sign `=`, the _assignment operator_. For example:
 
@@ -181,7 +185,7 @@ Assign a few of your favorite species to different variable names, and then comb
 
 ### Unicode characters
 
-One fun thing about Julia is that you can use Unicode characters in variable names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:
+One fun thing about Julia is that you can use Unicode characters in object names, strings, function names, and some operators. The motivator for this is to make code read more like humans tend to write mathematics. For example:
 
 ```{julia}
 χ² = 30.4
@@ -194,7 +198,7 @@ Unicode also allows some fun.
 
 ::: {.callout-tip}
 ## Plant biology using Unicode 
-Assign a variable `a` the value of a `Char` given by typing `\:seedling:` tab. Assign a variable `b` the value of a `Char` given by typing `\:deciduous_tree:` tab. Then execute this line:
+Assign a variable `a` the value of a `Char` given by typing `\:seedling:` tab. (_Remember to use single quotes around the seedling symbol._) Assign a variable `b` the value of a `Char` given by typing `\:deciduous_tree:` tab. Then execute this line:
 
 ```julia
 string(a, " grows into ", b)
@@ -219,7 +223,7 @@ In programming it is often important to check if certain conditions are `true` o
 
 These _comparison operators_ are used to compare two values (place to left and right of the operator), resulting in `true` or `false`:\
 `==` : equal?  (_notice the two equal symbols_)\
-`!=` : not equal?\
+`!=` : not equal?  (_or try a uncode symbol by typing \neq then tab_)\  
 `<` : less than?\
 `<=` : less than or equal?\
 `>` : greater than?\
