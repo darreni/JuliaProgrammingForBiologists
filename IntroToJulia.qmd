@@ -9,7 +9,7 @@ format:
 jupyter: julia-1.11
 ---
 
-On this page we'll take an introductory tour of Julia. This will just touch on a variety of topics, providing just enough detail to get you going. (We'll go more in-depth on various topics later.)
+On this page we'll take an introductory tour of Julia. This will touch on a variety of topics, providing just enough detail to get you going. (We'll go more in-depth on various topics later. You can also learn more from the [Julia Manual](https://docs.julialang.org/en/v1/manual/getting-started/).)
 
 ### Expressions
 
@@ -49,6 +49,10 @@ We can also use some _functions_ in our expressions. A function is something tha
 ```{julia}
 sqrt(16)
 ```
+
+### Getting help
+
+To look up information about a command in Julia, you can enter the **help mode** by typing `?` at the Julia prompt. The prompt then changes to `help?>`, and you can type the name of a function or operator and then enter. Julia will then tell you some helpful info. Try this for the `+` operator, for instance.
 
 ### Naming and sssigning values to objects
 
