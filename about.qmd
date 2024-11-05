@@ -5,7 +5,7 @@ author: "Darren Irwin"
 
 About this site:
 
-I am a Professor of Zoology at the University of British Columbia. To learn more about my research, go to: <https://www.zoology.ubc.ca/~irwin/irwinlab/> 
+I am a Professor of Zoology at the University of British Columbia, where a have the great fortune to work with a wonderful group of students. To learn more about our research, go to: <https://www.zoology.ubc.ca/~irwin/irwinlab/> 
 
 Disclaimer: I am mostly self-taught in the area of computer science and programming, so will likely find better sources to learn about those topics. My goal here is to help other biologists learn to start programming. I have chosen the Julia language because of its easy entry, its speed and memory efficiency, and because it has been hugely useful in my own research.
 
