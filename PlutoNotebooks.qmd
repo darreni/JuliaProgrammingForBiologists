@@ -109,7 +109,7 @@ _If wanting a bigger challenge_: Can you figure out how to make the cloud of poi
 
 ### Add text using Markdown
 
-You can add headers and comments to your notebook using Markdown, simply by entering `md` and then double quotes surrounding your text. Create a new cell at the top of your notebook and enter this:
+_Markdown_ is a system for converting strings to formatted text in a document. You can  use Markdown to add headers and comments to your notebook, simply by entering `md` and then double quotes surrounding your text. Create a new cell at the top of your notebook and enter this:
 
 ```julia
 md"# _Welcome to my notebook!_ 
@@ -129,6 +129,8 @@ md"There are $numPoints data points in the graph"
 ```julia
 num = 4; md"The square of $num is $(num^2) ."
 ```
+
+The fancy name for the above is **string interpolation**. The expressions following the `$` are evaluated as Julia expressions, and the returned values are integrated into the string (indicated by double quotes) and then formatted as Markdown text (indicated by the `md` preceding the quotes).
 
 [Note that if you want the above Markdown commands to work outside of Pluto, e.g. in a regular Julia REPL, you have to add the Markdown.jl package. Enter package mode with `]`, then enter `add Markdown`, then press "delete" to return to REPL, then enter `using Markdown`.]
 
