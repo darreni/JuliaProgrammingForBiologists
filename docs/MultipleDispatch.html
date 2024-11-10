@@ -325,21 +325,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="specifying-types-of-objects">Specifying <em>types</em> of objects</h3>
 <p>Several pages back we learned about how Julia has <em>dynamic typing</em> meaning you often don’t need to think about the types of objects. But as your programming skills increase, it becomes increasingly beneficial to think about types. This facilitates organized code, interpretation of error messages, reading of documentation, and defining and using functions effectively.</p>
 <p>We can specify the type of an object using the <code>::</code> operator, which can be thought of as meaning “is an instance of”:</p>
-<div id="fac75554" class="cell" data-execution_count="1">
+<div id="899ed0fa" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">::</span><span class="dt">Int64 </span><span class="op">=</span> <span class="fl">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>6</code></pre>
 </div>
 </div>
 <p>The above declares an object <code>x</code> as being of type <code>Int64</code>, and then assigns the value <code>6</code> to it. If you try to assign something like <code>6.3</code> to it, you will get an error (try it!). However, Julia tries to be friendly so if you assign something that can be converted to <code>Int64</code> it works:</p>
-<div id="fab437b5" class="cell" data-execution_count="2">
+<div id="180adf1e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>y<span class="op">::</span><span class="dt">Int64 </span><span class="op">=</span> <span class="fl">6.0</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>6</code></pre>
 </div>
 </div>
-<div id="f0e572e0" class="cell" data-execution_count="3">
+<div id="8bdefa92" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">typeof</span>(<span class="fl">6.0</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">typeof</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -352,33 +352,33 @@ Int64</code></pre>
 <section id="create-your-own-types-struct" class="level3">
 <h3 class="anchored" data-anchor-id="create-your-own-types-struct">Create your own types: <code>struct</code></h3>
 <p>You can create your own data structures, which have their own types, using the <code>struct</code> keyword. For instance, let’s say we are working with shapes:</p>
-<div id="5931e54e" class="cell" data-execution_count="4">
+<div id="bc8f4952" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Circle</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    radius</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>So now we have defined a new type (<code>Circle</code>) that has one <em>field</em> (<code>radius</code>). We can now create (“instantiate” or “construct”) an actual object that is of this type by calling <code>Circle</code> like a function:</p>
-<div id="b28e92e2" class="cell" data-execution_count="5">
+<div id="a70c5716" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>circA <span class="op">=</span> <span class="fu">Circle</span>(<span class="fl">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>Circle(1)</code></pre>
 </div>
 </div>
-<div id="b1c878f1" class="cell" data-execution_count="6">
+<div id="edbbb48b" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(circA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>Circle</code></pre>
 </div>
 </div>
 <p>So now, <code>circA</code> is a specific object in memory of type <code>Circle</code>. To get its radius (its only field), we type the name of the object then a <code>.</code> and then the field name:</p>
-<div id="8be68cae" class="cell" data-execution_count="7">
+<div id="629c9513" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>circA.radius</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>1</code></pre>
 </div>
 </div>
 <p>Let’s define and instantiate another kind of shape:</p>
-<div id="2dc32366" class="cell" data-execution_count="8">
+<div id="864531e6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Square</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    side</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -405,18 +405,18 @@ More shapes!
 <p>The types defined above by the <code>struct</code> keyword are used to instatiate immutable objects. This means we get an error if we try to alter a field within an object:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sq1.side <span class="op">=</span> <span class="fl">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The REPL responds with an error saying “immutable struct of type Square cannot be changed”. To set up the ability to change our objects after they are created, we need to use the <code>mutable struct</code> phrase to define the type:</p>
-<div id="353410f3" class="cell" data-execution_count="9">
+<div id="836e604b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> SquareMutable</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  side</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a8cac32e" class="cell" data-execution_count="10">
+<div id="031ee93f" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sqA <span class="op">=</span> <span class="fu">SquareMutable</span>(<span class="fl">3.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>SquareMutable(3.5)</code></pre>
 </div>
 </div>
-<div id="5519c4f0" class="cell" data-execution_count="11">
+<div id="b22aa0c5" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sqA.side <span class="op">=</span> <span class="fl">9.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>9.7</code></pre>
@@ -427,35 +427,35 @@ More shapes!
 <section id="defining-functions-for-specific-types" class="level3">
 <h3 class="anchored" data-anchor-id="defining-functions-for-specific-types">Defining functions for specific types</h3>
 <p>Now that we have some shape objects, let’s do something with them. Functions are great at doing things with objects, so let’s define a function:</p>
-<div id="0b9b36ab" class="cell" data-execution_count="12">
+<div id="000d0dcc" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(x<span class="op">::</span><span class="dt">Circle</span>) <span class="op">=</span> <span class="cn">π</span> <span class="op">*</span> (x.radius)<span class="op">^</span><span class="fl">2</span>    <span class="co"># write π with: \pi tab</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>getArea (generic function with 1 method)</code></pre>
 </div>
 </div>
 <p>We have now defined a function that requires a <code>Circle</code> object as input, and returns the area of the circle based on the <code>radius</code> field. We can call it on our actual objects in memory:</p>
-<div id="4f4babdd" class="cell" data-execution_count="13">
+<div id="af0766ed" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(circA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>3.141592653589793</code></pre>
 </div>
 </div>
 <p>We also want to get areas of squares. So, we can define a function with the same name but applies only to <code>Square</code>s:</p>
-<div id="9929157b" class="cell" data-execution_count="14">
+<div id="9d91d7ae" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(x<span class="op">::</span><span class="dt">Square</span>) <span class="op">=</span> x.side<span class="op">^</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>getArea (generic function with 2 methods)</code></pre>
 </div>
 </div>
 <p>Now here is where it gets really neat. Let’s call the <code>getArea()</code> function on our our actual square object in memory:</p>
-<div id="2a22091d" class="cell" data-execution_count="15">
+<div id="20abff6c" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(sq1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>25</code></pre>
 </div>
 </div>
 <p>And now let’s call the same named function on our circle:</p>
-<div id="a85360f8" class="cell" data-execution_count="16">
+<div id="ded16bda" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getArea</span>(circA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>3.141592653589793</code></pre>
@@ -481,7 +481,7 @@ Add a method
 <p>In the above example using shapes, we had an example of <em>single dispatch</em>, when the method of a function depends on the type of a single argument. This is common in a variety of computer languages. Julia is unusual in having the concept of <em>multiple dispatch</em> at its core. This is when the <em>method</em> of a function depends on the types of multiple arguments. We’ll develop this idea using an example:</p>
 <section id="interacting-cats-and-dogs" class="level4">
 <h4 class="anchored" data-anchor-id="interacting-cats-and-dogs">Interacting cats and dogs</h4>
-<div id="bdbacdc8" class="cell" data-execution_count="17">
+<div id="7a236453" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Dog</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  name<span class="op">::</span><span class="dt">String</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  age<span class="op">::</span><span class="dt">Int  </span><span class="co"># Int is an general type for all integer types (e.g. Int64)</span></span>
@@ -489,7 +489,7 @@ Add a method
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The above creates a <code>Dog</code> type. Now let’s make two actual <code>Dog</code>s:</p>
-<div id="e336689b" class="cell" data-execution_count="18">
+<div id="eba14b3e" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>rosie <span class="op">=</span> <span class="fu">Dog</span>(<span class="st">"Rosie"</span>, <span class="fl">3</span>, <span class="st">"woof"</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>leah <span class="op">=</span> <span class="fu">Dog</span>(<span class="st">"Leah"</span>, <span class="fl">4</span>, <span class="st">"howl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
@@ -497,7 +497,7 @@ Add a method
 </div>
 </div>
 <p>We can learn about what is within a certain object in memory by using the ‘dump()’ function (which can be thought of as “dumping” or showing everything in the object):</p>
-<div id="edb11a6c" class="cell" data-execution_count="19">
+<div id="612c8131" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dump</span>(rosie)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dog
@@ -507,7 +507,7 @@ Add a method
 </div>
 </div>
 <p>Now let’s make a <code>Cat</code> type and two instantiated <code>Cat</code>s:</p>
-<div id="840e8c41" class="cell" data-execution_count="20">
+<div id="f9c809b0" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Cat</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  name<span class="op">::</span><span class="dt">String</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  age<span class="op">::</span><span class="dt">Int  </span><span class="co"># Int is an general type for all integer types (e.g. Int64)</span></span>
@@ -521,7 +521,7 @@ Add a method
 </div>
 </div>
 <p>Now that we’ve made some dogs and cats, let’s define the rules by which they interact:</p>
-<div id="9c86ad97" class="cell" data-execution_count="21">
+<div id="fb7e2e65" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> wags tail and makes a </span><span class="sc">$</span>(x.sound)<span class="st"> toward </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -529,7 +529,7 @@ Add a method
 <pre><code>interact (generic function with 1 method)</code></pre>
 </div>
 </div>
-<div id="5b714b31" class="cell" data-execution_count="22">
+<div id="9061361a" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Dog</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> chases </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -537,7 +537,7 @@ Add a method
 <pre><code>interact (generic function with 2 methods)</code></pre>
 </div>
 </div>
-<div id="1785db23" class="cell" data-execution_count="23">
+<div id="8fd36b2d" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Dog</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> runs from </span><span class="sc">$</span>(y.name)<span class="st">."</span>)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -545,7 +545,7 @@ Add a method
 <pre><code>interact (generic function with 3 methods)</code></pre>
 </div>
 </div>
-<div id="a066da09" class="cell" data-execution_count="24">
+<div id="345a15ec" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">interact</span>(x<span class="op">::</span><span class="dt">Cat</span>, y<span class="op">::</span><span class="dt">Cat</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>(x.name)<span class="st"> stretches and says </span><span class="sc">$</span>(x.sound)<span class="st">."</span>)</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -554,7 +554,7 @@ Add a method
 </div>
 </div>
 <p>Now, let’s call our function:</p>
-<div id="577e8307" class="cell" data-execution_count="25">
+<div id="7e669de5" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, leah)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(rosie, fluffy)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">interact</span>(fluffy, rosie)</span>
@@ -576,7 +576,7 @@ Fluffy stretches and says meow.</code></pre>
 <p>The REPL responds by saying: <code>ERROR: MethodError: no method matching sqrt(::Vector{Int64})</code></p>
 <p>It is telling you that there is no <em>method</em> for the ‘sqrt’ function that uses an input an object of type <code>Vector{Int64}</code> (meaning a vector of integers). If we can understand this message, we might then realize that we have to either enter a single number as input (<code>sqrt(9)</code>) or broadcast over all elements of the vector using the dot operator (<code>sqrt.([9, 4])</code>).</p>
 <p>If we want to see what methods a function can use, we can use the <code>methods()</code> function:</p>
-<div id="aed7acc3" class="cell" data-execution_count="26">
+<div id="5cef3bce" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(interact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 # 4 methods for generic function <b>interact</b> from [35mMain[39m:<ul><li> interact(x::<b>Cat</b>, y::<b>Cat</b>) in Main at In[25]:1</li> <li> interact(x::<b>Cat</b>, y::<b>Dog</b>) in Main at In[24]:1</li> <li> interact(x::<b>Dog</b>, y::<b>Cat</b>) in Main at In[23]:1</li> <li> interact(x::<b>Dog</b>, y::<b>Dog</b>) in Main at In[22]:1</li> </ul>

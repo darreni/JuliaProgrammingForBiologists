@@ -229,6 +229,51 @@ I think of the above as "Check if true OR (only if not true) do this thing."
 
 The above expressions may take a while to get used to. You don't have to use them, as you might find the `if` block a lot more intuitive. But you may see these expressions in code that others have written, so it is good to understand them. 
 
+### Array comprehensions
+
+This is a concept that involves understanding of arrays, `for` loops, and (in some cases) `if` statements. Let's say we want to generate a vector containing all the cubes of the integers from 1 to 5. From what we've learned above, we can write a `for` loop to do that:
+
+```{julia}
+cubes = [] # initializes an empty vector
+for i in 1:5
+  push!(cubes, i^3)
+end
+cubes
+```
+
+That works fine. A more concise way to do this using an **array comprehension**:
+
+```{julia}
+cubes2 = [x^3 for x in 1:5]
+```
+
+The code in the brackets can be thought of as a loop in which a variable (`x`) takes on the values from 1 through 5, each time calculating `x^3` and storing that as a value in the vector. We can even add an `if` statement to filter the resulting values in the vector:
+
+```{julia}
+cubes3 = [x^3 for x in 1:10 if x^3 % 3 == 0]
+```
+
+This produces only the cubes that are divisible by 3.
+
+#### Multi-dimensional array comprehension
+
+We can use comprehensions to generate arrays of any dimension. For example:
+
+```{julia}
+multiplicationTable = [x*y for x in 1:6, y in 1:6]
+```
+
+The above had two implied loops (one for `x` and one for `y`) and the comma between them indicates they represent two dimensions.
+
+::: {.callout-tip}
+## Make a 4×4 array containing all possible dinucleotides 
+Using array comprehension, write code that will generate `Matrix` containing all 16 possible 2-letter combinations of A, C, G, and T.
+
+_If you succeed: Can you now generate a 4×4×4 `Array` that contains all possible trinucleotides?_ 
+:::
+
+Array comprehensions might take a while to get used to, as they contain a lot of logic in concise code. I mention them here because you may see them in Julia programs written by others. When you are starting out though, the logic may be easier to perceive if you write out your array-filling loops as full `for` blocks containing a series of expressions and an `end` keyword. 
+
 ### Next steps
 
 Now that we have have developed an understanding of loops and conditional evaluation, we are ready to learn more about functions, types, and multiple dispatch in Julia. Together, these concepts can be thought of as methods of control flow. They enable powerful and fascinating approaches to programming.

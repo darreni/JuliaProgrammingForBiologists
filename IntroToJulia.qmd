@@ -307,7 +307,30 @@ arrayB[2, 2] = -129
 arrayB
 ```
 
-We're going to eventually learn a lot more about arrays, as they are super useful in data science, bioinformatics, and simulations.
+We're going to eventually learn a lot more about arrays, as they are super useful in data science, bioinformatics, and simulations. There are many Julia functions than manipulate arrays. Here we'll mention two of them that are useful for working with vectors (1-dimensional arrays) when you are starting out:
+
+#### `push!()` and `pop!()`
+
+These two function are used to add (push) an element to the end of a vector, or remove (pop) the last element from a vector:
+
+```{julia}
+vecA = ["one", "two", "three"]
+push!(vecA, "four")
+```
+
+We added an element to the end. Now we can remove it:
+
+```{julia}
+pop!(vecA)
+```
+
+That last one returns the last element of `vecA`, and removes it from `vecA`:
+
+```{julia}
+vecA
+```
+
+The `!` in these function names conveys that these functions change an object that is being passed to the function (in this case, `vecA`). Other useful and well-named functions that change vectors include `insert!()`, `delete!()`, `append!()`, `empty!()`, and many others.
 
 ### Tuples
 
