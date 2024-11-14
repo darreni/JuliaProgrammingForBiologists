@@ -102,10 +102,11 @@ Can you modify the above to produce all possible trinucleotides (i.e., 3-base nu
 Let's say you don't know in advance how many times you want to go through a loop. Rather, you want to stop the loop when some condition is met. The `while` loop is perfect for that:
 
 ```{julia}
-sum = 0
-while sum <= 21  # inspired by a card game
-  sum = sum + rand(1:10)
-  println(sum)
+mySum = 0
+while mySum <= 21  # inspired by a card game
+  myRand = rand(1:10)  # this variable internal to the loop, not known outside
+  mySum = mySum + myRand
+  println(mySum)
 end
 ```
 
