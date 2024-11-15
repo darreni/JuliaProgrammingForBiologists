@@ -102,8 +102,12 @@ We now have to write some code to make individuals interact:
 
 ##### Write a function competing pairs of individuals, and determining the winner
 
-IDEA: MAKE THIS A CALLOUT BOX? HAVE THEM WRITE THE CODE BELOW?
+::: {.callout-tip}
+## Write a "roshambo" function to determines the winner of two strategies
+Your function should take two input arguments (named `s1` and `s2`), with each being a strategy (either `'R'`, `'P'`, or `'S'`), and then output `0` if there is no winner, `1` if `s1` is the winner, or `2` if `s2` is the winner.
+:::
 
+::: {.content-hidden}
 ```{julia}
 function roshambo(s1, s2)  # where s1 and s2 are strategies of individuals 1 and 2
 	if ((s1 == 'R') && (s2 == 'P')) ||
@@ -120,6 +124,7 @@ function roshambo(s1, s2)  # where s1 and s2 are strategies of individuals 1 and
     return winner
 end	
 ```
+:::
 
 Test the function above:
 
@@ -127,7 +132,15 @@ Test the function above:
 roshambo('S', 'R')
 ```
 
-We now have a short expression that tells us which individual wins. This is an example of _abstraction_ (a key concept in computer science).
+```{julia}
+roshambo('P', 'R')
+```
+
+```{julia}
+roshambo('S', 'S')
+```
+
+We now have a short expression that tells us which individual wins. This is an example of _abstraction_ (a key concept in computer science), because we don't have to think about the detailed code in the function---we know it just works.
 
 Now let's build code that chooses a random individual and the individual closest to it (so that we can then compete them).
 
