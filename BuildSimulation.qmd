@@ -166,15 +166,13 @@ sigma_disp = 0.005
 function disperse_ind!(x_locations, y_locations, ind, sigma_disp)
 	new_x = -9.9 # initialize with arbitrary wrong value
 	new_y = -9.9 
-	while true  # keep looping to try new locations, until in range (then break out of loop)
+	# try new locations, until in range (then break out of loop)
+	while !(0 < new_x < 1) || !(0 < new_y < 1)  
 		new_x = x_locations[ind] + (sigma_disp * randn())
 		new_y = y_locations[ind] + (sigma_disp * randn())
-        # check if new location is within the range
-		if (0 < new_x < 1) && (0 < new_y < 1)
-			break  # in range, so break out of loop
-		end
 	end
-	x_locations[ind] = new_x  # assign new location to individual in population
+	# assign new location to individual in population
+	x_locations[ind] = new_x  
 	y_locations[ind] = new_y
 end
 ```
@@ -208,7 +206,7 @@ The above function runs the simulation for a given number of iterations, modifyi
 Let's test the function above:
 
 ```{julia}
-run_sim!(5)
+run_sim!(5000)
 ```
 
 That shows us the result of the simulation after a given number of iterations. But we want to see the dynamics. Let's make a movie!
