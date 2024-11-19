@@ -97,6 +97,15 @@ end
 Can you modify the above to produce all possible trinucleotides (i.e., 3-base nucleotides)? 
 :::
 
+::: {.content-hidden}
+```{julia}
+bases = ['A', 'C', 'G', 'T']
+for i in bases, j in bases, k in bases
+  print(i, j, k, ", ")
+end 
+```
+:::
+
 #### `while` loops
 
 Let's say you don't know in advance how many times you want to go through a loop. Rather, you want to stop the loop when some condition is met. The `while` loop is perfect for that:
@@ -113,6 +122,17 @@ end
 ::: {.callout-tip}
 ## Simulate dispersal of an organism
 You are writing a simulation in which individuals move from their birth site to their breeding site, along a continuous range of length 1. The dispersal distance is drawn from a standard normal distribution, given by `randn()`, with the constraint that they are not allowed to move outside of the range. If an individual is born at location 0.7, write a script that determines its breeding location within the range (lowest possible value = 0; highest possible value = 1).
+:::
+
+::: {.content-hidden}
+```{julia}
+startLocation = 0.7
+newLocation = -1.0 # initialize at not-allowed value
+while !(0.0 < newLocation < 1.0)
+  newLocation = startLocation + randn()
+end
+println(newLocation)
+```
 :::
 
 ### Compound expressions
@@ -175,6 +195,16 @@ In an `if` block, the `elseif` and `else` parts are optional, but the `end` is e
 Write a script in which you assign a diploid genotype to a variable, with the genotype encoded as a 2-element vector containing strings (e.g., `["A", "C"]` or `["A", "A"]`), and then the script tells you whether the genotype is homozygous (the two elements are the same) or heterozygous (the two elements are different). (_Hint_: Remember how to access one element of a vector, e.g. `x[1]` gives just the first element of `x`; Remember how to ask if two things are equal: `==`)
 :::
 
+::: {.content-hidden}
+```{julia}
+gt = ["C", "C"]
+if gt[1] == gt[2]
+  println("homozygote")
+else println("heterozgyote") 
+end
+```
+:::
+
 In Julia, `if` blocks return a value. You can make use if that to do something like this:
 
 ```{julia}
@@ -199,6 +229,13 @@ This can be thought of as "True or false" ? "Do this if true" : "Do this if fals
 ::: {.callout-tip}
 ## Determine whether a number is positive or negative 
 Assign a non-zero number to a variable, and then use a ternary operater to report whether the number is positive or negative.
+:::
+
+::: {.content-hidden}
+```{julia}
+myNum = -0.12
+myNum > 0 ? "positive" : "negative"
+```
 :::
 
 ### Short-circuit evaluation
@@ -271,6 +308,17 @@ The above had two implied loops (one for `x` and one for `y`) and the comma betw
 Using array comprehension, write code that will generate `Matrix` containing all 16 possible 2-letter combinations of A, C, G, and T.
 
 _If you succeed: Can you now generate a 4×4×4 `Array` that contains all possible trinucleotides?_ 
+:::
+
+::: {.content-hidden}
+```{julia}
+nucs = ['A', 'C', 'G', 'T']
+dinucs = [x*y for x in nucs, y in nucs]
+```
+
+```{julia}
+trinucs = [x*y*z for x in nucs, y in nucs, z in nucs]
+```
 :::
 
 Array comprehensions might take a while to get used to, as they contain a lot of logic in concise code. I mention them here because you may see them in Julia programs written by others. When you are starting out though, the logic may be easier to perceive if you write out your array-filling loops as full `for` blocks containing a series of expressions and an `end` keyword. 
