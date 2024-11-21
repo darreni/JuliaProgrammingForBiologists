@@ -237,7 +237,19 @@ I've designed this example to provide a basic structure and logic for this sort 
 * Make the graph fancier, with axis labels and explanation of colors, or adding the number of iterations as text somewhere.
 * Add a fourth strategy with its own rules, and see what happens.
 * Store the three population vectors in a single data structure (by using the `mutable struct` command to make a new type)
-* Change the way the population interacts with the edge of the range--for instance, what if individuals who move off the right side were to appear on the left side? This would make the range have no limits, but still finite space (the resulting geometry is called a torus--like the surface of a donut in 3D space.) 
-* Add something new to the simulation--for example, what if individuals were to mate when they meet, with offspring inheriting neutral alleles (meaning no selective effects) from both parents? Could you then use this framework to track allele frequencies on the landscape over time?
+* Change the way the population interacts with the edge of the range---for instance, what if individuals who move off the right side were to appear on the left side? This would make the range have no limits, but still finite space (the resulting geometry is called a torus---like the surface of a donut in 3D space.)
+* Show some different aspect of simulation behaviour---for instance, can you save the movements of a single individual over time, and show just that individual's path at the end? Or could you show the population size of the three strategies over time?
+* Add something new to the simulation---for example, what if individuals were to mate when they meet, with offspring inheriting neutral alleles (meaning no selective effects) from both parents? Could you then use this framework to track allele frequencies on the landscape over time?
 
+### Think about simulating something that interests you
+
+In this series of tutorials we've learned a lot of the central logic used in programming. Now it is a matter of putting it together in ways that do things that interest you. Think about some biological question that interests you and try to consider how a computer simulation might provide you with some insight regarding that question. Then, think about how to build a simple simulation. Start small and simple. Once you develop a framework, you can add complexity later. 
+
+Some simulation ideas that come to mind, to get the ball rolling:
+
+* Migration path of a bird, according to some simple rules of movement (e.g. fly southward, but with variation in exact direction and distance in each time step).
+* Path of growth of a cell (e.g. an axon?) according to some simple rules, perhaps in a way that avoids (or is attracted to) other cells.
+* Predator - prey dynamics on a landscape.
+* Change in allele frequencies over time, with random mating and no selection in a population of constant size (there is a name for this, which rhymes with "magnetic lift").
+* Simulation of how random mutations in a certain gene sequence might affect the amino acid structor of the encoded protein.
 
