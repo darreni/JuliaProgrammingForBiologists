@@ -237,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./LoadData&amp;Analyze&amp;Graph.html" class="sidebar-item-text sidebar-link">
+  <a href="./LoadDataAnalyzeGraph.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Load &amp; Graph Data</span></a>
   </div>
 </li>
@@ -327,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="arrays">Arrays</h2>
 <p>You can think of an <code>Array</code> as a big box that contains one or more small boxes in a grid arrangement. They can have zero dimensions (i.e., one small box), one dimension (i.e., a stack of small boxes; also called a <code>Vector</code>), two dimensions (i.e., a grid of small boxes; also called a <code>Matrix</code>), or even more dimensions. We can store things in each small box, and refer to what is in that box by its <em>indices</em> (the box number along each dimension).</p>
 <p>For example, here we create a 2-dimensional array of 3 by 4 dimensions:</p>
-<div id="f63acae2" class="cell" data-execution_count="1">
+<div id="7553c580" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> [<span class="fl">11</span> <span class="fl">21</span> <span class="fl">31</span> <span class="fl">41</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="fl">99</span> <span class="fl">88</span> <span class="fl">77</span> <span class="fl">66</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -340,7 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Julia shows us the type of this object as being <code>Matrix{Int64}</code> meaning that it is a <code>Matrix</code> (a 2-dimensional <code>Array</code>) with elements of type <code>Int64</code>.</p>
 <p>Let’s look in just one box using indexing:</p>
-<div id="48971560" class="cell" data-execution_count="2">
+<div id="93d1ba67" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>A[<span class="fl">3</span>,<span class="fl">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>88</code></pre>
@@ -348,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>That gives us the value in row 3 and column 2.</p>
 <p>Or we can take a <em>slice</em> of the array:</p>
-<div id="c3565b66" class="cell" data-execution_count="3">
+<div id="51b3ee44" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>A[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>3×2 Matrix{Int64}:
@@ -361,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="creating-arrays">Creating arrays</h3>
 <p>Often in programming, it is good practice to set up an array and then later fill it with meaningful values. This promotes efficiency (minimizing memory use and maximizing speed) compared to building an array by small pieces at a time.</p>
 <p>We can initialize arrays in a number of ways. Here are a few of the possibilities:</p>
-<div id="84235426" class="cell" data-execution_count="4">
+<div id="78a92606" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> <span class="fu">ones</span>(<span class="fl">3</span>, <span class="fl">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>3×7 Matrix{Float64}:
@@ -370,14 +370,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  1.0  1.0  1.0  1.0  1.0  1.0  1.0</code></pre>
 </div>
 </div>
-<div id="e4ced21b" class="cell" data-execution_count="5">
+<div id="b680ef75" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> <span class="fu">zeros</span>(<span class="fl">1</span>,<span class="fl">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>1×5 Matrix{Float64}:
  0.0  0.0  0.0  0.0  0.0</code></pre>
 </div>
 </div>
-<div id="f0b737ca" class="cell" data-execution_count="6">
+<div id="e580e1e0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="fu">fill</span>(<span class="fl">3.7</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>3×5×2 Array{Float64, 3}:
@@ -394,10 +394,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This last one is a 3-dimensional array. You can think of the dimensions as rows, columns, and pages or layers.</p>
 <p>There are many times when we don’t care what the initial values in our array are. A time-saving method is to declare an array with an arbitrary value determined by the bit values already in the memory being accessed:</p>
-<div id="b233e317" class="cell" data-execution_count="7">
+<div id="97b3c6e2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> E <span class="op">=</span> <span class="fu">Array</span><span class="dt">{Float64}</span>(<span class="cn">undef</span>, <span class="fl">1000</span>, <span class="fl">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000006 seconds (3 allocations: 7.629 MiB)</code></pre>
+<pre><code>  0.029991 seconds (3 allocations: 7.629 MiB, 99.71% gc time)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>1000×1000 Matrix{Float64}:
@@ -429,10 +429,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0</code></pre>
 </div>
 </div>
-<div id="3ca1e2c8" class="cell" data-execution_count="8">
+<div id="786fd086" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> F <span class="op">=</span> <span class="fu">ones</span>(<span class="fl">1000</span>,<span class="fl">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.004793 seconds (3 allocations: 7.629 MiB)</code></pre>
+<pre><code>  0.004599 seconds (3 allocations: 7.629 MiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>1000×1000 Matrix{Float64}:
@@ -468,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="arrays-can-store-just-about-anything" class="level3">
 <h3 class="anchored" data-anchor-id="arrays-can-store-just-about-anything"><em>Arrays can store just about anything!</em></h3>
-<div id="97e7559c" class="cell" data-execution_count="9">
+<div id="6147904b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> [<span class="fl">1</span> <span class="fl">1.0</span> <span class="st">"one"</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     <span class="fl">1</span><span class="op">//</span><span class="fl">1</span> <span class="ch">'1'</span> <span class="fu">BigInt</span>(<span class="fl">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -478,7 +478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>In fact, you can even put an array inside an array:</p>
-<div id="f06bca15" class="cell" data-execution_count="10">
+<div id="35cc2406" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>G[<span class="fl">1</span>,<span class="fl">1</span>] <span class="op">=</span> [<span class="fl">1</span> <span class="fl">0</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>          <span class="fl">0</span> <span class="fl">1</span>]</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>G</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -492,7 +492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>A[<span class="fl">2</span>,<span class="fl">3</span>] <span class="op">=</span> <span class="st">"A string, not an integer"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Julia responds: <code>MethodError: Cannot `convert` an object of type String to an object of type Int64</code></p>
 <p>The error arises because <code>A</code> is set up as a matrix of integers, and we cannot put a string into it. We can fix this though be changing the type of the array:</p>
-<div id="8a2bf2dd" class="cell" data-execution_count="11">
+<div id="83a91d88" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="fu">convert</span>(<span class="dt">Matrix</span>{<span class="dt">Any</span>}, A)  <span class="co"># converts A to type Matrix{Any}</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>A[<span class="fl">2</span>,<span class="fl">3</span>] <span class="op">=</span> <span class="st">"A string, not an integer"</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -509,7 +509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When we created the arrays <code>A</code> and <code>G</code>, Julia made a best guess as to what types it should allow in the boxes. In the case of <code>A</code>, when we first created it we put in only integers, so Julia made the assumption that we would always want only integers in it. Why would it make that limitation? Well, there are huge benefits in terms of the way the array is stored in memory. If only integers will be stored, then Julia knows how much memory to allocate. If anything could be stored in an array, then it has to set it up in memory in a more flexible way that is not as efficient.</p>
 <p>Julia gives us the option of thinking a lot about efficiency in our coding, but it is also quite fast even when you don’t write efficient code, by making its best guess about how to store data. As you become a better programmer and work with larger datasets, it will become more useful to think about storing data efficiently.</p>
 <p>As one example, let’s say we need to store a big matrix of random values, lets say 10,000 rows by 10,000 columns, so 100 million values. We could just venture forth with a simple command, like this:</p>
-<div id="277ba9e9" class="cell" data-execution_count="12">
+<div id="ff9a2884" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bigMatrix <span class="op">=</span> <span class="fu">fill</span>(<span class="fl">1</span>, <span class="fl">10_000</span>, <span class="fl">10_000</span>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>10000×10000 Matrix{Int64}:
@@ -542,7 +542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This creates a 10,000 by 10,000 array and fills it with the <code>1</code>s. We can check the memory size of this array like this:</p>
-<div id="2925c857" class="cell" data-execution_count="13">
+<div id="41bc1512" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sizeof</span>(bigMatrix)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>800000000</code></pre>
@@ -550,7 +550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This tells us that <code>bigMatrix</code> uses 800 million bytes of memory. This makes sense, because it is of type <code>Matrix{Int64}</code> meaning that each element is stored as a 64-bit integer, meaning it uses 8 bytes (there are 8 bits in a byte).</p>
 <p>If we think about our needs though, we might realize we will not need to store any big or small integers in this matrix. If our matrix will only be used to store integers ranging from <code>-128</code> and <code>127</code>, then those integers can all be stored in only 8 bits (1 byte). So let’s tell Julia that we want our Matrix set up like that:</p>
-<div id="f4924252" class="cell" data-execution_count="14">
+<div id="baa62a0d" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bigMatrix2 <span class="op">=</span> <span class="fu">fill</span>(<span class="fu">Int8</span>(<span class="fl">1</span>), <span class="fl">10_000</span>, <span class="fl">10_000</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>10000×10000 Matrix{Int8}:
@@ -583,7 +583,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now, we have filled our new matrix with <code>Int8(1)</code> which is the value <code>1</code> encoded as type <code>Int8</code>, meaning it takes up 8 bits, or 1 byte:</p>
-<div id="fec8d3aa" class="cell" data-execution_count="15">
+<div id="9c640bd5" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sizeof</span>(bigMatrix2)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>100000000</code></pre>
@@ -594,7 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="bitarrays" class="level4">
 <h4 class="anchored" data-anchor-id="bitarrays">BitArrays</h4>
 <p>A super efficient way to store a set of binary values (e.g.&nbsp;true/false, 1/0, on/off) is as a <code>BitArray</code>, wherein each element is stored as a single bit (the smallest memory unit in a computer). This means we can store 64 values in the same memory space as a default integer stored as <code>Int64</code> would take:</p>
-<div id="e2594789" class="cell" data-execution_count="16">
+<div id="d97e1400" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>myBitArray <span class="op">=</span> <span class="fu">trues</span>(<span class="fl">10_000</span>, <span class="fl">10_000</span>)  <span class="co"># trues() sets up a BitArray with all values set to 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>10000×10000 BitMatrix:
@@ -626,7 +626,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  1  1  1  1  1  1  1  1  1  1  1  1  1     1  1  1  1  1  1  1  1  1  1  1  1</code></pre>
 </div>
 </div>
-<div id="93a89142" class="cell" data-execution_count="17">
+<div id="a4313ccf" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sizeof</span>(myBitArray)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>12500000</code></pre>
@@ -638,7 +638,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="logical-indexing" class="level3">
 <h3 class="anchored" data-anchor-id="logical-indexing">Logical indexing</h3>
 <p>One way to choose specific elements from arrays is using logical indexing, in which a series of true/false values (or as 1/0 values in a BitArray) are used to indicate the elements to choose. To show this, let’s start with a simple matrix:</p>
-<div id="97da9e0a" class="cell" data-execution_count="18">
+<div id="1c693957" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="op">=</span> <span class="fu">reshape</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">16</span>, <span class="fl">4</span>, <span class="fl">4</span>)  <span class="co"># reshape() turns a Vector into a Matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>4×4 reshape(::UnitRange{Int64}, 4, 4) with eltype Int64:
@@ -649,7 +649,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now we can use a vector of Boolean values to choose rows:</p>
-<div id="47c44b3a" class="cell" data-execution_count="19">
+<div id="63f5952a" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>m1[[<span class="cn">true</span>, <span class="cn">false</span>, <span class="cn">true</span>, <span class="cn">false</span>], <span class="op">:</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>2×4 Matrix{Int64}:
@@ -658,7 +658,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Or choose rows and columns like this:</p>
-<div id="b969224c" class="cell" data-execution_count="20">
+<div id="2b1c6b8c" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>m1[[<span class="cn">true</span>, <span class="cn">false</span>, <span class="cn">true</span>, <span class="cn">false</span>], [<span class="cn">false</span>, <span class="cn">true</span>, <span class="cn">true</span>, <span class="cn">false</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>2×2 Matrix{Int64}:
@@ -667,7 +667,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>An equivalent expression using <code>BitVector</code>s is:</p>
-<div id="641c335f" class="cell" data-execution_count="21">
+<div id="a1b4c423" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>m1[<span class="fu">BitVector</span>([<span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>]), <span class="fu">BitVector</span>([<span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>2×2 Matrix{Int64}:
@@ -676,7 +676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This lets us do things like choose the even rows and odd columns:</p>
-<div id="e8f934a9" class="cell" data-execution_count="22">
+<div id="3b8ad9b2" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>m1[<span class="fu">iseven</span>.(<span class="fl">1</span><span class="op">:</span><span class="fl">4</span>), <span class="fu">isodd</span>.(<span class="fl">1</span><span class="op">:</span><span class="fl">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>2×2 Matrix{Int64}:
@@ -685,7 +685,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>In the above expression, <code>iseven.(1:4)</code> produces a <code>BitVector</code> that indicates whether each integer from 1 to 4 is even. See that here:</p>
-<div id="286800fc" class="cell" data-execution_count="23">
+<div id="00591093" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iseven</span>.(<span class="fl">1</span><span class="op">:</span><span class="fl">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>4-element BitVector:
@@ -696,7 +696,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Above we used logical indexing to determine the rows and columns to include. We can also use it to pick elements more directly:</p>
-<div id="fc356974" class="cell" data-execution_count="24">
+<div id="fafc9976" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>selectionMask <span class="op">=</span> (m1 <span class="op">.%</span> <span class="fl">3</span> <span class="op">.==</span> <span class="fl">0</span>)  <span class="co"># Chooses values divisible by 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>4×4 BitMatrix:
@@ -707,7 +707,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The above made a <code>BitMatrix</code> indicating which elements satisfied the condition. Now let’s use that to choose those elements:</p>
-<div id="a5a2e61b" class="cell" data-execution_count="25">
+<div id="39787c23" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>m1[selectionMask]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>5-element Vector{Int64}:
@@ -741,11 +741,11 @@ Build a structure for storing genotypes
 <p>To use DataFrames, we must download and install a package. Type <code>]</code> to enter the package mode, then enter this:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>add DataFrames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now press delete or backspace to enter the normal REPL mode, and enter this:</p>
-<div id="4fb74835" class="cell" data-execution_count="26">
+<div id="bc98c3fa" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s enter some example data:</p>
-<div id="1767fa0b" class="cell" data-execution_count="27">
+<div id="433d0416" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">DataFrame</span>(species <span class="op">=</span> [<span class="st">"warbler"</span>, <span class="st">"wren"</span>, <span class="st">"sparrow"</span>, <span class="st">"flameback"</span>],</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>          mass_g <span class="op">=</span> [<span class="fl">11</span>, <span class="fl">9</span>, <span class="fl">28</span>, <span class="fl">300</span>],</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>          random_num <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -771,25 +771,25 @@ Build a structure for storing genotypes
 <td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.715291</td>
+<td style="text-align: right;">0.567031</td>
 </tr>
 <tr class="even">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.87526</td>
+<td style="text-align: right;">0.203611</td>
 </tr>
 <tr class="odd">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.321188</td>
+<td style="text-align: right;">0.965998</td>
 </tr>
 <tr class="even">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.639962</td>
+<td style="text-align: right;">0.498733</td>
 </tr>
 </tbody>
 </table>
@@ -798,7 +798,7 @@ Build a structure for storing genotypes
 </div>
 <p>The REPL now shows us our dataframe in a nice table format. We see it has interpreted our input data as we would like, with the three columns containing elements of type <code>String</code>, <code>Int64</code>, and <code>Float64</code>.</p>
 <p>We can now refer to columns in a convenient way:</p>
-<div id="d6ba1530" class="cell" data-execution_count="28">
+<div id="b7524205" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>data.species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>4-element Vector{String}:
@@ -808,7 +808,7 @@ Build a structure for storing genotypes
  "flameback"</code></pre>
 </div>
 </div>
-<div id="19f1b030" class="cell" data-execution_count="29">
+<div id="772e9915" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>data.mass_g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>4-element Vector{Int64}:
@@ -819,7 +819,7 @@ Build a structure for storing genotypes
 </div>
 </div>
 <p>This convenient reference allows us to choose subsets of the data, borrowing our knowledge from the Logical Indexing section above:</p>
-<div id="53a4ad45" class="cell" data-execution_count="30">
+<div id="1f3a3a9d" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>data.species[data.mass_g <span class="op">.&gt;</span> <span class="fl">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>2-element Vector{String}:
@@ -828,7 +828,7 @@ Build a structure for storing genotypes
 </div>
 </div>
 <p>We can add a new column quite easily:</p>
-<div id="f48aeeba" class="cell" data-execution_count="31">
+<div id="a4f1f398" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>data.size_category <span class="op">=</span> <span class="fu">fill</span>(<span class="st">"undetermined"</span>, <span class="fu">size</span>(data, <span class="fl">1</span>))  <span class="co"># the size(data,1) function gets the number of rows.</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
@@ -855,28 +855,28 @@ Build a structure for storing genotypes
 <td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.715291</td>
+<td style="text-align: right;">0.567031</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="even">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.87526</td>
+<td style="text-align: right;">0.203611</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="odd">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.321188</td>
+<td style="text-align: right;">0.965998</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="even">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.639962</td>
+<td style="text-align: right;">0.498733</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 </tbody>
@@ -885,7 +885,7 @@ Build a structure for storing genotypes
 </div>
 </div>
 <p>Now let’s fill in our new column with meaningful values:</p>
-<div id="eda2294a" class="cell" data-execution_count="32">
+<div id="f8e570b5" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>data.size_category[data.mass_g <span class="op">.&gt;</span> <span class="fl">100</span>] <span class="op">.=</span> <span class="st">"BIG"</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>data.size_category[<span class="fl">100</span> <span class="op">.&gt;</span> data.mass_g <span class="op">.&gt;</span> <span class="fl">15</span>] <span class="op">.=</span> <span class="st">"medium"</span></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>data.size_category[<span class="fl">15</span> <span class="op">.&gt;</span> data.mass_g] <span class="op">.=</span> <span class="st">"small"</span></span>
@@ -914,28 +914,28 @@ Build a structure for storing genotypes
 <td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.715291</td>
+<td style="text-align: right;">0.567031</td>
 <td style="text-align: left;">small</td>
 </tr>
 <tr class="even">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.87526</td>
+<td style="text-align: right;">0.203611</td>
 <td style="text-align: left;">small</td>
 </tr>
 <tr class="odd">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.321188</td>
+<td style="text-align: right;">0.965998</td>
 <td style="text-align: left;">medium</td>
 </tr>
 <tr class="even">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.639962</td>
+<td style="text-align: right;">0.498733</td>
 <td style="text-align: left;">BIG</td>
 </tr>
 </tbody>

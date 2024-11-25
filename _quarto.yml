@@ -28,7 +28,7 @@ website:
           - ControlFlow.qmd
           - MultipleDispatch.qmd
           - Plots.qmd
-          - LoadData&Analyze&Graph.qmd
+          - LoadDataAnalyzeGraph.qmd
           - UseVSCode.qmd
           - Numbers.qmd
           - ArraysAndDataFrames.qmd
