@@ -188,6 +188,25 @@ Now that the ratios are now stored precisely, let's check our Boolean statement:
 
 Precise math now works! However, there is a limitation to use of the `Rational` type: it cannot store irrational numbers like `sqrt(3)` or π. 
 
+### Machine epsilon
+
+Above we touched on how the `Float64` type (or any way of storing numbers in a finite number of bits) must have gaps between the numbers that can be represented precisely. The size of the gap between two representable floating-point numbers is known as "machine epsilon". We can use the `eps()` function to return the distance between `1.0` and the next larger representable floating-point value:
+
+```{julia}
+eps(Float32) # "Float32" is the type that we feed into the function
+```
+
+That is for 32-bit floating point numbers. The epsilon for a 64-bit floating-point number is a lot smaller:
+
+```{julia}
+eps(Float64)
+```
+
+::: {.callout-note}
+## Recognize that number?
+Those of you who have used R or have read much of the scientific literature might notice the above value, often shown as 2.2 × 10<sup>-16</sup>. For complex reasons, this machine epsilon value was chosen as the minimum reported P-value for many statisical software packages, including R.
+:::
+
 ### `BigInt` and `BigFloat`
 
 For most uses, `Int64` and `Float64` provide excellent flexibility with numbers. In those rare cases where you need even bigger integers or even more precision on your floats, Julia provides `BigInt` and `BigFloat` types. These use as many bits as you need to provide the number of numbers that you want. 
