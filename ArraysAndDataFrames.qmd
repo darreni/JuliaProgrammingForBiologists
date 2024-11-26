@@ -270,5 +270,15 @@ data.size_category[15 .> data.mass_g] .= "small"
 data
 ```
 
+### Loading your own data into a DataFrame
+
+If you want to load your own data file as a DataFrame, you can do it with the following command. You will first need to add the `CSV` package (used for loading in files in Comma Separated Values format, or similar but with another separator such as tab). Add this package by pressing `]` to activate the package mode, then enter `add CSV` and then you can import data as follows:
+
+```julia
+using CSV
+myData = DataFrame(CSV.File("pathToMyFile/myFileName.csv"))
+```
+
+### Learning more about DataFrames
 
 The `DataFrames.jl` package is extremely capable, and we are just touching the surface here of what it can do. A good source to learn more is: <https://dataframes.juliadata.org/stable/man/basics/#First-Steps-with-DataFrames.jl>
