@@ -211,7 +211,7 @@ We now have a function to get one simulated value for the number of red wins und
 
 ```{julia}
 function getManySimResults(numSims)
-    simRedWins = Vector{Int8}(undef, numSims) 
+    simRedWins = fill(-9, numSims) # make vector for data, with obviously wrong value
     for i in 1:numSims  # loop through simulations
         simRedWins[i] = getSimulatedRedWins()
     end
@@ -273,8 +273,9 @@ When these crickets mate, the male offers his hindwings for the female to eat. T
 Let's load a dataset containing times to remating for two experimental groups of females: those mated initially with a winged male (and who mostly ate his wings) and those mated initially with a wingless male (where wings had been surgically removed).
 
 ```{julia}
-using CSV, DataFrames
-cricketData = DataFrame(CSV.File("example_data/cricketData.csv"))
+using CSV, DataFrames, Downloads
+cricket_file_URL = "https://github.com/darreni/JuliaProgrammingForBiologists/raw/refs/heads/main/example_data/cricketData.csv"
+cricketData = DataFrame(CSV.File(Downloads.download(cricket_file_URL)))
 ```
 
 Let's make some quick histograms showing the distribution of remating time for each group:
@@ -299,11 +300,22 @@ Let's make a function to calculate the difference in means:
 
 ```{julia}
 function calculateCricketMeanDiffs(data::DataFrame)
+    winged = data.Log_remating_time[data.Male_state .== "Male_winged"]
+    wingless = data.Log_remating_time[data.Male_state .== "Male_wingless"]
+    sum(winged)/length(winged) - sum(wingless)/length(wingless)
+end
+```
+
+::: {.content-hidden}
+Another way to write the function, via subset() function:
+```julia
+function calculateCricketMeanDiffs(data::DataFrame)
     winged = subset(data, :Male_state => x -> x .== "Male_winged").Log_remating_time
     wingless = subset(data, :Male_state => x -> x .== "Male_wingless").Log_remating_time
     sum(winged)/length(winged) - sum(wingless)/length(wingless)
 end
 ```
+:::
 
 Now use that to calculate the difference in real group means:
 
@@ -311,7 +323,7 @@ Now use that to calculate the difference in real group means:
 realDiff = calculateCricketMeanDiffs(cricketData)
 ```
 
-So we have our real difference. Let's comnpare that to possible differences we get if there is no real association between male state and remating time. We'll shuffle the values of one variable (using the well-named `shuffle()` function) and construct a null distribution of mean differences:
+So we have our real difference. Let's compare that to possible differences we get if there is no real association between male state and remating time. We'll shuffle the values of one variable (using the well-named `shuffle()` function) and construct a null distribution of mean differences:
 
 ```{julia}
 using Random  # needed for the shuffle() function
