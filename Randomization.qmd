@@ -281,7 +281,6 @@ cricketData = DataFrame(CSV.File(Downloads.download(cricket_file_URL)))
 Let's make some quick histograms showing the distribution of remating time for each group:
 
 ```{julia}
-#times = cricketData.Log_remating_time[cricketData.Male_state .== "Male_wingless"]
 using Plots
 p1 = histogram(cricketData.Log_remating_time[cricketData.Male_state .== "Male_wingless"], bins=0:0.5:5, xlims=[0,5], title="females mated to wingless males", ylabel="frequency")
 
