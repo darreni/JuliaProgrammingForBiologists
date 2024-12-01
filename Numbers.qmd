@@ -156,7 +156,7 @@ This is a result of the imprecision of floating-point numbers. Let's ask what th
 0.1 + 0.2
 ```
 
-We see it is slightly different from `3.0`. This is because both 0.1 and 0.2 are stored with a bit of imprecision, and their total is actually a smidgin bigger than 3.0.
+We see it is slightly different from `0.3`. This is because both `0.1` and `0.2` are stored with a bit of imprecision, and their total is actually a smidgin bigger than `0.3`.
 
 We are now at risk of a deep dive into computer science, but I will pull us back from the brink. The makers of Julia have provided us biologists a solution to the above. Just use the "approximately equal" symbol: `≈` (to get this, type `\approx` then press the "tab" key.)
 
@@ -166,7 +166,7 @@ We are now at risk of a deep dive into computer science, but I will pull us back
 
 The REPL now says it is a `true` statement, within the (im)precision of the data type being used.
 
-(The `≈` symbol is a short way of calling the `isapprox()` function--those interested can look that up for the gory details.)
+(The `≈` symbol is a short way of calling the `isapprox()` function---those interested can look that up for the gory details.)
 
 Julia provides another solution to this situation: We can use the `Rational` type to encode rational numbers precisely, as ratios of integers:
 
