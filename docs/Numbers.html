@@ -354,17 +354,30 @@ Decimal <code>5</code> can be stored as binary <code>101</code>.<br>
 <section id="numbers-in-julia" class="level3">
 <h3 class="anchored" data-anchor-id="numbers-in-julia">Numbers in Julia</h3>
 <p>To learn a bit about how numbers are represented by different Julia types, we can use the <code>bitstring()</code> function:</p>
-<div id="5f3d25ba" class="cell" data-execution_count="1">
+<div id="f0e01c3c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bitstring</span>(<span class="fl">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>"0000000000000000000000000000000000000000000000000000000000000001"</code></pre>
 </div>
 </div>
 <p>This shows us that the number <code>1</code> is stored as 63 <code>0</code>s and then a <code>1</code>. This is Julia’s default way of storing integers, as type <code>Int64</code> (a 64-bit integer).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Write out bit representations for a series of integers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you write a simple <code>for</code> loop to write out the bit representations of a series of integers, for example 0 through 10? (<em>Reminder: the <code>println</code> function will print out some text</em>)</p>
+</div>
+</div>
 <p>Let’s try the same but use <code>1.0</code> instead:</p>
-<div id="84a045b2" class="cell" data-execution_count="2">
+<div id="5a9e090e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bitstring</span>(<span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>"0011111111110000000000000000000000000000000000000000000000000000"</code></pre>
 </div>
 </div>
@@ -374,7 +387,7 @@ Decimal <code>5</code> can be stored as binary <code>101</code>.<br>
 <p>We can learn more about how numbers are encoded by adding a nice little package called <code>About</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg;</span> Pkg.add("About")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This package has one function, wisely named <code>about()</code> as it tells us about objects (note though that it can only tell you about relatively simple objects).</p>
-<div id="8996dba1" class="cell" data-execution_count="3">
+<div id="c67407bb" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">About</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">about</span>(<span class="fl">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -385,7 +398,7 @@ Decimal <code>5</code> can be stored as binary <code>101</code>.<br>
 </div>
 </div>
 <p>The highlighting tells you how the number is encoded (one bit for the positive sign, the rest for the integer)</p>
-<div id="7479bf68" class="cell" data-execution_count="4">
+<div id="837211ee" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">about</span>(<span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Float64 (&lt;: AbstractFloat &lt;: Real &lt;: Number &lt;: Any), occupies 8B.
@@ -416,25 +429,25 @@ Try <code>about()</code> on other objects
 <h3 class="anchored" data-anchor-id="choosing-types-wisely">Choosing types wisely</h3>
 <p>Why does all this matter? Well, if you don’t actually need 64 bits for your numbers, then you can tell Julia to store them in fewer bits, and this can increase efficiency (i.e., reduce memory and increase speed).</p>
 <p>For example, if you know that a variable will only need to store integers ranging between -128 and 127, then you can specify that variable as an 8-bit integer:</p>
-<div id="7dd9b6a3" class="cell" data-execution_count="5">
+<div id="6732e05e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x8 <span class="op">=</span> <span class="fu">Int8</span>(<span class="fl">39</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>39</code></pre>
 </div>
 </div>
-<div id="572f6f14" class="cell" data-execution_count="6">
+<div id="07adf872" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>Int8</code></pre>
 </div>
 </div>
-<div id="df2a79f9" class="cell" data-execution_count="7">
+<div id="a60df092" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bitstring</span>(x8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>"00100111"</code></pre>
 </div>
 </div>
-<div id="2fb3d34d" class="cell" data-execution_count="8">
+<div id="d7895553" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">about</span>(x8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Int8 (&lt;: Signed &lt;: Integer &lt;: Real &lt;: Number &lt;: Any), occupies 1B.
@@ -444,9 +457,9 @@ Try <code>about()</code> on other objects
 </div>
 <p>We have succeeded in storing the number <code>39</code> in only 8 bits rather than 64.</p>
 <p>As another example, let’s say we need to store a floating-point number but we don’t need a lot of precision. Let’s store it as a 16-bit floating-point number:</p>
-<div id="91f0b681" class="cell" data-execution_count="9">
+<div id="49b201b8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pi16 <span class="op">=</span> <span class="fu">Float16</span>(<span class="fl">3.14159</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>Float16(3.14)</code></pre>
 </div>
 </div>
@@ -454,16 +467,16 @@ Try <code>about()</code> on other objects
 <section id="check-the-capacity-of-types-for-your-numbers" class="level4">
 <h4 class="anchored" data-anchor-id="check-the-capacity-of-types-for-your-numbers">Check the capacity of types for your numbers</h4>
 <p>If you are working with integers, you can find the minimum storable integer for a type like this:</p>
-<div id="aca713e3" class="cell" data-execution_count="10">
+<div id="3ef01012" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typemin</span>(<span class="dt">Int16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>-32768</code></pre>
 </div>
 </div>
 <p>And the maximum like this:</p>
-<div id="d8da496c" class="cell" data-execution_count="11">
+<div id="a5a80eaf" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typemax</span>(<span class="dt">Int16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>32767</code></pre>
 </div>
 </div>
@@ -486,48 +499,48 @@ Weird math
 <section id="beware-of-other-weird-math" class="level3">
 <h3 class="anchored" data-anchor-id="beware-of-other-weird-math">Beware of other weird math</h3>
 <p>In addition to overflow (with integers), we want to be aware of the consequences of floating-point imprecision. An example:</p>
-<div id="46979a5e" class="cell" data-execution_count="12">
+<div id="8325273e" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.2</span> <span class="op">==</span> <span class="fl">0.3</span>   <span class="co"># note the "==" makes this a Boolean statement, asking whether this equation is true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>false</code></pre>
 </div>
 </div>
 <p>The REPL returns <code>false</code>. What?!?</p>
 <p>This is a result of the imprecision of floating-point numbers. Let’s ask what the left side of the equation is evaluated as:</p>
-<div id="8085ac6e" class="cell" data-execution_count="13">
+<div id="e55f74a7" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>0.30000000000000004</code></pre>
 </div>
 </div>
 <p>We see it is slightly different from <code>0.3</code>. This is because both <code>0.1</code> and <code>0.2</code> are stored with a bit of imprecision, and their total is actually a smidgin bigger than <code>0.3</code>.</p>
 <p>We are now at risk of a deep dive into computer science, but I will pull us back from the brink. The makers of Julia have provided us biologists a solution to the above. Just use the “approximately equal” symbol: <code>≈</code> (to get this, type <code>\approx</code> then press the “tab” key.)</p>
-<div id="8916a94c" class="cell" data-execution_count="14">
+<div id="fadce451" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.2</span> <span class="op">≈</span> <span class="fl">0.3</span>   <span class="co"># note the "≈" is the Boolean operator for approximately equal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>true</code></pre>
 </div>
 </div>
 <p>The REPL now says it is a <code>true</code> statement, within the (im)precision of the data type being used.</p>
 <p>(The <code>≈</code> symbol is a short way of calling the <code>isapprox()</code> function—those interested can look that up for the gory details.)</p>
 <p>Julia provides another solution to this situation: We can use the <code>Rational</code> type to encode rational numbers precisely, as ratios of integers:</p>
-<div id="ca8733dc" class="cell" data-execution_count="15">
+<div id="759536f1" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">//</span><span class="fl">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>1//10</code></pre>
 </div>
 </div>
 <p>We can see that Julia is treating this expression in a different way than <code>0.1</code> or <code>1/10</code> (which Julia would convert to <code>0.1</code>). With <code>1//10</code>, Julia is remembering both the numerator and denominator, storing this as a ratio of integers. We can check the type:</p>
-<div id="18107af5" class="cell" data-execution_count="16">
+<div id="c40737b4" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fl">1</span><span class="op">//</span><span class="fl">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>Rational{Int64}</code></pre>
 </div>
 </div>
 <p>Now that the ratios are now stored precisely, let’s check our Boolean statement:</p>
-<div id="eee38f89" class="cell" data-execution_count="17">
+<div id="9314f708" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">//</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">2</span><span class="op">//</span><span class="fl">10</span> <span class="op">==</span> <span class="fl">3</span><span class="op">//</span><span class="fl">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>true</code></pre>
 </div>
 </div>
@@ -536,16 +549,16 @@ Weird math
 <section id="machine-epsilon" class="level3">
 <h3 class="anchored" data-anchor-id="machine-epsilon">Machine epsilon</h3>
 <p>Above we touched on how the <code>Float64</code> type (or any way of storing numbers in a finite number of bits) must have gaps between the numbers that can be represented precisely. The size of the gap between two representable floating-point numbers is known as “machine epsilon”. We can use the <code>eps()</code> function to return the distance between <code>1.0</code> and the next larger representable floating-point value:</p>
-<div id="7c8e97a0" class="cell" data-execution_count="18">
+<div id="95fb9d22" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eps</span>(<span class="dt">Float32</span>) <span class="co"># "Float32" is the type that we feed into the function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>1.1920929f-7</code></pre>
 </div>
 </div>
 <p>That is for 32-bit floating point numbers. The epsilon for a 64-bit floating-point number is a lot smaller:</p>
-<div id="22c0b186" class="cell" data-execution_count="19">
+<div id="c954b13d" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eps</span>(<span class="dt">Float64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>2.220446049250313e-16</code></pre>
 </div>
 </div>
@@ -567,27 +580,27 @@ Recognize that number?
 <h3 class="anchored" data-anchor-id="bigint-and-bigfloat"><code>BigInt</code> and <code>BigFloat</code></h3>
 <p>For most uses, <code>Int64</code> and <code>Float64</code> provide excellent flexibility with numbers. In those rare cases where you need even bigger integers or even more precision on your floats, Julia provides <code>BigInt</code> and <code>BigFloat</code> types. These use as many bits as you need to provide the number of numbers that you want.</p>
 <p>For example, let’s start with the largest integer that can be stored as an <code>Int16</code>:</p>
-<div id="b66af012" class="cell" data-execution_count="20">
+<div id="82056b89" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>myLargeNum1 <span class="op">=</span> <span class="fu">typemax</span>(<span class="dt">Int64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>9223372036854775807</code></pre>
 </div>
 </div>
 <p>If we add <code>1</code> to that, we would have an overflow problem. Instead, let’s make it a <code>BigInt</code> and add <code>1</code>:</p>
-<div id="0f02f2cd" class="cell" data-execution_count="21">
+<div id="3d5e10b5" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>myLargeNum2 <span class="op">=</span> <span class="fu">BigInt</span>(myLargeNum1) <span class="op">+</span> <span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>9223372036854775808</code></pre>
 </div>
 </div>
-<div id="172b1d66" class="cell" data-execution_count="22">
+<div id="274f69b5" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">about</span>(myLargeNum2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>BigInt (mutable) (&lt;: Signed &lt;: Integer &lt;: Real &lt;: Number &lt;: Any)
  Memory footprint: 16B directly (referencing 32B in total)
  alloc::Int32       4B 00000000000000000000000000000010      2
   size::Int32       4B 00000000000000000000000000000001      1
-     d::Ptr{UInt64} 8B 00000000000000000 … 00100001111100000 Ptr{UInt … b58243e0
+     d::Ptr{UInt64} 8B 00000000000000000 … 11110111001010000 Ptr{UInt … a5ffee50
 
  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
         4B               4B                        8B                </code></pre>
@@ -595,9 +608,9 @@ Recognize that number?
 </div>
 <p>This uses 16 bytes (128 bits), twice as much as our starting number. Its memory footprint can grow even bigger if we need it to.</p>
 <p>The <code>BigInt</code> type can be useful for storing precise values of things like factorials:</p>
-<div id="8598d410" class="cell" data-execution_count="23">
+<div id="24bacf77" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial</span>(<span class="fu">BigInt</span>(<span class="fl">50</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>30414093201713378043612608166064768844377641568960512000000000000</code></pre>
 </div>
 </div>

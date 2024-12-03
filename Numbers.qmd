@@ -50,6 +50,21 @@ bitstring(1)
 
 This shows us that the number `1` is stored as 63 `0`s and then a `1`. This is Julia's default way of storing integers, as type `Int64` (a 64-bit integer).
 
+::: {.callout-tip}
+## Write out bit representations for a series of integers
+Can you write a simple `for` loop to write out the bit representations of a series of integers, for example 0 through 10? (_Reminder: the `println` function will print out some text_)
+:::
+
+::: {.content-hidden}
+```{julia}
+for i in 0:10
+    println("$i:")
+    println(bitstring(i))
+    println()
+end
+```
+:::
+
 Let's try the same but use `1.0` instead:
 
 ```{julia}
