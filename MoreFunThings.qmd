@@ -1,0 +1,176 @@
+---
+title: "More Fun Things"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+    fig-width: 6
+    fig-height: 4
+jupyter: julia-1.11
+---
+
+This series of tutorials have brought us through the essentials of how to write programs in Julia, and how to set up Pluto notebooks or VS Code programming environments. The material was designed to be about the most that could be covered in a 1-credit grad-level university course for students without any programming experience at the start. At the end of such a course, some students might be wanting some pointers to learn more. So here goes:
+
+## Some other really neat Julia packages
+
+In these tutorials we've used a number of packages: `Plots`, `Pluto`, `Markdown` (automatically within Pluto), `GenomicDiversity`, `Downloads`, `CSV`, `DelimitedFiles`, `DataFrames`, `Impute`, `About`, `Random`, `Pkg`. 
+
+But there are over 10,000 more out there! Here are some neat ones that you might like to try at some point:
+
+[Luxor](https://juliagraphics.github.io/Luxor.jl/stable/): for amazing graphics
+
+[Flux](http://fluxml.ai/Flux.jl/stable/): machine learning
+
+[PyCall](https://juliapackages.com/p/pycall): call Python from Julia.
+
+[RCall](https://juliapackages.com/p/rcall): call R from Julia.
+
+[UnicodePlots](https://juliapackages.com/p/unicodeplots): plot in the Terminal.
+
+[Makie](https://docs.makie.org/v0.21/): an alternate plotting package, good for interactive visualizations.
+
+[StatsKit](https://juliastats.org): a meta-package containing many statistics-related packages.
+
+[Javis](https://juliaanimators.github.io/Javis.jl/stable/): animations and visualizations.
+
+[Unitful](https://painterqubits.github.io/Unitful.jl/stable/): do math while including the physical units.
+
+## Call R and Python from within Julia
+
+The `RCall` and `PyCall` packages allow you to call R and Python from within Julia. Note that you need to have these installed on your computer for this to work---if you do, then try this in a series of Pluto cells:
+
+```{julia}
+using RCall
+```
+
+```{julia}
+begin
+    R"x <- c(2, 3, 7)"
+    R"y <- x^2"
+end
+```
+
+We just ran some calculations in R! We can even pass objects back and forth between Julia and R:
+
+```{julia}
+begin
+    myJuliaObject = [4, 3, 2, 1]
+    R"myRObject <- $myJuliaObject"  # string interpolation to pass Julia object to R
+end
+```
+
+The above returns an object that is of type `RObject` in Julia. It is essentially a pointer in Julia to an object in the R environment. To actually use it in Julia, we would need to convert to a proper Julia object. In this next code block, we'll use R to cube each number and then we'll return the vector to Julia:
+
+```{julia}
+begin
+    R"newRObject <- myRObject^3"
+    newJuliaObject = @rget newRObject  # macro that converts R object to Julia object 
+end
+```
+
+If you want a real surprise, type `$` at the Julia prompt in the REPL, after you have loaded the RCall package (`import Pkg; Pkg.add("RCall"); using RCall`). _Hint: Try typing some R code!_
+
+
+Similar interaction can be done with Python, using the `PyCall` package.
+
+So, you don't have to choose a single programming language. You can pass data back and forth, and use the best data analysis packages for your purposes.
+
+## Include physical units in your calculations
+
+Often when working on a calculator or computer, we separate numbers from their physical units (e.g., meters, seconds), do the calculation on the numbers, and then write the answer next to some unit designation that we work out separately. This can lead to errors--for example [a spacecraft crashed into Mars](https://en.wikipedia.org/wiki/Mars_Climate_Orbiter) because two teams of engineers were using different units in their calculations. 
+
+So, wouldn't it be great if there were a way for the units to stay with the numbers? The `Unitful` package provides a way! In Pluto, enter this series of cells:
+
+```{julia}
+using Unitful
+```
+
+```{julia}
+timespan = 1u"minute" + 3u"s"
+```
+
+Julia now understands that 1 minute plus 3 seconds is 63 seconds. Note the syntax: the `u` means unit, and we follow that with double quotes and a string with the unit name (there are a whole bunch of standard units included in the package). 
+
+Let's say we are studying a walking animal, and it goes 100 meters in the timespan calculated above. Let's calculate its speed:
+
+```{julia}
+speed = 100u"m" / timespan
+```
+
+The answer is expressed in units of `m s⁻¹`. Perfect!
+
+We are just touching the surface of what can be done with the Unitful package. One neat thing is conversions, using `uconvert()`:
+
+```{julia}
+uconvert(u"kg", 100u"g")
+```
+
+This tells us the 100 grams (the second argument) is the same as 1/10 kg (in the units of the first argument). Notice that the answer is actually given as `1//10` (with two forward slashes), indicating it is a `Rational{Int}` type so that subsequent calculations are precise.
+
+We can learn about unusual units this way:
+
+```{julia}
+uconvert(u"kg", 1u"slug")
+```
+
+Did you know that 1 slug (a unit of mass, used in the olden days) is that many kilograms?
+
+## Add more interactivity to your Pluto notebooks
+
+Another amazing package is `PlutoUI`. You can use this to add sliders, checkboxes, buttons, and menus to your Pluto notebooks, enhancing a user's ability to interact with your notebooks. Try adding this series of code cells to a Pluto notebook:
+
+```julia
+using PlutoUI
+```
+
+```julia
+@bind yIntercept Slider(-10.0:0.1:10.0)
+```
+
+```julia
+@bind slope Slider(-1.0:0.1:1.0)
+```
+
+```julia
+begin
+    f(x) = slope * x + yIntercept
+    plot(f; ylims = [-10.0, 10.0])
+end
+```
+
+Play around with the above by moving the sliders, and look what happens to the line on the plot.
+
+Let's make a bunch of points that are roughly along that lie, but with some randomness. We'll choose the number of points with an interactive element called a Scrubbable:
+
+```julia
+md"##### Let's graph $(@bind numPoints Scrubbable(100)) points"
+```
+
+If you put your cursor on the number and drag right or left, the number changes. Now let's write some code that depends on the variable that is represented by that number (`numPoints`):
+
+```julia
+xValues = 10 .* rand(numPoints) .- 5
+```
+
+```julia
+begin
+	xValues = 10 .* rand(numPoints) .- 5
+    # apply our f(x) function to each xValue and add some randomness:
+	fofX = f.(xValues) + randn(numPoints)
+	scatter(xValues, fofX; ylims = [-10.0, 10.0])
+end
+```
+
+Now we have three ways to change the graph. Play around by moving the sliders and the scrubbable number of points.
+
+We are just scratching the surface of how the `PlutoUI` package can be used. 
+
+## Quarto
+
+After you have gained experience as a Julia programmer, you may want to record notes for yourself and others in a way where you can easily write text and run blocks of code. We have seen that Pluto notebooks are great for this. Another way is to use [Quarto](https://quarto.org), which is a dynamic open-source publishing system. 
+
+In fact, this whole **JuliaProgrammingForBiologists** website was written using Quarto. I chose it because I could easily write this text while including live code blocks that actually run. I am now writing this as a `.qmd` file (abbreviated from Quarto MarkDown), and when I tell Quarto to _render_ the file it then converts it to HTML, running the code blocks as it goes. We can use Quarto to publish web pages, whole web sites such as this one, PDF documents, Word documents, etc. You can include pages with Julia, Python, and R.
+
+To learn more about how to get set up with Quarto, see [my own tutorial on that topic](https://darreni.github.io/DarrenQuartoGithubWebsite/QuartoInstallNotes.html) or the [Quarto homepage](https://quarto.org).

@@ -34,6 +34,7 @@ website:
           - ArraysAndDataFrames.qmd
           - Randomization.qmd
           - BuildSimulation.qmd
+          - MoreFunThings.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:
