@@ -1,0 +1,57 @@
+---
+title: "Further Learning"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+    fig-width: 6
+    fig-height: 4
+jupyter: julia-1.11
+---
+
+If you would like to learn more about programming and data analysis using Julia, some of the resources I have used are listed below:
+
+### Books
+
+There are a lot of these, and growing. Some I've used and found very helpful:
+
+[Julia for Data Science, by Bogumił Kamiński](https://www.manning.com/books/julia-for-data-analysis)
+
+[Practical Julia: A Hands-On Introduction for Scientific Minds, by Lee Phillips](https://nostarch.com/practical-julia)
+
+[Julia Data Science, by Jose Storopoli, Rik Huijzer, and Lazaro Alonso](https://juliadatascience.io) *Free!!
+
+[Statistics with Julia, by Yoni Nazarathy and Hayden Klok](https://link.springer.com/book/10.1007/978-3-030-70901-3) *Free PDF download for UBC students through the UBC library. :)
+
+### Youtube videos
+
+[Doggo.jl, a series of great tutorials, though a bit odd in style](https://www.youtube.com/watch?v=KlorfxsdWDw)
+
+[Intro to Computational Thinking Course at MIT](https://www.youtube.com/playlist?list=PLP8iPy9hna6T56GkMHEdSrjCCheNuEwI0)
+
+[Julia language Youtube Channel](https://www.youtube.com/user/JuliaLanguage)
+
+[A talk about Pluto.jl, by its main developer Fons van der Plas](https://www.youtube.com/watch?v=Rg3r3gG4nQo)
+
+### Online courses
+
+There are a growing number of these. One I've done and recommend:
+
+[Programming with Julia, by İlker Arslan](https://www.udemy.com/course/programming-with-julia)
+
+### Other websites
+
+[Julia language website's list of Julia tutorials](https://julialang.org/learning/)
+
+[Julia language documentation](https://docs.julialang.org/en/v1/)
+
+[The Julia manual](https://docs.julialang.org/en/v1/manual/getting-started/)
+
+[The Julia Forem](https://forem.julialang.org)
+
+[The Julia Discourse](https://discourse.julialang.org)
+
+
+

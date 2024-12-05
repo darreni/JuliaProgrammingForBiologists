@@ -35,6 +35,7 @@ website:
           - Randomization.qmd
           - BuildSimulation.qmd
           - MoreFunThings.qmd
+          - ResourcesForFurtherLearning.qmd
   page-footer: "Copyright 2024, Darren Irwin" 
 
 format:

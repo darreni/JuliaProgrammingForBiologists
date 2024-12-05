@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./ResourcesForFurtherLearning.html" rel="next">
 <link href="./BuildSimulation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -273,6 +274,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">More Fun Things</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ResourcesForFurtherLearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Further Learning</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -289,6 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#call-r-and-python-from-within-julia" id="toc-call-r-and-python-from-within-julia" class="nav-link" data-scroll-target="#call-r-and-python-from-within-julia">Call R and Python from within Julia</a></li>
   <li><a href="#include-physical-units-in-your-calculations" id="toc-include-physical-units-in-your-calculations" class="nav-link" data-scroll-target="#include-physical-units-in-your-calculations">Include physical units in your calculations</a></li>
   <li><a href="#add-more-interactivity-to-your-pluto-notebooks" id="toc-add-more-interactivity-to-your-pluto-notebooks" class="nav-link" data-scroll-target="#add-more-interactivity-to-your-pluto-notebooks">Add more interactivity to your Pluto notebooks</a></li>
+  <li><a href="#multithreading" id="toc-multithreading" class="nav-link" data-scroll-target="#multithreading">Multithreading</a></li>
   <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
   </ul>
 </nav>
@@ -339,10 +347,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="call-r-and-python-from-within-julia" class="level2">
 <h2 class="anchored" data-anchor-id="call-r-and-python-from-within-julia">Call R and Python from within Julia</h2>
 <p>The <code>RCall</code> and <code>PyCall</code> packages allow you to call R and Python from within Julia. Note that you need to have these installed on your computer for this to work—if you do, then try this in a series of Pluto cells:</p>
-<div id="9c067890" class="cell" data-execution_count="1">
+<div id="7c811929" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">RCall</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ba20fa80" class="cell" data-execution_count="2">
+<div id="0483def8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    R<span class="st">"x &lt;- c(2, 3, 7)"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    R<span class="st">"y &lt;- x^2"</span></span>
@@ -353,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We just ran some calculations in R! We can even pass objects back and forth between Julia and R:</p>
-<div id="5b43b570" class="cell" data-execution_count="3">
+<div id="f649c1e2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    myJuliaObject <span class="op">=</span> [<span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    R<span class="st">"myRObject &lt;- </span><span class="sc">$</span>myJuliaObject<span class="st">"</span>  <span class="co"># string interpolation to pass Julia object to R</span></span>
@@ -364,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The above returns an object that is of type <code>RObject</code> in Julia. It is essentially a pointer in Julia to an object in the R environment. To actually use it in Julia, we would need to convert to a proper Julia object. In this next code block, we’ll use R to cube each number and then we’ll return the vector to Julia:</p>
-<div id="6ea07d05" class="cell" data-execution_count="4">
+<div id="c6ab6616" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    R<span class="st">"newRObject &lt;- myRObject^3"</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    newJuliaObject <span class="op">=</span> <span class="pp">@rget</span> newRObject  <span class="co"># macro that converts R object to Julia object </span></span>
@@ -385,10 +393,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="include-physical-units-in-your-calculations">Include physical units in your calculations</h2>
 <p>Often when working on a calculator or computer, we separate numbers from their physical units (e.g., meters, seconds), do the calculation on the numbers, and then write the answer next to some unit designation that we work out separately. This can lead to errors–for example <a href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter">a spacecraft crashed into Mars</a> because two teams of engineers were using different units in their calculations.</p>
 <p>So, wouldn’t it be great if there were a way for the units to stay with the numbers? The <code>Unitful</code> package provides a way! In Pluto, enter this series of cells:</p>
-<div id="0df6b980" class="cell" data-execution_count="5">
+<div id="0bb2df2f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Unitful</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c015140a" class="cell" data-execution_count="6">
+<div id="c4a31497" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>timespan <span class="op">=</span> <span class="fl">1</span>u<span class="st">"minute"</span> <span class="op">+</span> <span class="fl">3</span>u<span class="st">"s"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>63 s</code></pre>
@@ -396,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Julia now understands that 1 minute plus 3 seconds is 63 seconds. Note the syntax: the <code>u</code> means unit, and we follow that with double quotes and a string with the unit name (there are a whole bunch of standard units included in the package).</p>
 <p>Let’s say we are studying a walking animal, and it goes 100 meters in the timespan calculated above. Let’s calculate its speed:</p>
-<div id="e84cae47" class="cell" data-execution_count="7">
+<div id="c939e28a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>speed <span class="op">=</span> <span class="fl">100</span>u<span class="st">"m"</span> <span class="op">/</span> timespan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>1.5873015873015872 m s⁻¹</code></pre>
@@ -404,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The answer is expressed in units of <code>m s⁻¹</code>. Perfect!</p>
 <p>We are just touching the surface of what can be done with the Unitful package. One neat thing is conversions, using <code>uconvert()</code>:</p>
-<div id="24d79e0a" class="cell" data-execution_count="8">
+<div id="e6094083" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uconvert</span>(u<span class="st">"kg"</span>, <span class="fl">100</span>u<span class="st">"g"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>1//10 kg</code></pre>
@@ -412,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This tells us the 100 grams (the second argument) is the same as 1/10 kg (in the units of the first argument). Notice that the answer is actually given as <code>1//10</code> (with two forward slashes), indicating it is a <code>Rational{Int}</code> type so that subsequent calculations are precise.</p>
 <p>We can learn about unusual units this way:</p>
-<div id="c3bf4e8b" class="cell" data-execution_count="9">
+<div id="6cf2818e" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uconvert</span>(u<span class="st">"kg"</span>, <span class="fl">1</span>u<span class="st">"slug"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>14.593902937206364 kg</code></pre>
@@ -443,6 +451,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now we have three ways to change the graph. Play around by moving the sliders and the scrubbable number of points.</p>
 <p>We are just scratching the surface of how the <code>PlutoUI</code> package can be used.</p>
+</section>
+<section id="multithreading" class="level2">
+<h2 class="anchored" data-anchor-id="multithreading">Multithreading</h2>
+<p>Most of our computers now have multiple CPUs, so if we divide our computation into multiple threads we can often accelerate things. Julia has a super simple way of setting this up. If you start Julia in the terminal with <code>julia -t 4</code> then Julia opens in a way where you can use up to four threads. You can confirm this by entering <code>Threads.nthreads()</code>, to which it should respond <code>4</code>.</p>
+<p>Then, you can divide tasks among your four threads, using a simple <span class="citation" data-cites="threads">@threads</span> macro. It has this general structure:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Base.Threads</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@threads</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add some lines here that do some neat stuff </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Loop </span><span class="sc">$</span>i<span class="st"> was sent to thread </span><span class="sc">$</span>(<span class="fu">threadid</span>())<span class="st">"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This approach has the potential to speed up a complex calculation by almost a factor of 4 (in the case of four threads, more if on a machine with more CPUs).</p>
+<p>If you plan to use multithreading, it is good to understand the concept of data-races and make sure each one of your iterations does not depend on output from another. Each should be its own self-contained task. Read more <a href="https://docs.julialang.org/en/v1/manual/multi-threading/#Using-@threads-without-data-races">here</a>.</p>
 </section>
 <section id="quarto" class="level2">
 <h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
@@ -886,6 +906,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./ResourcesForFurtherLearning.html" class="pagination-link" aria-label="Further Learning">
+        <span class="nav-page-text">Further Learning</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

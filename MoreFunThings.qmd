@@ -167,6 +167,24 @@ Now we have three ways to change the graph. Play around by moving the sliders an
 
 We are just scratching the surface of how the `PlutoUI` package can be used. 
 
+## Multithreading
+
+Most of our computers now have multiple CPUs, so if we divide our computation into multiple threads we can often accelerate things. Julia has a super simple way of setting this up. If you start Julia in the terminal with `julia -t 4` then Julia opens in a way where you can use up to four threads. You can confirm this by entering `Threads.nthreads()`, to which it should respond `4`.
+
+Then, you can divide tasks among your four threads, using a simple @threads macro. It has this general structure:
+
+```julia
+using Base.Threads
+@threads for i in 1:10
+    # add some lines here that do some neat stuff 
+    println("Loop $i was sent to thread $(threadid())")
+end
+```
+
+This approach has the potential to speed up a complex calculation by almost a factor of 4 (in the case of four threads, more if on a machine with more CPUs).
+
+If you plan to use multithreading, it is good to understand the concept of data-races and make sure each one of your iterations does not depend on output from another. Each should be its own self-contained task. Read more [here](https://docs.julialang.org/en/v1/manual/multi-threading/#Using-@threads-without-data-races).
+
 ## Quarto
 
 After you have gained experience as a Julia programmer, you may want to record notes for yourself and others in a way where you can easily write text and run blocks of code. We have seen that Pluto notebooks are great for this. Another way is to use [Quarto](https://quarto.org), which is a dynamic open-source publishing system. 
