@@ -172,7 +172,7 @@
     "href": "MoreFunThings.html",
     "title": "More Fun Things",
     "section": "",
-    "text": "I am going to put something neat here:\n\nusing Plots\nxValues = [1.5, 1.8, 2.3, 2.7, 3.2, 3.5]\nyValues = [2.8, 2.5, 2.3, 2.3, 2.5, 2.8]\nplot(xValues, yValues, linewidth=3)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOK we’re done with that.\nThis series of tutorials have brought us through the essentials of how to write programs in Julia, and how to set up Pluto notebooks or VS Code programming environments. The material was designed to be about the most that could be covered in a 1-credit grad-level university course for students without any programming experience at the start. At the end of such a course, some students might be wanting some pointers to learn more. So here goes:",
+    "text": "This series of tutorials have brought us through the essentials of how to write programs in Julia, and how to set up Pluto notebooks or VS Code programming environments. The material was designed to be about the most that could be covered in a 1-credit grad-level university course for students without any programming experience at the start. At the end of such a course, some students might be wanting some pointers to learn more. So here goes:",
     "crumbs": [
       "Home",
       "Julia tutorials",
