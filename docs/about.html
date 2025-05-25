@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e2ff42e21970f6ffb759f3711bfd93b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -285,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>About this site:</p>
-<p>I am a Professor of Zoology at the University of British Columbia, where a have the great fortune to work with a wonderful group of students. To learn more about our research, go to: <a href="https://www.zoology.ubc.ca/~irwin/irwinlab/" class="uri">https://www.zoology.ubc.ca/~irwin/irwinlab/</a></p>
+<p>I am a Professor of Zoology at the University of British Columbia, where I have the great fortune to work with a wonderful group of students. To learn more about our research, go to: <a href="https://www.zoology.ubc.ca/~irwin/irwinlab/" class="uri">https://www.zoology.ubc.ca/~irwin/irwinlab/</a></p>
 <p>Disclaimer: I am mostly self-taught in the area of computer science and programming, so will likely find better sources to learn about those topics. My goal here is to help other biologists learn to start programming. I have chosen the Julia language because of its easy entry, its speed and memory efficiency, and because it has been hugely useful in my own research.</p>
 <p>Thanks: I have benefitted greatly from many excellent courses available from organizations such as Compute Canada, the Digital Alliance of Canada, and UBC Advanced Research Computing. I also thank the many YouTubers, bloggers, and book authors who provide excellent information about Julia and other languages. And of course I thank the inventors of Julia (you can learn more at <a href="https://en.wikipedia.org/wiki/Julia_(programming_language)" class="uri">https://en.wikipedia.org/wiki/Julia_(programming_language)</a>).</p>
 <p>This whole website was generated using Quarto, which allows embedding of runnable Julia code.</p>
@@ -376,8 +376,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -493,7 +491,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
