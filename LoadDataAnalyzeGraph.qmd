@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.11
+engine: julia
 ---
 
 Here we'll bring together much of our Julia knowledge to actually analyze a large dataset. 

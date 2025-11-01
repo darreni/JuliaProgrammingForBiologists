@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.11
+engine: julia
 ---
 
 We have now learned some about how Julia remembers numbers as belonging to different _types_. Why is this? Isn't a number just a number? Well, when it comes to storing them in computer, the answer is no. To understand why, let's learn a little about how computers store information.

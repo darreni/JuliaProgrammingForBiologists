@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.11
+engine: julia
 ---
 
 Now that we know how to use the Julia REPL to interact with Julia and are building our understanding of programming, we likely want an environment in which we can compose programs and save them for use later. Pluto notebooks provides a _reactive notebook_ environment for doing this.
@@ -136,7 +136,7 @@ The fancy name for the above is **string interpolation**. The expressions follow
 
 ### Next steps
 
-Now that we have a good envirnoment set up to write and save more complex programs, we'll learn about _control flow_, the way you can design a program to do different sets of code depending on the state of one or more variables.
+Now that we have a good environment set up to write and save more complex programs, we'll learn about _control flow_, the way you can design a program to do different sets of code depending on the state of one or more variables.
 
 
 

@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.11
+engine: julia
 ---
 
 Two Julia object types are especially useful for storing and manipulating datasets are **Arrays** (which we learned some about in the quick introduction) and **DataFrames**. On this page we'll build understanding about each of these.

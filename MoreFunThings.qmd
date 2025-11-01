@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.11
+engine: julia
 ---
 
 This series of tutorials have brought us through the essentials of how to write programs in Julia, and how to set up Pluto notebooks or VS Code programming environments. The material was designed to be about the most that could be covered in a 1-credit grad-level university course for students without any programming experience at the start. At the end of such a course, some students might be wanting some pointers to learn more. So here goes:

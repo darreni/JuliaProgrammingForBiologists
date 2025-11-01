@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.11
+engine: julia
 ---
 
 On this page we'll take an introductory tour of Julia. This will touch on a variety of topics, providing just enough detail to get you going. (We'll go more in-depth on various topics later. You can also learn more from the [Julia Manual](https://docs.julialang.org/en/v1/manual/getting-started/).)

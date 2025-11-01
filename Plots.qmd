@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.11
+engine: julia
 ---
 
 Plotting is a huge topic. Here I'll do my best to give you an efficient introduction to key concepts and commands, equipping you with the tools to build plots of arbitrary complexity. My emphasis here is on 'low-level' commands (e.g. draw a point, draw a line), rather than 'high-level' commands (e.g. make a polished fancy plot in a single command). I emphasize the former because it will give you the confidence and power to develop plots to do whatever you want, and it is easy to learn the high-level commands later.

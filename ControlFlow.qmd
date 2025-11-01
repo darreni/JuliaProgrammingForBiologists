@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.11
+engine: julia
 ---
 
 So far, what we have learned might be called _coding_, the way your write commands that do a fixed set of instructions. To do true _programming_ we need to know how to write scripts in which the exact sequence of commands is determined dynamically. This is called _control flow_.

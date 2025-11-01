@@ -6,7 +6,7 @@ execute:
 format:
   html:
     code-fold: false
-jupyter: julia-1.11
+engine: julia
 ---
 
 To download and install Julia, go to this URL and follow instructions: <https://julialang.org/downloads/>
@@ -34,7 +34,11 @@ In the Terminal window, type `julia` at the prompt. After some time (only the fi
 
 Try typing a simple calculation, e.g. `1 + 3` then Enter or Return, and see what happens.
 
-Now try entering `"Hello, nice to meet you"` (make sure you put the quotes).
+Now try entering `"Hello World"` (make sure you put the quotes).
+
+New try entering `print("Hello World")` (make sure you put the parentheses and quotes).
+
+Notice the subtle difference in how Julia evaluates those expressions?
 
 With the above, you are using the REPL, the Read-Evaluate-Print-Loop. This is a common way of running Julia. (Another way is to save scripts and execute them, but that is usually for more advanced use.)
 

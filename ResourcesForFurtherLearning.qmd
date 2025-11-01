@@ -8,7 +8,7 @@ format:
     code-fold: false
     fig-width: 6
     fig-height: 4
-jupyter: julia-1.11
+engine: julia
 ---
 
 If you would like to learn more about programming and data analysis using Julia, some of the resources I have used are listed below:
