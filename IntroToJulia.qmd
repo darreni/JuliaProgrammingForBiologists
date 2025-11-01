@@ -13,7 +13,7 @@ On this page we'll take an introductory tour of Julia. This will touch on a vari
 
 ### Expressions
 
-Now that we have Julia running (on the last page), we can learn how to enter **expressions** that Julia will evaluate. 
+Now that we have Julia running (on the last page), we can learn how to enter _expressions_ that Julia will evaluate. 
 
 The simplest expressions are just a single number or string of text, e.g. try entering something like:
 
@@ -29,6 +29,12 @@ You can do a little more complex expression:
 7 * (6 - 1)
 ```
 
+::: {.callout-note}
+## Valid vs. invalid expressions
+If you enter something that is not interpretable by Julia, the REPL will respond indicating an error. _But don't worry!_ This is how we learn, and the REPL is still usable. You can just try again by modifying your expression using your growing knowledge of Julia syntax.
+:::
+
+
 ### Arithmetic operators
 
 Play around with other simple mathematical expressions. These are some of the main _arithmetic operators_, which you are likely familiar with: `+` , `-`, `*`, `/`, `^`. Try using parentheses to control the order of operations (for example: compare the returned value of `3 + 5 / 2^3` and `(3 + 5) / 2^3`).
@@ -36,7 +42,7 @@ Play around with other simple mathematical expressions. These are some of the ma
 One that operator that you might be less familiar with is the _remainder operator_ `%` which gives the remainder of a division. Try it out:
 
 ```{julia}
-7 % 2
+8 % 3
 ```
 
 Another is the `÷` operator, which produces just the integer part of a division (without the decimal part). 
@@ -98,7 +104,7 @@ Pick a number for the radius (in km) of a circle, and assign that to a variable 
 
 When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. Two main ways that Julia can store numbers are as **integers** or as **floating-point numbers**. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact. 
 
-We can learn about the _Type_ that Julia uses to store values by using the `typeof()` function:
+We can learn about the **type** that Julia uses to store values by using the `typeof()` function:
 
 ```{julia}
 typeof(3)
@@ -112,7 +118,7 @@ typeof(3.0)
 
 Julia responds by sayng `3.0` is of the `Float64` type. This means a 64-bit floating-point number. By writing the `.0` after the `3` we have told Julia we want this number treated as a floating-point number.
 
-Much of the time, we don't need to think about variable types, because Julia is smart and handles types through something called _dynamic typing_. Here's an example:
+Much of the time, we don't need to think about object types, because Julia is smart and handles types through something called _dynamic typing_. Here's an example:
 
 ```{julia}
 a = 2
@@ -131,7 +137,7 @@ ratio2 = 5//7
 product = ratio1 * ratio2
 ```
 
-As your Julia skills increase, there are large benefits to being somewhat aware of types; this can help you write efficient programs and help with debugging your code. You can even define your own Types.
+As your Julia skills increase, there are large benefits to being somewhat aware of types; this can help you write efficient programs and help with debugging your code. You can even define your own object types.
 
 ### Ranges
 
@@ -145,7 +151,13 @@ typeof(rangeOfNums)
 
 Julia stores this range efficiently, until the actual numbers are needed. If we want to actually convert it to the numbers themselves, we could enter something like `collect(rangeOfNums)`
 
-If we want only the even numbers, we enter something like `collect(0:2:30)`.
+If we want only the even numbers, we enter something like this:
+
+```{julia}
+collect(0:2:10)   # the '2' is the increment between successive values
+```
+
+Note the use of the `#` symbol above to make comments to the right of code.
 
 ::: {.callout-tip}
 ## Create a descending vector
@@ -154,7 +166,7 @@ You have a population of 30 individuals that is decreasing by 3 individuals in e
 
 ### Characters and Strings
 
-Programming in biology often involves manipulating text such as "ACGT". For this, we can use two other variable types in Julia: **characters** (officially `Char`) and **strings** (officially `String`), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha).
+Programming in biology often involves manipulating text such as "ACGT". For this, we can use two other data types in Julia: **characters** (officially `Char`) and **strings** (officially `String`), which are usually made up of a series of characters (imagine beads of letters on a string, ha ha---this might be especially easy for Taylor Swift fans).
 
 We enter characters with single quotes, and can combine them to make strings:
 
@@ -164,11 +176,11 @@ nucleotide2 = 'C'
 dinucleotide = nucleotide1 * nucleotide2
 ```
 
-Above, we create two variables of type `Char` and combined them (yes, Julia views combining characters or strings as a form of multiplication, ha ha) to produce a `String`.
+Above, we create two objects of type `Char` and combined them (yes, Julia views combining characters or strings as a form of multiplication, ha ha) to produce a `String`.
 
 ::: {.callout-tip}
 ## Exponents on Strings
-If Julia uses the `*` symbol for combining two characters or strings into a longer string, what do you think it might use the `^` symbol for, when applied to a character or string? Make a guess, and then play around and find out.\n
+If Julia uses the `*` symbol (i.e., multiplication) for combining two characters or strings into a longer string, what do you think it might use the `^` symbol for, when applied to a character or string? Make a guess, and then play around and find out.\n
 (_If you are stuck, try entering `'T'^2` and think about what the REPL returns_)
 :::
 
@@ -184,7 +196,7 @@ The function `string` above concatenates different strings together.
 
 ::: {.callout-tip}
 ## Your favourite species
-Assign a few of your favorite species to different variable names, and then combine them into a single string, with commas separating their names.
+Assign a few of your favorite species to different object names, and then combine them into a single string, with commas separating their names.
 :::
 
 ### Unicode characters
@@ -217,8 +229,6 @@ We can also use Unicode symbols in variable names:
 totalMarineMammals = 🐬 + 🐳
 ```
 
-Note the use of the `#` symbol to make comments to the right of code.
-
 You can find how to write a whole bunch of Unicode symbols by clicking [here](https://docs.julialang.org/en/v1/manual/unicode-input/)
 
 ### Comparisons and Booleans
@@ -226,8 +236,8 @@ You can find how to write a whole bunch of Unicode symbols by clicking [here](ht
 In programming it is often important to check if certain conditions are `true` or `false`. These values are called **Booleans** (of type `Bool` in Julia). 
 
 These _comparison operators_ are used to compare two values (place to left and right of the operator), resulting in `true` or `false`:\
-`==` : equal?  (_notice the two equal symbols_)\
-`!=` : not equal?  (_or try a uncode symbol by typing \neq then tab_)\  
+`==` : equal?  (_notice the two equal symbols_) \
+`!=` : not equal?  (_or try a uncode symbol by typing \neq then tab_) \  
 `<` : less than?\
 `<=` : less than or equal?\
 `>` : greater than?\
@@ -270,7 +280,7 @@ The expression `rand()` gets a random number between 0 and 1. Write a series of 
 
 ### Collections, e.g. Arrays
 
-Objects can contain more than a single item in them. A general term for such a data structure is a _collection_. An **array** is a common type of collection used in Julia: It can be thought of as an n-dimensional lattice of boxes, where you can store something in each box. Below we create some kinds of arrays:
+Objects can contain more than a single item in them. A general term for such a data structure is a _collection_. An **array** is a common type of collection used in Julia: It can be thought of as an _n_-dimensional lattice of boxes, where you can store something in each box. Below we create some kinds of arrays:
 
 ```{julia}
 arrayA = [7.3, 3, 11.2, -5, 3.2]
@@ -280,7 +290,7 @@ arrayA = [7.3, 3, 11.2, -5, 3.2]
 arrayB = [6 5 4; 3 2 1]
 ```
 
-Because these variables are more complex data structures that the simple ones we've looked at so far, Julia tells you the _type_ of the returned value, before showing you the actual values.
+Because these data structures are more complex than the simple ones we've looked at so far, Julia tells you the _type_ of the returned value, before showing you the actual values.
 
 Note that a `Vector` is another name (an _alias_) for a 1-dimensional array, and a `Matrix` is another name for a 2-dimensional array. Inside the curly brackets, Julia indicates the type that each element of the array belongs to (this is `Float64` in the first case, and `Int64` in the second).
 
@@ -324,7 +334,7 @@ We added an element to the end. Now we can remove it:
 pop!(vecA)
 ```
 
-That last one returns the last element of `vecA`, and removes it from `vecA`:
+That last one returns the last element of `vecA`, and removes it from `vecA`---we can verify this by asking the REPL to show what is in `vecA`:
 
 ```{julia}
 vecA
@@ -337,7 +347,7 @@ The `!` in these function names conveys that these functions change an object th
 Another kind of collection is called a **tuple**. It is a lot like a vector (a 1-dimensional array) but is _immutable_. This means that once defined, you cannot change specific values stored in a particular tuple. We create them using parentheses and commas:
 
 ```{julia}
-myTuple = (1.3, 2.7, -12)
+myTuple = (1.3, "RNA", -12, '4')
 typeof(myTuple)
 ```
 
@@ -346,7 +356,7 @@ The response tells us that the object we created is of `Tuple` type, and it tell
 We can also create **named tuples** in which we give names to the values:
 
 ```{julia}
-nt = (base = "C", position = 35, chrom = "Z")
+nt = (base = 'C', position = 35, chrom = "Z")
 ```
 
 We can get the value of a certain element by using that name, like this:
@@ -357,7 +367,7 @@ nt.base
 
 The above is one of the uses of the "`.`" symbol, to access a named element within a tuple. (Another use, quite different, is described after the next heading below).
 
-Tuples are useful for storing and calling fixed bits of info together.  Because they are not mutable, Julia can store and use them in a more efficient way than arrays. They are also used when calling functions (we'll explore this later).
+Tuples are useful for storing and calling connected pieces of info.  Because they are not mutable, Julia can store and use them in a more efficient way than arrays. They can also be used to feed data into functions (we'll explore this later).
 
 ### Broadcasting
 
@@ -390,7 +400,7 @@ begin
 end
 ```
 
-The line with the `@.` macro produces the same output as:
+The line above with the `@.` macro produces the same output as:
 
 ```{julia}
 results = 2 .* data .+ data.^2
@@ -404,9 +414,19 @@ Another useful macro is `@time` :
 
 The `rand(x)` function produces `x` random numbers between 0 and 1. The above returns the sum of 1000 such numbers. Julia tells you the time it took, followed by the sum.
 
+An aside: If you are curious about how long the same thing takes in R, you can run this code in R:
+
+```
+startTime <- Sys.time()
+sum(runif(1000))
+endTime <- Sys.time()
+print(endTime - startTime)
+```
+
 ::: {.callout-tip}
 ## Even more numbers!
-Modify the above code so that it takes the **square** of each of **one million random numbers** between 0 and 1, and then adds them up.
+Modify the last Julia expression above so that it takes the **square** of each of **one million random numbers** between 0 and 1, and then adds them up.  
+(_Hint: pay attention to the section on Broadcasting above, especially about the dot operator._)
 ::: 
 
 
@@ -415,10 +435,10 @@ Modify the above code so that it takes the **square** of each of **one million r
 Julia facilitates the writing of your own functions. This can have huge benefits in terms of organizing your programs and making them efficient. There are several ways to define them:
 
 ```{julia}
-sumSqrtRands(x) = sum(sqrt.(rand(x)))
+sumSqrtRands(n) = sum(sqrt.(rand(n)))
 ```
 
-We've defined that function. Now we can use it:
+We've now defined a function that generates _n_ random numbers, takes the square root of each, and then adds those up. Now we can use it for the sum of one million such numbers (in Julia we can write big numbers with underscores separating integers, making them easier to read):
 
 ```{julia}
 @time sumSqrtRands(1_000_000)
@@ -448,7 +468,7 @@ Can you figure out how to call the above function in a way where you can input a
 
 Thousands of people around the world have contributed over 10,000 _packages_ that extend functionality of Julia. Installing these packages is easy.
 
-First, enter the **package mode** of the REPL by typing the right square bracket symbol `]` . You will then see the `julia>` prompt change into a prompt that looks something like `(@v1.11) pkg>` . Then, type a command to add a package, e.g.:
+First, enter the **package mode** of the REPL by typing the right square bracket symbol `]` . You will then see the `julia>` prompt change into a prompt that looks something like `(@v1.12) pkg>` . Then, type a command to add a package, e.g.:
 
 ```julia
 add Plots

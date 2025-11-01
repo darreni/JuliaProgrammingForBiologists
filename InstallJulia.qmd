@@ -9,7 +9,7 @@ format:
 engine: julia
 ---
 
-To download and install Julia, go to this URL and follow instructions: <https://julialang.org/downloads/>
+To download and install Julia, go to this URL and follow instructions: <https://julialang.org/install/>
 
 That website will likely detect your operating system and suggest the right approach.
 
@@ -17,15 +17,15 @@ That website will likely detect your operating system and suggest the right appr
 
 `curl -fsSL https://install.julialang.org | sh`
 
-**If you have a PC:** I think the above will direct you to simply open a command-line interface window (using e.g., Windows Powershell or Windows Terminal) and type the command below at the prompt:
+**If you have a PC:** The above [Julia install website](https://julialang.org/install/) will give you two approaches to installing Julia using downloadable installers. For the second of these, there is a way to do this using a command-line interface window (using e.g., Windows Powershell or Windows Terminal), by typing the command below at the prompt:
 
-`winget install julia -s msstore`
+`winget install --name Julia --id 9NJNWW8PVKMN -e -s msstore`
 
 The above commands (whether Mac or PC) install the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer.
 
 ::: {.callout-note}
 ## If desired: update Julia 
-If you already have Julia and Juliaup installed, and you want to update Julia to the latest available stable version, use the command `juliaup update`. (You can see other useful Juliaup commands [here](https://github.com/JuliaLang/juliaup))
+If you already have Julia and Juliaup installed, and you want to update Julia to the latest available stable version, enter the command `juliaup update` into your Terminal or other command-line interface. (You can see other useful Juliaup commands [here](https://github.com/JuliaLang/juliaup))
 :::
 
 ### Now, run Julia!
@@ -42,5 +42,5 @@ Notice the subtle difference in how Julia evaluates those expressions?
 
 With the above, you are using the REPL, the Read-Evaluate-Print-Loop. This is a common way of running Julia. (Another way is to save scripts and execute them, but that is usually for more advanced use.)
 
-Now, go to the next page to learn more about interacting with Julia.
+Now, go to the next page to learn (using arrow at lower right of this page) more about interacting with Julia.
 

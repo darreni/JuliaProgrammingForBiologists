@@ -298,12 +298,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>To download and install Julia, go to this URL and follow instructions: <a href="https://julialang.org/downloads/" class="uri">https://julialang.org/downloads/</a></p>
+<p>To download and install Julia, go to this URL and follow instructions: <a href="https://julialang.org/install/" class="uri">https://julialang.org/install/</a></p>
 <p>That website will likely detect your operating system and suggest the right approach.</p>
 <p><strong>If you have a Mac:</strong> The above will direct you to simply open a Terminal window (look for the Terminal application in your <code>Applications/Utilities</code> directory) and type the command below at the Terminal prompt:</p>
 <p><code>curl -fsSL https://install.julialang.org | sh</code></p>
-<p><strong>If you have a PC:</strong> I think the above will direct you to simply open a command-line interface window (using e.g., Windows Powershell or Windows Terminal) and type the command below at the prompt:</p>
-<p><code>winget install julia -s msstore</code></p>
+<p><strong>If you have a PC:</strong> The above <a href="https://julialang.org/install/">Julia install website</a> will give you two approaches to installing Julia using downloadable installers. For the second of these, there is a way to do this using a command-line interface window (using e.g., Windows Powershell or Windows Terminal), by typing the command below at the prompt:</p>
+<p><code>winget install --name Julia --id 9NJNWW8PVKMN -e -s msstore</code></p>
 <p>The above commands (whether Mac or PC) install the Juliaup installation manager, which is a wonderful tool to help update Julia and keep different versions (if you wish) available on your computer.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -315,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you already have Julia and Juliaup installed, and you want to update Julia to the latest available stable version, use the command <code>juliaup update</code>. (You can see other useful Juliaup commands <a href="https://github.com/JuliaLang/juliaup">here</a>)</p>
+<p>If you already have Julia and Juliaup installed, and you want to update Julia to the latest available stable version, enter the command <code>juliaup update</code> into your Terminal or other command-line interface. (You can see other useful Juliaup commands <a href="https://github.com/JuliaLang/juliaup">here</a>)</p>
 </div>
 </div>
 <section id="now-run-julia" class="level3">
@@ -326,7 +326,7 @@ ul.task-list li input[type="checkbox"] {
 <p>New try entering <code>print("Hello World")</code> (make sure you put the parentheses and quotes).</p>
 <p>Notice the subtle difference in how Julia evaluates those expressions?</p>
 <p>With the above, you are using the REPL, the Read-Evaluate-Print-Loop. This is a common way of running Julia. (Another way is to save scripts and execute them, but that is usually for more advanced use.)</p>
-<p>Now, go to the next page to learn more about interacting with Julia.</p>
+<p>Now, go to the next page to learn (using arrow at lower right of this page) more about interacting with Julia.</p>
 
 
 </section>
