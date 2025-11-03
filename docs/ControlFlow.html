@@ -360,13 +360,16 @@ The cube of 9 is 729
 The cube of 10 is 1000</code></pre>
 </div>
 </div>
+<p>Above, the <code>for ice in 1:10</code> line means to assign the value 1 to an object called <code>ice</code> and then execute the expressions below that line and above the <code>end</code>, and then assign the value 2 to <code>ice</code> and do the expressions again, then do the same with 3 etc., all the way to 10.</p>
 <p>Here we’ll use a random integer to determine how many times to do a loop:</p>
 <div id="4" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rand_times <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)  <span class="co"># This returns a random integer in the range 1 to 10</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>rand_times</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(i)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"I counted to </span><span class="sc">$</span>rand_times<span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">begin</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  rand_times <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)  <span class="co"># This returns a random integer in the range 1 to 10</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>rand_times</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"I counted to </span><span class="sc">$</span>rand_times<span class="st">"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1
 2
@@ -375,10 +378,13 @@ The cube of 10 is 1000</code></pre>
 5
 6
 7
-I counted to 7</code></pre>
+8
+I counted to 8</code></pre>
 </div>
 </div>
-<p>Note that the <code>$</code> in the last line above causes <em>string interpolation</em> of the expression to the right of it.</p>
+<p>Try executing the above several times, so you can see how it chooses a random number to count to.</p>
+<p>Note that the <code>$</code> in the <code>println</code> line above causes <em>string interpolation</em> of the expression to the right of it.</p>
+<p>I show the code block above as being within a <code>begin</code> - <code>end</code> block, which is how you would want to enter it in a single cell in Pluto. Below, I will not always show the <code>begin</code> and <code>end</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -389,7 +395,7 @@ I counted to 7</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Write a script that produces the song “99 bottles of beer on the wall.” This song goes like “99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of …” and so forth that all the way down. (I don’t think anyone has ever completed the song . . . Can your program succeed in doing so?)</p>
+<p>Write a script that produces the song “99 bottles of beer on the wall.” This song goes like “99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of …” and so forth all the way down until there is no more beer. (I don’t think anyone has ever completed the song . . . Can your program succeed in doing so?)</p>
 </div>
 </div>
 <p>An interesting thing about <code>for</code> loops is that the iterator variable is internal to the loop (not “known” outside of the loop):</p>
@@ -410,7 +416,7 @@ After the loop, i = 27</code></pre>
 </div>
 <section id="for-loops-can-iterate-across-many-kinds-of-collections" class="level4">
 <h4 class="anchored" data-anchor-id="for-loops-can-iterate-across-many-kinds-of-collections"><code>for</code> loops can iterate across many kinds of collections</h4>
-<p>You can iterate across all sorts of things, for example a matrix of strings:</p>
+<p>You can <em>iterate</em> across all sorts of things, for example a matrix of strings:</p>
 <div id="8" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>speciesGrid <span class="op">=</span> [<span class="st">"warblers"</span> <span class="st">"flamebacks"</span> <span class="st">"sticklebacks"</span>; </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"sparrows"</span>  <span class="st">"guppies"</span> <span class="st">"digital organisms"</span>] </span>
@@ -428,14 +434,14 @@ We study digital organisms.</code></pre>
 </div>
 <p>Instead of the <code>in</code> in the <code>for</code> line, you can use the unicode character <code>∈</code> (produced by typing <code>\in</code> tab), which is a mathematical symbol meaning “is an element of”. :</p>
 <div id="10" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mySet <span class="op">=</span> [<span class="st">"banana"</span>, <span class="fl">5.3</span>, <span class="ch">'🐬'</span>]  <span class="co"># get the dolphin with \:dolphin: tab</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mySet <span class="op">=</span> [<span class="st">"banana"</span>, <span class="fl">5.3</span>, <span class="ch">'🐬'</span>]  <span class="co"># for the dolphin:  \:dolphin: tab</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> thing <span class="op">∈</span> mySet</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(thing)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"My thing is </span><span class="sc">$</span>thing<span class="st">"</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>banana
-5.3
-🐬</code></pre>
+<pre><code>My thing is banana
+My thing is 5.3
+My thing is 🐬</code></pre>
 </div>
 </div>
 </section>
@@ -488,10 +494,10 @@ We study digital organisms.</code></pre>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(mySum)</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>5
-9
-18
-22</code></pre>
+<pre><code>7
+13
+21
+26</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -520,7 +526,7 @@ We study digital organisms.</code></pre>
 <pre><code>7</code></pre>
 </div>
 </div>
-<p>The above <em>returns</em> the value of the last subexpression, but it does remember values assigned in the earlier subexpressions. (To prove this to yourself, enter <code>x</code> to see its value.)</p>
+<p>The above <em>returns</em> the value of the last subexpression, and it does remember values assigned in the earlier subexpressions. (To prove this to yourself, enter <code>x</code> to see its value.)</p>
 <p>You can use compound expressions as part of even larger expressions, e.g.:</p>
 <div id="24" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>myVar <span class="op">=</span> (x <span class="op">=</span> <span class="fl">4</span>; y <span class="op">=</span> <span class="fl">3</span>; x <span class="op">+</span> y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -579,7 +585,7 @@ We study digital organisms.</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Write a script in which you assign a diploid genotype to a variable, with the genotype encoded as a 2-element vector containing strings (e.g., <code>["A", "C"]</code> or <code>["A", "A"]</code>), and then the script tells you whether the genotype is homozygous (the two elements are the same) or heterozygous (the two elements are different). (<em>Hint</em>: Remember how to access one element of a vector, e.g.&nbsp;<code>x[1]</code> gives just the first element of <code>x</code>; Remember how to ask if two things are equal: <code>==</code>)</p>
+<p>Write a script in which you assign a diploid genotype to an object, with the genotype encoded as a 2-element vector containing strings (e.g., <code>["A", "C"]</code> or <code>["A", "A"]</code>), and then the script tells you whether the genotype is homozygous (the two elements are the same) or heterozygous (the two elements are different). (<em>Hint</em>: Remember how to access one element of a vector, e.g.&nbsp;<code>x[1]</code> gives just the first element of <code>x</code>; Remember how to ask if two things are equal: <code>==</code>)</p>
 </div>
 </div>
 <p>In Julia, <code>if</code> blocks return a value. You can make use if that to do something like this:</p>
@@ -614,7 +620,7 @@ We study digital organisms.</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Assign a non-zero number to a variable, and then use a ternary operater to report whether the number is positive or negative.</p>
+<p>Assign a non-zero number to an object, and then use a ternary operater to report whether the number is positive or negative.</p>
 </div>
 </div>
 </section>
@@ -715,7 +721,7 @@ We study digital organisms.</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Using array comprehension, write code that will generate <code>Matrix</code> containing all 16 possible 2-letter combinations of A, C, G, and T.</p>
-<p><em>If you succeed: Can you now generate a 4×4×4 <code>Array</code> that contains all possible trinucleotides?</em></p>
+<p><em>If you succeed: Can you now generate a 4×4×4 <code>Array</code> that contains all possible <strong>tri</strong>nucleotides?</em></p>
 </div>
 </div>
 <p>Array comprehensions might take a while to get used to, as they contain a lot of logic in concise code. I mention them here because you may see them in Julia programs written by others. When you are starting out though, the logic may be easier to perceive if you write out your array-filling loops as full <code>for</code> blocks containing a series of expressions and an <code>end</code> keyword.</p>

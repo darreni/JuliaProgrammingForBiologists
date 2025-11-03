@@ -19,7 +19,7 @@ There are a number of different plotting packages in Julia, many of them excelle
 
 If you haven't already done so (perhaps you did this several pages prior), install the `Plots` package as follows:
 
-If using the REPL, type `]` to activate the Package mode, then enter `add Plots` . Then press the `delete` key to return to the REPL, and enter `using Plots`. 
+If using the REPL, type `]` to activate the Package mode, then enter `add Plots` . Then press the `delete` key to return to the main REPL, and enter `using Plots`. 
 
 If using Pluto, simply type `add Plots` in a code cell and then shift-enter to execute the cell.
 
@@ -31,7 +31,7 @@ We'll make a simple plot and learn some of the functions involved.
 
 #### Draw some lines
 
-Let's define some x values and y values of points, and then plot them by connecting those points with lines:
+Let's define some _x_ values and _y_ values of points, and then plot them by connecting those points with lines:
 
 ```{julia}
 using Plots
@@ -189,7 +189,7 @@ plot(p1, p2, p3, p4, p5, p6,
                          s])
 ```
 
-After the `@layout`, we simply write brackets within which is a visual representation of the layout of the plot. The `s` symbol here is arbitrary--you can use whichever letter you want--the key thing is that the pattern of white space and line breaks between the symbols conveys to the macro what the layout arrangement should be.
+After the `@layout`, we simply write brackets within which is a visual representation of the layout of the plot. The `s` symbol here is arbitrary---you can use whichever letter you want---the key thing is that the pattern of white space and line breaks between the symbols conveys to the macro what the layout arrangement should be.
 
 If we want our sub-plots to take up differing amounts of space, we can add that in this way:
 

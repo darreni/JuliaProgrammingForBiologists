@@ -9,7 +9,7 @@ format:
 engine: julia
 ---
 
-Now that we know how to use the Julia REPL to interact with Julia and are building our understanding of programming, we likely want an environment in which we can compose programs and save them for use later. Pluto notebooks provides a _reactive notebook_ environment for doing this.
+Now that we've learned some about the Julia REPL and are building our understanding of programming, we likely want an environment in which we can compose programs and save them for use later. Pluto notebooks provides a _reactive notebook_ environment for doing this.
 
 ### Install Pluto
 
@@ -34,13 +34,13 @@ Eventually (and if your computer works the same as mine), a browser window will 
 
 ### Create your first notebook
 
-Click on "Create a new notebook" (Under the heading "My Work").
+Click on "Create a new notebook" (under the heading "My Work").
 
-You will then see a mostly blank page that says "Pluto.jl" in the upper left. Below that there is a line with faint text that says "Enter cell code". Try entering a simple Julia expression there to assign a value to a variable (e.g. something like `a = 7^2`) and then press Shift + Enter to tell Pluto to evaluate the cell.
+You will then see a mostly blank page that says "Pluto.jl" in the upper left. Below that there is a line with faint text that says "Enter cell code". Try entering a simple Julia expression there to assign a value to a variable (e.g. something like `a = 5^2`) and then press Shift + Enter to tell Pluto to evaluate the cell.
 
 Pluto then returns the result of your expression _above_ the cell.
 
-Let's add another cell by clicking the little "+" sign below the first cell. In this new cell, enter an expression that creates a second variable and assigns to it a calculation involving your first variable (e.g. `b = a - 3`). You will see again see the result above the cell.
+Let's add another cell by clicking the little "+" sign below the first cell. In this new cell, enter an expression that creates a second variable and assigns to it a calculation involving your first variable (e.g. `b = a - 6`). You will see again see the result above the cell.
 
 Now, edit the first cell to change the value assigned to `a`, and press Shift + Enter. You will see the returned value of `a` change, and the value of `b` changes too. This is what it means to be _reactive_: any change in your notebook propogates through the entire notebook in a logical way. The whole notebook then is like a single program.
 
@@ -98,7 +98,7 @@ begin
 end
 ```
 
-You will likely see a scatter plot of 10 data points. The data generation involved random draws from a standard normal distribution, so your graph won't look exactly the same as the one shown here. 
+You will likely see a scatter plot of 10 data points. The data generation involves random draws from a standard normal distribution, so your graph won't look exactly the same as the one shown here. 
 
 ::: {.callout-tip}
 ## Add a lot more points 

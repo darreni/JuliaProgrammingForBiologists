@@ -22,21 +22,29 @@ for ice in 1:10
 end
 ```
 
+Above, the `for ice in 1:10` line means to assign the value 1 to an object called `ice` and then execute the expressions below that line and above the `end`, and then assign the value 2 to `ice` and do the expressions again, then do the same with 3 etc., all the way to 10.
+
 Here we'll use a random integer to determine how many times to do a loop:
 
 ```{julia}
-rand_times = rand(1:10)  # This returns a random integer in the range 1 to 10
-for i in 1:rand_times
-  println(i)
+begin
+  rand_times = rand(1:10)  # This returns a random integer in the range 1 to 10
+  for i in 1:rand_times
+    println(i)
+  end
+  println("I counted to $rand_times")
 end
-println("I counted to $rand_times")
 ```
 
-Note that the `$` in the last line above causes _string interpolation_ of the expression to the right of it.
+Try executing the above several times, so you can see how it chooses a random number to count to. 
+
+Note that the `$` in the `println` line above causes _string interpolation_ of the expression to the right of it. 
+
+I show the code block above as being within a `begin` - `end` block, which is how you would want to enter it in a single cell in Pluto. Below, I will not always show the `begin` and `end`. 
 
 ::: {.callout-tip}
 ## Teach Julia to Sing
-Write a script that produces the song "99 bottles of beer on the wall." This song goes like "99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of ..." and so forth that all the way down. (I don't think anyone has ever completed the song . . . Can your program succeed in doing so?)
+Write a script that produces the song "99 bottles of beer on the wall." This song goes like "99 bottles of beer on the wall, 99 bottle of beer, you take one down and pass it around, 98 bottles of beer on the wall; 98 bottles of beer on the wall, 98 bottles of ..." and so forth all the way down until there is no more beer. (I don't think anyone has ever completed the song . . . Can your program succeed in doing so?)
 :::
 
 An interesting thing about `for` loops is that the iterator variable is internal to the loop (not "known" outside of the loop):
@@ -52,7 +60,7 @@ println("After the loop, i = $i")
 
 #### `for` loops can iterate across many kinds of collections
 
-You can iterate across all sorts of things, for example a matrix of strings:
+You can _iterate_ across all sorts of things, for example a matrix of strings:
 
 ```{julia}
 speciesGrid = ["warblers" "flamebacks" "sticklebacks"; 
@@ -65,9 +73,9 @@ end
 Instead of the `in` in the `for` line, you can use the unicode character `∈` (produced by typing `\in` tab), which is a mathematical symbol meaning "is an element of". :
 
 ```{julia}
-mySet = ["banana", 5.3, '🐬']  # get the dolphin with \:dolphin: tab
+mySet = ["banana", 5.3, '🐬']  # for the dolphin:  \:dolphin: tab
 for thing ∈ mySet
-  println(thing)
+  println("My thing is $thing")
 end
 ``` 
 
@@ -145,7 +153,7 @@ A _compound expression_ is a single large expression that is made up of multiple
 x = 4; y = 3; x + y
 ```
 
-The above _returns_ the value of the last subexpression, but it does remember values assigned in the earlier subexpressions. (To prove this to yourself, enter `x` to see its value.)
+The above _returns_ the value of the last subexpression, and it does remember values assigned in the earlier subexpressions. (To prove this to yourself, enter `x` to see its value.)
 
 You can use compound expressions as part of even larger expressions, e.g.:
 
@@ -192,7 +200,7 @@ In an `if` block, the `elseif` and `else` parts are optional, but the `end` is e
 
 ::: {.callout-tip}
 ## Determine homozygote or heterozygote
-Write a script in which you assign a diploid genotype to a variable, with the genotype encoded as a 2-element vector containing strings (e.g., `["A", "C"]` or `["A", "A"]`), and then the script tells you whether the genotype is homozygous (the two elements are the same) or heterozygous (the two elements are different). (_Hint_: Remember how to access one element of a vector, e.g. `x[1]` gives just the first element of `x`; Remember how to ask if two things are equal: `==`)
+Write a script in which you assign a diploid genotype to an object, with the genotype encoded as a 2-element vector containing strings (e.g., `["A", "C"]` or `["A", "A"]`), and then the script tells you whether the genotype is homozygous (the two elements are the same) or heterozygous (the two elements are different). (_Hint_: Remember how to access one element of a vector, e.g. `x[1]` gives just the first element of `x`; Remember how to ask if two things are equal: `==`)
 :::
 
 ::: {.content-hidden}
@@ -228,7 +236,7 @@ This can be thought of as "True or false" ? "Do this if true" : "Do this if fals
 
 ::: {.callout-tip}
 ## Determine whether a number is positive or negative 
-Assign a non-zero number to a variable, and then use a ternary operater to report whether the number is positive or negative.
+Assign a non-zero number to an object, and then use a ternary operater to report whether the number is positive or negative.
 :::
 
 ::: {.content-hidden}
@@ -307,7 +315,7 @@ The above had two implied loops (one for `x` and one for `y`) and the comma betw
 ## Make a 4×4 array containing all possible dinucleotides 
 Using array comprehension, write code that will generate `Matrix` containing all 16 possible 2-letter combinations of A, C, G, and T.
 
-_If you succeed: Can you now generate a 4×4×4 `Array` that contains all possible trinucleotides?_ 
+_If you succeed: Can you now generate a 4×4×4 `Array` that contains all possible **tri**nucleotides?_ 
 :::
 
 ::: {.content-hidden}

@@ -23,7 +23,7 @@ We can specify the type of an object using the `::` operator, which can be thoug
 x::Int64 = 6
 ```
 
-The above declares an object `x` as being of type `Int64`, and then assigns the value `6` to it. If you try to assign something like `6.3` to it, you will get an error (try it!). However, Julia tries to be friendly so if you assign something that can be converted to `Int64` it works:
+The above declares an object `x` as being of type `Int64`, and then assigns the value `6` to it. If you try to assign something like `6.3` to it, you will get an error (try it!). However, Julia tries to be friendly so if you assign something that can be converted to `Int64`, it works:
 
 ```{julia}
 y::Int64 = 6.0
@@ -149,7 +149,7 @@ In the above example using shapes, we had an example of _single dispatch_, when 
 ```{julia}
 struct Dog
   name::String
-  age::Int  # Int is an general type for all integer types (e.g. Int64)
+  age::Int  # Int is a general type for all integer types (e.g. Int64)
   sound::String 
 end
 ```
@@ -231,7 +231,7 @@ The REPL responds by saying:
 
 It is telling you that there is no _method_ for the 'sqrt' function that uses an input an object of type `Vector{Int64}` (meaning a vector of integers). If we can understand this message, we might then realize that we have to either enter a single number as input (`sqrt(9)`) or broadcast over all elements of the vector using the dot operator (`sqrt.([9, 4])`).
 
-If we want to see what methods a function can use, we can use the `methods()` function:
+If we want to see what methods a function can use, we can use the `methods()` function. For example, let's do this for animal interaction function that we defined above:
 
 ```{julia}
 methods(interact)
@@ -239,7 +239,7 @@ methods(interact)
 
 The REPL then tells us that there are four methods and summarizes what types go into them.
 
-If curious, you can try this on any function--for instance, try `methods(+)` to see that there are at least 189 methods for the `+()` function depending on the arguments passed into it.
+If curious, you can try this on any function--for instance, try `methods(+)` to see that there are at least 192 methods for the `+()` function depending on the arguments passed into it.
 
 ### Next steps
 
