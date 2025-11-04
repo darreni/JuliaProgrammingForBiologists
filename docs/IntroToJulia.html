@@ -275,18 +275,6 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./LoadDataAnalyzeGraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Load &amp; Graph Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./UseVSCode.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Use an Integrated Development Environment (IDE)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./Numbers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A Bit about Numbers</span></a>
   </div>
@@ -307,6 +295,18 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./BuildSimulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Build a Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./LoadDataAnalyzeGraph.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Load &amp; Graph Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./UseVSCode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use an Integrated Development Environment (IDE)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -907,10 +907,10 @@ window.Quarto = {
 <div id="84" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">sum</span>(<span class="fu">rand</span>(<span class="fl">1000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000003 seconds (3 allocations: 8.062 KiB)</code></pre>
+<pre><code>  0.000005 seconds (3 allocations: 8.062 KiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>479.29730930877287</code></pre>
+<pre><code>498.02289130456296</code></pre>
 </div>
 </div>
 <p>The <code>rand(x)</code> function produces <code>x</code> random numbers between 0 and 1. The above returns the sum of 1000 such numbers. Julia tells you the time it took, followed by the sum.</p>
@@ -947,10 +947,10 @@ print(endTime - startTime)</code></pre>
 <div id="88" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">sumSqrtRands</span>(<span class="fl">1_000_000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.008195 seconds (6 allocations: 15.313 MiB)</code></pre>
+<pre><code>  0.010038 seconds (6 allocations: 15.313 MiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>667037.451515168</code></pre>
+<pre><code>666270.7982884243</code></pre>
 </div>
 </div>
 <p>Below demonstrates another way to write functions, in this case with two <em>arguments</em> (things you pass into the function, called <em>parameters</em> inside the function):</p>

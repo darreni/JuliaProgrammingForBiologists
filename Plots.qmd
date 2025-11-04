@@ -214,4 +214,4 @@ savefig(bigPlot, "myplot.pdf")
 
 This has been a quick intro to plotting, but I hope it gives a good idea of the rich capability of the `Plots` package and how to get started producing your own plots in Julia.
 
-Now let's jump into a full data analysis. We'll learn how to import data into Julia, do a bunch of processing and calculations, and graph results.
+Now that we have a good understanding of the key elements of programming and have some plotting tools, we can work towards building simulations and conducting data analysis. First, let's learn some more details about how numbers are stored in a computer, and how large amounts of data can be stored efficiently in arrays and data frames.

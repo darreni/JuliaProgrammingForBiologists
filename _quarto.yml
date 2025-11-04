@@ -28,12 +28,12 @@ website:
           - ControlFlow.qmd
           - MultipleDispatch.qmd
           - Plots.qmd
-          - LoadDataAnalyzeGraph.qmd
-          - UseVSCode.qmd
           - Numbers.qmd
           - ArraysAndDataFrames.qmd
           - Randomization.qmd
           - BuildSimulation.qmd
+          - LoadDataAnalyzeGraph.qmd
+          - UseVSCode.qmd
           - MoreFunThings.qmd
           - ResourcesForFurtherLearning.qmd
   page-footer: "Copyright 2025, Darren Irwin" 
