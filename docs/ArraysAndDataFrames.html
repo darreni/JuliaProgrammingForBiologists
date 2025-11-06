@@ -234,14 +234,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./MultipleDispatch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Types and Multiple Dispatch</span></a>
+  <a href="./Plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plots</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plots</span></a>
+  <a href="./BuildSimulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Build a Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MultipleDispatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types and Multiple Dispatch</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -260,12 +266,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./Randomization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Randomization in Simulation and Statistics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./BuildSimulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Build a Simulation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -315,6 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#loading-your-own-data-into-a-dataframe" id="toc-loading-your-own-data-into-a-dataframe" class="nav-link" data-scroll-target="#loading-your-own-data-into-a-dataframe">Loading your own data into a DataFrame</a></li>
   <li><a href="#learning-more-about-dataframes" id="toc-learning-more-about-dataframes" class="nav-link" data-scroll-target="#learning-more-about-dataframes">Learning more about DataFrames</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -422,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="14" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> E <span class="op">=</span> <span class="fu">Array</span><span class="dt">{Float64}</span>(<span class="cn">undef</span>, <span class="fl">1000</span>, <span class="fl">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.006724 seconds (1.43 k allocations: 7.720 MiB, 98.91% compilation time)</code></pre>
+<pre><code>  0.008898 seconds (1.43 k allocations: 7.720 MiB, 99.16% compilation time)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>1000×1000 Matrix{Float64}:
@@ -451,7 +452,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="16" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> F <span class="op">=</span> <span class="fu">ones</span>(<span class="fl">1000</span>,<span class="fl">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.003008 seconds (15 allocations: 7.657 MiB)</code></pre>
+<pre><code>  0.002778 seconds (15 allocations: 7.657 MiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>1000×1000 Matrix{Float64}:
@@ -766,25 +767,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td class="rowLabel" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.411496</td>
+<td style="text-align: right;">0.990995</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.976877</td>
+<td style="text-align: right;">0.753205</td>
 </tr>
 <tr class="dataRow odd">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.194102</td>
+<td style="text-align: right;">0.362925</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.34848</td>
+<td style="text-align: right;">0.238964</td>
 </tr>
 </tbody>
 </table>
@@ -850,28 +851,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td class="rowLabel" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.411496</td>
+<td style="text-align: right;">0.990995</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.976877</td>
+<td style="text-align: right;">0.753205</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="dataRow odd">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.194102</td>
+<td style="text-align: right;">0.362925</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.34848</td>
+<td style="text-align: right;">0.238964</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 </tbody>
@@ -909,28 +910,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td class="rowLabel" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.411496</td>
+<td style="text-align: right;">0.990995</td>
 <td style="text-align: left;">small</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.976877</td>
+<td style="text-align: right;">0.753205</td>
 <td style="text-align: left;">small</td>
 </tr>
 <tr class="dataRow odd">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.194102</td>
+<td style="text-align: right;">0.362925</td>
 <td style="text-align: left;">medium</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.34848</td>
+<td style="text-align: right;">0.238964</td>
 <td style="text-align: left;">BIG</td>
 </tr>
 </tbody>
@@ -947,6 +948,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="learning-more-about-dataframes" class="level3">
 <h3 class="anchored" data-anchor-id="learning-more-about-dataframes">Learning more about DataFrames</h3>
 <p>The <code>DataFrames.jl</code> package is extremely capable, and we are just touching the surface here of what it can do. A good source to learn more is: <a href="https://dataframes.juliadata.org/stable/man/basics/#First-Steps-with-DataFrames.jl" class="uri">https://dataframes.juliadata.org/stable/man/basics/#First-Steps-with-DataFrames.jl</a></p>
+</section>
+<section id="next-steps" class="level3">
+<h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
+<p>One thing we might want to fill arrays with are random numbers–this can be useful in doing simulations and in statistical analysis. We’ve used the <code>rand()</code> function some on previous pages. On the next, we’ll learn more about randomization and its uses.</p>
 
 
 </section>

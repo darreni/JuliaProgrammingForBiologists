@@ -370,3 +370,7 @@ The p-value is far below the usual standard alpha of 0.05, so we are comfortable
 ### _Have fun with randomness!_
 
 I find experimenting with randomness can be one of the most enjoyable aspects of writing computer simulations. I think this is one reason humans enjoy games of chance--there is a surprising aspect to randomness, but also a strange sense of order can go along with it. Using functions like `rand()`, `randn()`, and `shuffle()`, I encourage you to have fun incorporating randomness into your programming.
+
+### Next steps
+
+We now have all the essential tools for writing programs to do all sorts of neat things. One thing we haven't explored much yet is how to important a really big dataset into Julia and then do some neat analyses on it. We'll look at an example of this on the next page.

@@ -214,4 +214,4 @@ savefig(bigPlot, "myplot.pdf")
 
 This has been a quick intro to plotting, but I hope it gives a good idea of the rich capability of the `Plots` package and how to get started producing your own plots in Julia.
 
-Now that we have a good understanding of the key elements of programming and have some plotting tools, we can work towards building simulations and conducting data analysis. First, let's learn some more details about how numbers are stored in a computer, and how large amounts of data can be stored efficiently in arrays and data frames.
+Now that we have a good understanding of the key elements of programming and have some plotting tools, let's build an actual simulation! 

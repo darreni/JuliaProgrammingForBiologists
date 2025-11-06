@@ -106,7 +106,7 @@ Pick a number for the radius (in km) of a circle, and assign that to an object n
 
 ### Different _Types_ of numbers
 
-When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. Two main ways that Julia can store numbers are as **integers** or as **floating-point numbers**. Integers have exact values but are quite limited in the values they can take, whereas floating-point numbers can take many more values but have a disadvantage that they are not exact. 
+When computers store numbers, they can do it in different ways, each with their advantages and disadvantages. Two main ways that Julia can store numbers are as **integers** or as **floating-point numbers**. Integers are exact but are limited in the values they can take, whereas floating-point numbers can represent more values but are not exact. 
 
 We can learn about the **type** that Julia uses to store values by using the `typeof()` function:
 
@@ -375,6 +375,22 @@ The above is one of the uses of the "`.`" symbol, to access a named element with
 
 Tuples are useful for storing and calling connected pieces of info.  Because they are not mutable, Julia can store and use them in a more efficient way than arrays. They can also be used to feed data into functions (we'll explore this later).
 
+### Dictionaries
+
+Yet another useful kind of collection is a **dictionary**, which in Julia is of type `Dict`. These can be thought of as lookup tables, which match up _keys_ and _values_ into _key-value pairs_. For example, let's say you wanted to setup a way for a single letter to represent a species name:
+
+```{julia}
+lookup = Dict('h'=>"human", 'f'=>"fruit fly", 's'=>"sunflower") 
+```
+
+Now, we can get a specific values using a specific key, almost in the same way you would use indexing to access one element in an array:
+
+```{julia}
+lookup['s']
+```
+
+There are many ways to modify and work with dictionaries. For now, we'll move on to other topics in this introductory tour.
+
 ### Broadcasting
 
 We often want to apply an operation or function to each element of an array. In Julia this is called "broadcasting" and is accomplished by the humble "dot" operator: `.`
@@ -513,4 +529,4 @@ This flexibility in function calls is an example of _multiple dispatch_, a key f
 
 ### Next steps
 
-We've now learned a lot of basic concepts related to Julia programming, and it is now time to put them together in more complex ways. For that, we'll learn how to use Pluto notebooks on the next page. This will enable to write longer programs and organize and save them.
+We've now learned a lot of basic concepts related to Julia programming, and it is now time to put them together in more complex ways. For that, we'll learn how to use Pluto notebooks on the next page. This will enable us to write longer programs and organize and save them.

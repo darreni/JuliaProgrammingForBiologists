@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./MultipleDispatch.html" rel="next">
+<link href="./Plots.html" rel="next">
 <link href="./PlutoNotebooks.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -231,14 +231,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./MultipleDispatch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Types and Multiple Dispatch</span></a>
+  <a href="./Plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plots</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plots</span></a>
+  <a href="./BuildSimulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Build a Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MultipleDispatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types and Multiple Dispatch</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -257,12 +263,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./Randomization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Randomization in Simulation and Statistics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./BuildSimulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Build a Simulation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -377,7 +377,9 @@ The cube of 10 is 1000</code></pre>
 4
 5
 6
-I counted to 6</code></pre>
+7
+8
+I counted to 8</code></pre>
 </div>
 </div>
 <p>Try executing the above several times, so you can see how it chooses a random number to count to.</p>
@@ -492,11 +494,11 @@ My thing is 🐬</code></pre>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(mySum)</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>6
-13
+<pre><code>8
+16
 17
-21
-26</code></pre>
+19
+22</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -570,7 +572,7 @@ My thing is 🐬</code></pre>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">println</span>(<span class="st">"The coin has a strange value"</span>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Heads--You win!</code></pre>
+<pre><code>Tails--You lose :(</code></pre>
 </div>
 </div>
 <p>In an <code>if</code> block, the <code>elseif</code> and <code>else</code> parts are optional, but the <code>end</code> is essential. The indentation is customary and makes the code easier to read, but is not required. The value of the conditional expressions (e.g., just to the right of <code>if</code>) must be of type <code>Bool</code>, meaning either <code>true</code> or <code>false</code>.</p>
@@ -728,7 +730,7 @@ My thing is 🐬</code></pre>
 </section>
 <section id="next-steps" class="level3">
 <h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
-<p>Now that we have have developed an understanding of loops and conditional evaluation, we are ready to learn more about functions, types, and multiple dispatch in Julia. Together, these concepts can be thought of as methods of control flow. They enable powerful and fascinating approaches to programming.</p>
+<p>Now that we have have developed an understand of the key elements of programming, in the next pages let’s learn some more about visualizing data and then build a fun simulation.</p>
 
 
 </section>
@@ -1146,8 +1148,8 @@ My thing is 🐬</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./MultipleDispatch.html" class="pagination-link" aria-label="Types and Multiple Dispatch">
-        <span class="nav-page-text">Types and Multiple Dispatch</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Plots.html" class="pagination-link" aria-label="Plots">
+        <span class="nav-page-text">Plots</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

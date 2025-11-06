@@ -243,9 +243,9 @@ If curious, you can try this on any function--for instance, try `methods(+)` to 
 
 ### Next steps
 
-This and the previous pages have brought you through what I consider to be an introductory tour of the central concepts needed to program in Julia. You can use these building blocks to compose programs that do all sorts of complex things--virtually anything you can imagine, as long as you can think through the logic of what you want your program to do.
+This and the previous pages have brought you through what I consider to be an introductory tour of the central concepts needed for programming well in Julia. You can use these building blocks to compose programs that do all sorts of complex things--virtually anything you can imagine, as long as you can think through the logic of what you want your program to do.
 
-Two things though that we have not said much about yet are 1) how to make nice plots, and 2) how to import data in order to analyze and graph it. We will now explore those two topics on the next pages.
+To increase your ability to write programs that are memory-efficient and fast, let's learn some more details about how numbers are stored in a computer, and how large amounts of data can be stored efficiently in arrays and data frames.
 
 
 

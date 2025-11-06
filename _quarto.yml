@@ -26,12 +26,12 @@ website:
           - IntroToJulia.qmd
           - PlutoNotebooks.qmd
           - ControlFlow.qmd
-          - MultipleDispatch.qmd
           - Plots.qmd
+          - BuildSimulation.qmd
+          - MultipleDispatch.qmd
           - Numbers.qmd
           - ArraysAndDataFrames.qmd
           - Randomization.qmd
-          - BuildSimulation.qmd
           - LoadDataAnalyzeGraph.qmd
           - UseVSCode.qmd
           - MoreFunThings.qmd

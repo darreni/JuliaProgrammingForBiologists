@@ -64,19 +64,13 @@ The above created 3 vectors, each of length `N`. These three store the three pie
 
 ##### Set up a visualization of the population
 
-We envision a 2-dimensional plot representing the geographic range, with dots representing individuals at their locations. We can use 3 colors to represent the three strategies. Let's define the color key:
+We envision a 2-dimensional plot representing the geographic range, with dots representing individuals at their locations. We can use 3 colors to represent the three strategies. Let's define the color key using a _dictionary_:
 
 ```{julia}
 plot_colors = Dict('R'=>"red", 'P'=>"green2", 'S'=>"blue") 
 ```
 
-Here we used an object we might not have encountered before---a _Dictionary_ or `Dict`---which contains _key_-_value_ pairs. You can think of a `Dict` as a lookup table. For example we can lookup the color that we have designated for the _paper_ strategy `P` like this:
-
-```{julia}
-plot_colors['P'] 
-```
-
-Now let's write a function to plot the population:
+Now let's write a function that uses the above data structures to plot the population:
 
 ```{julia}
 using Plots
@@ -253,3 +247,6 @@ Some simulation ideas that come to mind, to get the ball rolling:
 * Change in allele frequencies over time, with random mating and no selection in a population of constant size (there is a name for this, which rhymes with "magnetic lift").
 * Simulation of how random mutations in a certain gene sequence might affect the amino acid structor of the encoded protein.
 
+### Next steps
+
+Now that we have learned enough Julia to build a reasonably simple yet interesting simulation that leads to some complex behaviour, we are ready to learn more about functions, types, and multiple dispatch in Julia. Together, these concepts can be thought of as methods of control flow. They enable powerful and fascinating approaches to programming.

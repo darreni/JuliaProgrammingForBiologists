@@ -282,3 +282,7 @@ myData = DataFrame(CSV.File("pathToMyFile/myFileName.csv"))
 ### Learning more about DataFrames
 
 The `DataFrames.jl` package is extremely capable, and we are just touching the surface here of what it can do. A good source to learn more is: <https://dataframes.juliadata.org/stable/man/basics/#First-Steps-with-DataFrames.jl>
+
+### Next steps
+
+One thing we might want to fill arrays with are random numbers--this can be useful in doing simulations and in statistical analysis. We've used the `rand()` function some on previous pages. On the next, we'll learn more about randomization and its uses.

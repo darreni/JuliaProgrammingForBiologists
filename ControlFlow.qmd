@@ -333,4 +333,4 @@ Array comprehensions might take a while to get used to, as they contain a lot of
 
 ### Next steps
 
-Now that we have have developed an understanding of loops and conditional evaluation, we are ready to learn more about functions, types, and multiple dispatch in Julia. Together, these concepts can be thought of as methods of control flow. They enable powerful and fascinating approaches to programming.
+Now that we have have developed an understand of the key elements of programming, in the next pages let's learn some more about visualizing data and then build a fun simulation.
