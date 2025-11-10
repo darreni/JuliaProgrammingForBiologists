@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Darren Irwin">
+
+<title>Simulate using your own Types – JuliaProgrammingForBiologists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3d0a6a45cc3f2b84ee6588310bb4a4d4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">JuliaProgrammingForBiologists</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Simulate using your own Types</h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Julia tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./InstallJulia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download and Install Julia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./IntroToJulia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introductory Tour of Julia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PlutoNotebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pluto Notebooks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ControlFlow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flow: Loops and Ifs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plots</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BuildSimulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Build a Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MultipleDispatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types and Multiple Dispatch</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Bit about Numbers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ArraysAndDataFrames.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arrays &amp; DataFrames</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Randomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Randomization in Simulation and Statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./LoadDataAnalyzeGraph.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Load &amp; Graph Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./UseVSCode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use an Integrated Development Environment (IDE)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MoreFunThings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">More Fun Things</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ResourcesForFurtherLearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Further Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#meiotic-drive-in-a-population" id="toc-meiotic-drive-in-a-population" class="nav-link active" data-scroll-target="#meiotic-drive-in-a-population">Meiotic drive in a population</a></li>
+  <li><a href="#first-step-consider-data-structures-and-the-high-level-logic-of-our-program" id="toc-first-step-consider-data-structures-and-the-high-level-logic-of-our-program" class="nav-link" data-scroll-target="#first-step-consider-data-structures-and-the-high-level-logic-of-our-program">First step: consider data structures and the high-level logic of our program</a></li>
+  <li><a href="#defining-our-new-types" id="toc-defining-our-new-types" class="nav-link" data-scroll-target="#defining-our-new-types">Defining our new types</a></li>
+  <li><a href="#write-a-mating-function" id="toc-write-a-mating-function" class="nav-link" data-scroll-target="#write-a-mating-function">Write a mating function</a></li>
+  <li><a href="#write-a-function-to-breed-one-generation" id="toc-write-a-function-to-breed-one-generation" class="nav-link" data-scroll-target="#write-a-function-to-breed-one-generation">Write a function to breed one generation</a></li>
+  <li><a href="#write-some-functions-for-recording-population-proportions" id="toc-write-some-functions-for-recording-population-proportions" class="nav-link" data-scroll-target="#write-some-functions-for-recording-population-proportions">Write some functions for recording population proportions</a></li>
+  <li><a href="#put-it-all-together" id="toc-put-it-all-together" class="nav-link" data-scroll-target="#put-it-all-together">Put it all together</a></li>
+  <li><a href="#run-the-simulation" id="toc-run-the-simulation" class="nav-link" data-scroll-target="#run-the-simulation"><em>Run the simulation!!</em></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Simulate using your own Types</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Darren Irwin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Let’s build a simulation that uses our ability to define new data types (using the <code>struct</code> keyword). This will allow us to build parts of the simulation in an intuitive way, keeping us and our code organized.</p>
+<section id="meiotic-drive-in-a-population" class="level3">
+<h3 class="anchored" data-anchor-id="meiotic-drive-in-a-population">Meiotic drive in a population</h3>
+<p>This example is from <a href="https://www.biorxiv.org/content/10.1101/2025.05.31.656024v1">an analysis I did</a> about <em>meiotic drive</em>, meaning when chromosomes (or parts of them) have a transmission advantage during meiosis. There are many known examples of meiotic drive, which breaks the usual rules of Mendelian inheritance.</p>
+<p>In female meiosis (i.e., egg production) in virtually all eukaryotes, the first cell division is asymmetric, with a large part of the cell becoming the egg and a small part becoming the polar body. If a chromosome gets into the egg it has the potential to be passed down into the next generation. If it is in the polar body, it does not get passed down. Spindle fibers leading to the egg differ molecularly than those leading to the polar body. This places selection on chromosomal variants that can somehow interact with the spindle fibers in such a way that they are more likely to get into the egg.</p>
+<p>If some chromosomes have an advantage getting into eggs, then they will tend to spread through a population. But what if there is a cost to these meiotic drivers? Perhaps they cause some problem in terms of whole-organism fitness. If so, perhaps there are suppression mechanisms that would spread as well.</p>
+<p>This situation is particularly intriguing in species with Z / W sex chromosomes (e.g., birds, butterflies), meaning females are ZW and males are ZZ. There, a driver on the Z or W can cause sex ratio to be something other than 50/50 in the next generation.</p>
+<p>The evolutionary dynamics of such a situation can be difficult to think through intuitively. <em>So let’s build a simulation!</em></p>
+</section>
+<section id="first-step-consider-data-structures-and-the-high-level-logic-of-our-program" class="level3">
+<h3 class="anchored" data-anchor-id="first-step-consider-data-structures-and-the-high-level-logic-of-our-program">First step: consider data structures and the high-level logic of our program</h3>
+<p>Let’s consider how we can organize our simulation. One way is to invent new <em>data types</em> (<code>struct</code>s) that store information at different levels, and then build <em>functions</em> that encapsulate the rules by which those data types interact.</p>
+<p>So we’ll define new types for:</p>
+<ul>
+<li>chromosomes (containing the kind of chromosome, its spindle attraction to the egg, its whole-organism fitness, and its ability to suppress drive)</li>
+<li>individuals (containing 4 chromosomes: a sex chromosome and autosome inherited through the egg, and the same from the sperm)</li>
+<li>populations (containing a bunch of female [ZW] individuals and a bunch of male [ZZ] individuals)</li>
+</ul>
+<p>By setting up the above framework, we’ll be able to create functions that work with data at various levels, keeping everything well organized. Key functions will govern:</p>
+<ul>
+<li>mating of two individuals, determining the chromosomes inherited by their offspring (i.e., new individuals)</li>
+<li>breeding of one generation of a population, by choosing random parents for each offspring</li>
+<li>survival of offspring to adulthood, based on fitness</li>
+<li>recording frequencies of chromosome types and sexes in each generation</li>
+<li>running many generations</li>
+<li>graphing results</li>
+</ul>
+</section>
+<section id="defining-our-new-types" class="level3">
+<h3 class="anchored" data-anchor-id="defining-our-new-types">Defining our new types</h3>
+<section id="chromosomes" class="level5">
+<h5 class="anchored" data-anchor-id="chromosomes">Chromosomes</h5>
+<p>To store information for each chromosome, we’ll invent a <code>Chrom</code> type. It is convention in Julia for types to start with a capital letter (whereas functions start with lower case letters).</p>
+<div id="2" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Chrom</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    kind</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    spindleAttraction <span class="co"># this means the strength of attraction to the egg (with 1.0 meaning a normal non-driver)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fitnessLoss (commented out, but we may want to add later)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># suppressStrength (commented out, but we may want to add later)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s now create some sex chromosomes, some with a drive advantage and some without:</p>
+<div id="4" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>driveStrength <span class="op">=</span> <span class="fl">1.5</span>  <span class="co"># sets this to be the drive strength of each driving chrom type</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>boringW <span class="op">=</span> <span class="fu">Chrom</span>(<span class="st">"W"</span>, <span class="fl">1.0</span>) <span class="co"># a simple nothing-special W chromosome</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>drivingW <span class="op">=</span> <span class="fu">Chrom</span>(<span class="st">"W"</span>, driveStrength) <span class="co"># a driving W</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>boringZ <span class="op">=</span> <span class="fu">Chrom</span>(<span class="st">"Z"</span>, <span class="fl">1.0</span>) </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># drivingZ = Chrom("Z", driveStrength)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Chrom("Z", 1.0)</code></pre>
+</div>
+</div>
+<p>Let’s add a simple autosome with nothing special:</p>
+<div id="6" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>boringAutosome1 <span class="op">=</span> <span class="fu">Chrom</span>(<span class="st">"1"</span>, <span class="fl">1.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Chrom("1", 1.0)</code></pre>
+</div>
+</div>
+</section>
+<section id="individuals" class="level5">
+<h5 class="anchored" data-anchor-id="individuals">Individuals</h5>
+<p>We’ll define an <code>Indiv</code> type that has four chromosomes, and here we choose to specify that they must be of the <code>Chrom</code> type.</p>
+<div id="8" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Indiv</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    sexChromFromEgg<span class="op">::</span><span class="dt">Chrom </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    sexChromFromSperm<span class="op">::</span><span class="dt">Chrom</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    autosome1FromEgg<span class="op">::</span><span class="dt">Chrom</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    autosome1FromSperm<span class="op">::</span><span class="dt">Chrom</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we can create some kinds of individuals, by specifying the four chromosomes according to the order above:</p>
+<div id="10" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>femaleBoring <span class="op">=</span> <span class="fu">Indiv</span>(boringW, boringZ, boringAutosome1, boringAutosome1)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>femaleDriveW <span class="op">=</span> <span class="fu">Indiv</span>(drivingW, boringZ, boringAutosome1, boringAutosome1)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>maleBoring <span class="op">=</span> <span class="fu">Indiv</span>(boringZ, boringZ, boringAutosome1, boringAutosome1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0))</code></pre>
+</div>
+</div>
+</section>
+<section id="populations" class="level5">
+<h5 class="anchored" data-anchor-id="populations">Populations</h5>
+<p>Now we can create a data type that stores a whole population of females and males:</p>
+<div id="12" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> Population</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    popFemales</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    popMales</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We make this a <code>mutable</code> struct because the population will change over time (whereas each kind of chromosome and individual does not need to change after creation).</p>
+<p>Create a starting population of 2000 individuals in which 5% of the W are driving:</p>
+<div id="14" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pop1Females <span class="op">=</span> <span class="fu">vcat</span>(<span class="fu">fill</span>(femaleDriveW, <span class="fl">50</span>), <span class="fu">fill</span>(femaleBoring, <span class="fl">950</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pop1Males <span class="op">=</span> <span class="fu">vcat</span>(<span class="fu">fill</span>(maleBoring, <span class="fl">1000</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>pop1 <span class="op">=</span> <span class="fu">Population</span>(pop1Females, pop1Males)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Population(Indiv[Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.5), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0))  …  Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("W", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0))], Indiv[Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0))  …  Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0)), Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0))])</code></pre>
+</div>
+</div>
+<p>We now have the main data structures needed for our simulations, so let’s define functions that do things with them.</p>
+</section>
+</section>
+<section id="write-a-mating-function" class="level3">
+<h3 class="anchored" data-anchor-id="write-a-mating-function">Write a mating function</h3>
+<p>Our function will use the function <code>sample()</code> from the <code>StatsBase</code> package to make a random choice of chromosome to inherit, weighted by transmission probability. To download and install that package, enter the package manager by typing <code>[</code> at the REPL prompt, then type <code>add StatsBase</code>. Then, call that package into memory:</p>
+<div id="16" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">StatsBase</span>  <span class="co"># needed for "sample" function</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Given one female (ZW) and one male (ZZ) parent, we will write a function to determine the chromosomes passed on to one offspring, incorporating transmission advantage as calculated by the ratio of <code>spindleAttraction</code> of each chromosome compared to total <code>spindleAttraction</code>:</p>
+<div id="18" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">makeOneOffspring</span>(female, male) </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># determine sex chromosome of egg, weighted by spindleAttraction</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    transProbSexChromFromEgg <span class="op">=</span> female.sexChromFromEgg.spindleAttraction <span class="op">/</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                    (female.sexChromFromEgg.spindleAttraction <span class="op">+</span> female.sexChromFromSperm.spindleAttraction)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    eggSexChrom <span class="op">=</span> <span class="fu">sample</span>([female.sexChromFromEgg, female.sexChromFromSperm], </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Weights</span>([transProbSexChromFromEgg, <span class="fl">1</span> <span class="op">-</span> transProbSexChromFromEgg]))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># determine sex chromosome of sperm, with no drive (Mendelian)</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    spermSexChrom <span class="op">=</span> <span class="fu">sample</span>([male.sexChromFromEgg, male.sexChromFromSperm])</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># determine autosome1 in egg, weighted by spindleAttraction</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    transProbAutosome1FromEgg <span class="op">=</span> female.autosome1FromEgg.spindleAttraction <span class="op">/</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                    (female.autosome1FromEgg.spindleAttraction <span class="op">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                    female.autosome1FromSperm.spindleAttraction)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    eggAutosome1 <span class="op">=</span> <span class="fu">sample</span>([female.autosome1FromEgg, female.autosome1FromSperm], </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">Weights</span>([transProbAutosome1FromEgg, <span class="fl">1</span> <span class="op">-</span> transProbAutosome1FromEgg]))</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># determine autosome1 in sperm, Mendelian</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    spermAutosome1 <span class="op">=</span> <span class="fu">sample</span>([male.autosome1FromEgg, male.autosome1FromSperm])</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">Indiv</span>(eggSexChrom, spermSexChrom, eggAutosome1, spermAutosome1)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>makeOneOffspring (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>Let’s check that our function works:</p>
+<div id="20" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">makeOneOffspring</span>(femaleDriveW, maleBoring)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Indiv(Chrom("Z", 1.0), Chrom("Z", 1.0), Chrom("1", 1.0), Chrom("1", 1.0))</code></pre>
+</div>
+</div>
+<p>It does, but does it produce the transmission bias? Let’s build a test function to check that:</p>
+<div id="22" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">test_makeOneOffspring</span>(female, male, reps)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    offspringSex <span class="op">=</span> <span class="fu">fill</span>(<span class="st">"N"</span>, reps)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>reps</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        kid <span class="op">=</span> <span class="fu">makeOneOffspring</span>(female, male)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> kid.sexChromFromEgg.kind <span class="op">==</span> <span class="st">"W"</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            offspringSex[i] <span class="op">=</span> <span class="st">"F"</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> offspringSex[i] <span class="op">=</span> <span class="st">"M"</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    proportionFemale <span class="op">=</span> (<span class="fu">sum</span>(offspringSex <span class="op">.==</span> <span class="st">"F"</span>) <span class="op">/</span> reps)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Out of those "</span> <span class="op">*</span> <span class="fu">string</span>(reps) <span class="op">*</span> <span class="st">" runs, the proportion of offspring who are female is "</span> <span class="op">*</span> <span class="fu">string</span>(proportionFemale))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>test_makeOneOffspring (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>Now run some tests:</p>
+<div id="24" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_makeOneOffspring</span>(femaleDriveW, maleBoring, <span class="fl">1_000_000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Out of those 1000000 runs, the proportion of offspring who are female is 0.599149</code></pre>
+</div>
+</div>
+<p>For a W driver with <code>driveStrength</code> of 1.5, the above should result in about 50% more females than males, so a proportion of 0.6 female (and 0.4 male).</p>
+<p>When a female has no driving chromosomes, then the proportion of females should be about 0.5:</p>
+<div id="26" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_makeOneOffspring</span>(femaleBoring, maleBoring, <span class="fl">1_000_000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Out of those 1000000 runs, the proportion of offspring who are female is 0.50032</code></pre>
+</div>
+</div>
+</section>
+<section id="write-a-function-to-breed-one-generation" class="level3">
+<h3 class="anchored" data-anchor-id="write-a-function-to-breed-one-generation">Write a function to breed one generation</h3>
+<p>Since we have a function for producing one offspring (see above), we can call that repeatedly to make an entire new generation of offspring, with each offspring having a randomly chosen mother and father. In addition to random mating, here we will assume constant population size and non-overlapping generations.</p>
+<div id="28" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">breedOneGeneration</span>(population<span class="op">::</span><span class="dt">Population</span>; k <span class="op">=</span> <span class="fu">length</span>(population.popFemales) <span class="op">+</span> <span class="fu">length</span>(population.popMales))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># can set the number of offspring (k) in function call, or leave out and it will set k according to the current population size</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    offspringFemales <span class="op">=</span> []</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    offspringMales <span class="op">=</span> []</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cycle through offspring, choosing random parents</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>k</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        mother <span class="op">=</span> <span class="fu">sample</span>(population.popFemales)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        father <span class="op">=</span> <span class="fu">sample</span>(population.popMales)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        offspring <span class="op">=</span> <span class="fu">makeOneOffspring</span>(mother, father)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> offspring.sexChromFromEgg.kind <span class="op">==</span> <span class="st">"W"</span> <span class="co"># so offspring is female</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(offspringFemales, offspring)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> offspring.sexChromFromEgg.kind <span class="op">==</span> <span class="st">"Z"</span> <span class="co"># so offspring is male</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(offspringMales, offspring)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">Population</span>(offspringFemales, offspringMales)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>breedOneGeneration (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>Let’s test the above function with one generation of breeding of the <code>pop1</code> that we created further above:</p>
+<div id="30" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>popNext <span class="op">=</span> <span class="fu">breedOneGeneration</span>(pop1)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"The offspring generation has "</span>, <span class="fu">string</span>(<span class="fu">length</span>(popNext.popFemales)), <span class="st">" females and "</span>, <span class="fu">string</span>(<span class="fu">length</span>(popNext.popMales)), <span class="st">" males."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The offspring generation has 992 females and 1008 males.</code></pre>
+</div>
+</div>
+</section>
+<section id="write-some-functions-for-recording-population-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="write-some-functions-for-recording-population-proportions">Write some functions for recording population proportions</h3>
+<div id="32" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getPropDrivingW</span>(population<span class="op">::</span><span class="dt">Population</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    driving <span class="op">=</span> []</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> population.popFemales <span class="co"># all females have a single W, making next line OK</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i.sexChromFromEgg.spindleAttraction <span class="op">&gt;</span> <span class="fl">1.0</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(driving, <span class="cn">true</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="fu">push!</span>(driving, <span class="cn">false</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">sum</span>(driving) <span class="op">/</span> <span class="fu">length</span>(driving)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>getPropDrivingW (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>Test this function:</p>
+<div id="34" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getPropDrivingW</span>(pop1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>0.05</code></pre>
+</div>
+</div>
+<p>Let’s also record the proportion of females:</p>
+<div id="36" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getPropFemale</span>(population<span class="op">::</span><span class="dt">Population</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(population.popFemales) <span class="op">/</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>            (<span class="fu">length</span>(population.popFemales) <span class="op">+</span> <span class="fu">length</span>(population.popMales))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>getPropFemale (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>Try it:</p>
+<div id="38" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getPropFemale</span>(pop1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>0.5</code></pre>
+</div>
+</div>
+</section>
+<section id="put-it-all-together" class="level3">
+<h3 class="anchored" data-anchor-id="put-it-all-together">Put it all together</h3>
+<p>We now have all the pieces to build a big-picture function that runs the simulation for many generations:</p>
+<div id="40" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">runManyGens</span>(population<span class="op">::</span><span class="dt">Population</span>, gens<span class="op">::</span><span class="dt">Int</span>; k <span class="op">=</span> <span class="fu">length</span>(population.popFemales) <span class="op">+</span> <span class="fu">length</span>(population.popMales))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The above sets k (the number of offspring in each generation) as the starting population size</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create vectors to store proportions over the generations:</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    propFemale <span class="op">=</span> <span class="fu">fill</span>(<span class="op">-</span><span class="fl">0.9999</span>, gens<span class="op">+</span><span class="fl">1</span>)      <span class="co"># Fill with obviously wrong values,</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    propDrivingW <span class="op">=</span> <span class="fu">fill</span>(<span class="op">-</span><span class="fl">0.9999</span>, gens<span class="op">+</span><span class="fl">1</span>)    <span class="co"># which will be written over as simulation proceeds.</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># record proportions in starting population (generation 0; index 1)</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    propFemale[<span class="fl">1</span>] <span class="op">=</span> <span class="fu">getPropFemale</span>(population)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    propDrivingW[<span class="fl">1</span>] <span class="op">=</span> <span class="fu">getPropDrivingW</span>(population)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through generations</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>gens</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># produce offspring</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>        population <span class="op">=</span> <span class="fu">breedOneGeneration</span>(population; k)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># record proportions in the offspring generation</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        propFemale[i<span class="op">+</span><span class="fl">1</span>] <span class="op">=</span> <span class="fu">getPropFemale</span>(population)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        propDrivingW[i<span class="op">+</span><span class="fl">1</span>] <span class="op">=</span> <span class="fu">getPropDrivingW</span>(population)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (propFemale <span class="op">=</span> propFemale, </span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>            propDrivingW <span class="op">=</span> propDrivingW, </span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>            population <span class="op">=</span> population)</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>runManyGens (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>The above function returns a tuple containing the record of female proportions over time, driving W proportions over time, and the final population.</p>
+</section>
+<section id="run-the-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-simulation"><em>Run the simulation!!</em></h3>
+<p>OK, we’ve done a lot of setup. Now lets run and see what happens. This will rely on the <code>Plots</code> package—if not installed yet and if you are using the REPL, enter the package manager by typing <code>[</code> at the REPL prompt, then type <code>add Plots</code>.</p>
+<div id="42" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>runLength <span class="op">=</span> <span class="fl">100</span>  <span class="co"># generations</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>pop1run <span class="op">=</span> <span class="fu">runManyGens</span>(pop1, runLength)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>pop1plot <span class="op">=</span> <span class="fu">plot</span>(<span class="fl">0</span><span class="op">:</span>runLength, pop1run.propFemale, color <span class="op">=</span> <span class="op">:</span>purple, label <span class="op">=</span> <span class="st">"Females"</span>, xlabel <span class="op">=</span> <span class="st">"Generations"</span>, ylabel <span class="op">=</span> <span class="st">"Proportion"</span>, title <span class="op">=</span> <span class="st">"Driving W, Drive Strength = "</span> <span class="op">*</span> <span class="fu">string</span>(driveStrength))</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">xlims!</span>(<span class="fl">0</span>, runLength)  <span class="co"># sets x axis limits</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ylims!</span>(<span class="fl">0</span>, <span class="fl">1.05</span>)  <span class="co"># sets y axis limits</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(<span class="fl">0</span><span class="op">:</span>runLength, pop1run.propDrivingW, color <span class="op">=</span> <span class="op">:</span>red, label <span class="op">=</span> <span class="st">"Driving W"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<img src="data:image/png;base64,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">
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2025, Darren Irwin</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

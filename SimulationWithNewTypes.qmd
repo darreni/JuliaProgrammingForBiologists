@@ -1,0 +1,317 @@
+---
+title: "Simulate using your own Types"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+    fig-width: 6
+    fig-height: 4
+engine: julia
+---
+
+Let's build a simulation that uses our ability to define new data types (using the `struct` keyword). This will allow us to build parts of the simulation in an intuitive way, keeping us and our code organized.
+
+### Meiotic drive in a population
+
+This example is from [an analysis I did](https://www.biorxiv.org/content/10.1101/2025.05.31.656024v1) about _meiotic drive_, meaning when chromosomes (or parts of them) have a transmission advantage during meiosis. There are many known examples of meiotic drive, which breaks the usual rules of Mendelian inheritance.
+
+In female meiosis (i.e., egg production) in virtually all eukaryotes, the first cell division is asymmetric, with a large part of the cell becoming the egg and a small part becoming the polar body. If a chromosome gets into the egg it has the potential to be passed down into the next generation. If it is in the polar body, it does not get passed down. Spindle fibers leading to the egg differ molecularly than those leading to the polar body. This places selection on chromosomal variants that can somehow interact with the spindle fibers in such a way that they are more likely to get into the egg. 
+
+If some chromosomes have an advantage getting into eggs, then they will tend to spread through a population. But what if there is a cost to these meiotic drivers? Perhaps they cause some problem in terms of whole-organism fitness. If so, perhaps there are suppression mechanisms that would spread as well. 
+
+This situation is particularly intriguing in species with Z / W sex chromosomes (e.g., birds, butterflies), meaning females are ZW and males are ZZ. There, a driver on the Z or W can cause sex ratio to be something other than 50/50 in the next generation.
+
+The evolutionary dynamics of such a situation can be difficult to think through intuitively. _So let's build a simulation!_
+
+### First step: consider data structures and the high-level logic of our program
+
+Let's consider how we can organize our simulation. One way is to invent new _data types_ (`struct`s) that store information at different levels, and then build _functions_ that encapsulate the rules by which those data types interact.
+
+So we'll define new types for:
+
+* chromosomes (containing the kind of chromosome, its spindle attraction to the egg, its whole-organism fitness, and its ability to suppress drive)
+* individuals (containing 4 chromosomes: a sex chromosome and autosome inherited through the egg, and the same from the sperm)
+* populations (containing a bunch of female [ZW] individuals and a bunch of male [ZZ] individuals)
+
+By setting up the above framework, we'll be able to create functions that work with data at various levels, keeping everything well organized. Key functions will govern:
+
+* mating of two individuals, determining the chromosomes inherited by their offspring (i.e., new individuals)
+* breeding of one generation of a population, by choosing random parents for each offspring
+* survival of offspring to adulthood, based on fitness
+* recording frequencies of chromosome types and sexes in each generation
+* running many generations
+* graphing results
+
+### Defining our new types
+
+##### Chromosomes
+
+To store information for each chromosome, we'll invent a `Chrom` type. It is convention in Julia for types to start with a capital letter (whereas functions start with lower case letters).
+
+```{julia}
+struct Chrom
+    kind
+    spindleAttraction # this means the strength of attraction to the egg (with 1.0 meaning a normal non-driver)
+    # fitnessLoss (commented out, but we may want to add later)
+    # suppressStrength (commented out, but we may want to add later)
+end
+```
+
+Let's now create some sex chromosomes, some with a drive advantage and some without:
+
+```{julia}
+driveStrength = 1.5  # sets this to be the drive strength of each driving chrom type
+boringW = Chrom("W", 1.0) # a simple nothing-special W chromosome
+drivingW = Chrom("W", driveStrength) # a driving W
+boringZ = Chrom("Z", 1.0) 
+# drivingZ = Chrom("Z", driveStrength)
+```
+
+Let's add a simple autosome with nothing special:
+
+```{julia}
+boringAutosome1 = Chrom("1", 1.0)
+```
+
+##### Individuals
+
+We'll define an `Indiv` type that has four chromosomes, and here we choose to specify that they must be of the `Chrom` type.
+
+```{julia}
+struct Indiv
+    sexChromFromEgg::Chrom 
+    sexChromFromSperm::Chrom
+    autosome1FromEgg::Chrom
+    autosome1FromSperm::Chrom
+end
+```
+
+Now we can create some kinds of individuals, by specifying the four chromosomes according to the order above:
+
+```{julia}
+femaleBoring = Indiv(boringW, boringZ, boringAutosome1, boringAutosome1)
+femaleDriveW = Indiv(drivingW, boringZ, boringAutosome1, boringAutosome1)
+maleBoring = Indiv(boringZ, boringZ, boringAutosome1, boringAutosome1)
+```
+
+##### Populations
+
+Now we can create a data type that stores a whole population of females and males:
+
+```{julia}
+mutable struct Population
+    popFemales
+    popMales
+end
+```
+
+We make this a `mutable` struct because the population will change over time (whereas each kind of chromosome and individual does not need to change after creation).
+
+Create a starting population of 2000 individuals in which 5% of the W are driving:
+
+```{julia}
+pop1Females = vcat(fill(femaleDriveW, 50), fill(femaleBoring, 950))
+pop1Males = vcat(fill(maleBoring, 1000))
+pop1 = Population(pop1Females, pop1Males)
+```
+
+We now have the main data structures needed for our simulations, so let's define functions that do things with them.
+
+### Write a mating function
+
+Our function will use the function `sample()` from the `StatsBase` package to make a random choice of chromosome to inherit, weighted by transmission probability. To download and install that package, enter the package manager by typing `[` at the REPL prompt, then type `add StatsBase`. Then, call that package into memory:
+
+```{julia}
+using StatsBase  # needed for "sample" function
+```
+
+Given one female (ZW) and one male (ZZ) parent, we will write a function to determine the chromosomes passed on to one offspring, incorporating transmission advantage as calculated by the ratio of `spindleAttraction` of each chromosome compared to total `spindleAttraction`:
+
+```{julia}
+function makeOneOffspring(female, male) 
+    # determine sex chromosome of egg, weighted by spindleAttraction
+    transProbSexChromFromEgg = female.sexChromFromEgg.spindleAttraction / 
+                    (female.sexChromFromEgg.spindleAttraction + female.sexChromFromSperm.spindleAttraction)
+    eggSexChrom = sample([female.sexChromFromEgg, female.sexChromFromSperm], 
+        Weights([transProbSexChromFromEgg, 1 - transProbSexChromFromEgg]))
+    # determine sex chromosome of sperm, with no drive (Mendelian)
+    spermSexChrom = sample([male.sexChromFromEgg, male.sexChromFromSperm])
+    # determine autosome1 in egg, weighted by spindleAttraction
+    transProbAutosome1FromEgg = female.autosome1FromEgg.spindleAttraction / 
+                    (female.autosome1FromEgg.spindleAttraction +
+                    female.autosome1FromSperm.spindleAttraction)
+    eggAutosome1 = sample([female.autosome1FromEgg, female.autosome1FromSperm], 
+                    Weights([transProbAutosome1FromEgg, 1 - transProbAutosome1FromEgg]))
+    # determine autosome1 in sperm, Mendelian
+    spermAutosome1 = sample([male.autosome1FromEgg, male.autosome1FromSperm])
+    
+    return Indiv(eggSexChrom, spermSexChrom, eggAutosome1, spermAutosome1)
+end
+```
+
+Let's check that our function works:
+
+```{julia}
+makeOneOffspring(femaleDriveW, maleBoring)
+```
+
+It does, but does it produce the transmission bias? Let's build a test function to check that:
+
+```{julia}
+function test_makeOneOffspring(female, male, reps)
+    offspringSex = fill("N", reps)
+    for i in 1:reps
+        kid = makeOneOffspring(female, male)
+        if kid.sexChromFromEgg.kind == "W"
+            offspringSex[i] = "F"
+        else offspringSex[i] = "M"
+        end
+    end
+    proportionFemale = (sum(offspringSex .== "F") / reps)
+    println("Out of those " * string(reps) * " runs, the proportion of offspring who are female is " * string(proportionFemale))
+end
+```
+
+Now run some tests:
+
+```{julia}
+test_makeOneOffspring(femaleDriveW, maleBoring, 1_000_000)
+```
+
+For a W driver with `driveStrength` of 1.5, the above should result in about 50% more females than males, so a proportion of 0.6 female (and 0.4 male).
+
+When a female has no driving chromosomes, then the proportion of females should be about 0.5: 
+
+```{julia}
+test_makeOneOffspring(femaleBoring, maleBoring, 1_000_000)
+```
+
+### Write a function to breed one generation
+
+Since we have a function for producing one offspring (see above), we can call that repeatedly to make an entire new generation of offspring, with each offspring having a randomly chosen mother and father. In addition to random mating, here we will assume constant population size and non-overlapping generations.
+
+```{julia}
+function breedOneGeneration(population::Population; k = length(population.popFemales) + length(population.popMales))
+    # can set the number of offspring (k) in function call, or leave out and it will set k according to the current population size
+    offspringFemales = []
+    offspringMales = []
+    # cycle through offspring, choosing random parents
+    for i in 1:k
+        mother = sample(population.popFemales)
+        father = sample(population.popMales)
+        offspring = makeOneOffspring(mother, father)
+        if offspring.sexChromFromEgg.kind == "W" # so offspring is female
+            push!(offspringFemales, offspring)
+        elseif offspring.sexChromFromEgg.kind == "Z" # so offspring is male
+            push!(offspringMales, offspring)
+        end
+    end
+    return Population(offspringFemales, offspringMales)
+end
+```
+
+Let's test the above function with one generation of breeding of the `pop1` that we created further above:
+
+```{julia}
+popNext = breedOneGeneration(pop1)
+println("The offspring generation has ", string(length(popNext.popFemales)), " females and ", string(length(popNext.popMales)), " males.")
+```
+
+### Write some functions for recording population proportions
+
+```{julia}
+function getPropDrivingW(population::Population)
+    driving = []
+    for i in population.popFemales # all females have a single W, making next line OK
+        if i.sexChromFromEgg.spindleAttraction > 1.0
+            push!(driving, true)
+        else push!(driving, false)
+        end
+    end
+    return sum(driving) / length(driving)
+end
+```
+
+Test this function:
+
+```{julia}
+getPropDrivingW(pop1)
+```
+
+Let's also record the proportion of females:
+
+```{julia}
+function getPropFemale(population::Population)
+    length(population.popFemales) / 
+            (length(population.popFemales) + length(population.popMales))
+end
+```
+
+Try it:
+
+```{julia}
+getPropFemale(pop1)
+```
+
+### Put it all together
+
+We now have all the pieces to build a big-picture function that runs the simulation for many generations:
+
+```{julia}
+function runManyGens(population::Population, gens::Int; k = length(population.popFemales) + length(population.popMales))
+    # The above sets k (the number of offspring in each generation) as the starting population size
+    # Create vectors to store proportions over the generations:
+    propFemale = fill(-0.9999, gens+1)      # Fill with obviously wrong values,
+    propDrivingW = fill(-0.9999, gens+1)    # which will be written over as simulation proceeds.
+    # record proportions in starting population (generation 0; index 1)
+    propFemale[1] = getPropFemale(population)
+    propDrivingW[1] = getPropDrivingW(population)
+    # Loop through generations
+    for i in 1:gens
+        # produce offspring
+        population = breedOneGeneration(population; k)
+        # record proportions in the offspring generation
+        propFemale[i+1] = getPropFemale(population)
+        propDrivingW[i+1] = getPropDrivingW(population)
+    end
+    return (propFemale = propFemale, 
+            propDrivingW = propDrivingW, 
+            population = population)
+end
+```
+
+The above function returns a tuple containing the record of female proportions over time, driving W proportions over time, and the final population.
+
+### _Run the simulation!!_
+
+OK, we've done a lot of setup. Now lets run and see what happens. This will rely on the `Plots` package---if not installed yet and if you are using the REPL, enter the package manager by typing `[` at the REPL prompt, then type `add Plots`.
+
+```{julia}
+using Plots
+runLength = 100  # generations
+pop1run = runManyGens(pop1, runLength)
+pop1plot = plot(0:runLength, pop1run.propFemale, color = :purple, label = "Females", xlabel = "Generations", ylabel = "Proportion", title = "Driving W, Drive Strength = " * string(driveStrength))
+xlims!(0, runLength)  # sets x axis limits
+ylims!(0, 1.05)  # sets y axis limits
+plot!(0:runLength, pop1run.propDrivingW, color = :red, label = "Driving W")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
