@@ -276,6 +276,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./SimulationWithNewTypes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulate using your own Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./UseVSCode.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use an Integrated Development Environment (IDE)</span></a>
   </div>
@@ -600,7 +606,7 @@ Fluffy stretches and says meow.</code></pre>
 <div id="52" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(interact)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-# 4 methods for generic function <b>interact</b> from [35mMain.Notebook[39m:<ul><li> interact(x::<b>Main.Notebook.Cat</b>, y::<b>Main.Notebook.Cat</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6d1e3076988c9e4d534efe39f626a95bdf60bd57//MultipleDispatch.qmd#L204" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:204</a></li> <li> interact(x::<b>Main.Notebook.Cat</b>, y::<b>Main.Notebook.Dog</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6d1e3076988c9e4d534efe39f626a95bdf60bd57//MultipleDispatch.qmd#L198" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:198</a></li> <li> interact(x::<b>Main.Notebook.Dog</b>, y::<b>Main.Notebook.Cat</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6d1e3076988c9e4d534efe39f626a95bdf60bd57//MultipleDispatch.qmd#L192" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:192</a></li> <li> interact(x::<b>Main.Notebook.Dog</b>, y::<b>Main.Notebook.Dog</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6d1e3076988c9e4d534efe39f626a95bdf60bd57//MultipleDispatch.qmd#L186" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:186</a></li> </ul>
+# 4 methods for generic function <b>interact</b> from [35mMain.Notebook[39m:<ul><li> interact(x::<b>Main.Notebook.Cat</b>, y::<b>Main.Notebook.Cat</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6c8a2c4072d3d5ab97b4f8ddc06498c7382bcb0f//MultipleDispatch.qmd#L204" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:204</a></li> <li> interact(x::<b>Main.Notebook.Cat</b>, y::<b>Main.Notebook.Dog</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6c8a2c4072d3d5ab97b4f8ddc06498c7382bcb0f//MultipleDispatch.qmd#L198" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:198</a></li> <li> interact(x::<b>Main.Notebook.Dog</b>, y::<b>Main.Notebook.Cat</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6c8a2c4072d3d5ab97b4f8ddc06498c7382bcb0f//MultipleDispatch.qmd#L192" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:192</a></li> <li> interact(x::<b>Main.Notebook.Dog</b>, y::<b>Main.Notebook.Dog</b>) in Main.Notebook at <a href="https://github.com/darreni/JuliaProgrammingForBiologists/tree/6c8a2c4072d3d5ab97b4f8ddc06498c7382bcb0f//MultipleDispatch.qmd#L186" target="_blank">/Users/darrenirwin/Documents/Github_repos_MacBookPro/JuliaProgrammingForBiologists/MultipleDispatch.qmd:186</a></li> </ul>
 </div>
 </div>
 <p>The REPL then tells us that there are four methods and summarizes what types go into them.</p>

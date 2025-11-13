@@ -33,6 +33,7 @@ website:
           - ArraysAndDataFrames.qmd
           - Randomization.qmd
           - LoadDataAnalyzeGraph.qmd
+          - SimulationWithNewTypes.qmd
           - UseVSCode.qmd
           - MoreFunThings.qmd
           - ResourcesForFurtherLearning.qmd

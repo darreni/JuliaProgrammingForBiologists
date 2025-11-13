@@ -15,13 +15,15 @@ Let's build a simulation that uses our ability to define new data types (using t
 
 ### Meiotic drive in a population
 
-This example is from [an analysis I did](https://www.biorxiv.org/content/10.1101/2025.05.31.656024v1) about _meiotic drive_, meaning when chromosomes (or parts of them) have a transmission advantage during meiosis. There are many known examples of meiotic drive, which breaks the usual rules of Mendelian inheritance.
+This example is from [an analysis I did](https://www.biorxiv.org/content/10.1101/2025.05.31.656024v1) about _meiotic drive_, meaning when chromosomes (or parts of them) have a transmission advantage during meiosis. This violates the usual rules of Mendelian inheritance, in which alleles have a 50% probability of getting into offspring. There are many known examples of meiotic drive.
 
 In female meiosis (i.e., egg production) in virtually all eukaryotes, the first cell division is asymmetric, with a large part of the cell becoming the egg and a small part becoming the polar body. If a chromosome gets into the egg it has the potential to be passed down into the next generation. If it is in the polar body, it does not get passed down. Spindle fibers leading to the egg differ molecularly than those leading to the polar body. This places selection on chromosomal variants that can somehow interact with the spindle fibers in such a way that they are more likely to get into the egg. 
 
 If some chromosomes have an advantage getting into eggs, then they will tend to spread through a population. But what if there is a cost to these meiotic drivers? Perhaps they cause some problem in terms of whole-organism fitness. If so, perhaps there are suppression mechanisms that would spread as well. 
 
-This situation is particularly intriguing in species with Z / W sex chromosomes (e.g., birds, butterflies), meaning females are ZW and males are ZZ. There, a driver on the Z or W can cause sex ratio to be something other than 50/50 in the next generation.
+This situation is particularly intriguing in species with Z / W sex chromosomes (e.g., birds, butterflies), meaning females are ZW and males are ZZ. There, a driver on the W or Z can cause the sex ratio of a female's offspring to be biased towards females (in the case of a W driver) or males (in the case of a Z driver). The figure below illustrates meiosis and the consequences of a W driver:
+
+![Transmission of the W chromosome via female meiosis, and the potential of a driving W to gain a bias in transmission, resulting in spread of the driving W and associated mitochondrial DNA (mtDNA). This is Figure 1 from [Irwin 2025 BioRxiv](https://doi.org/10.1101/2025.05.31.656024).](Figure1_meiotic_drive_diagram.jpg){width=100% fig-align=center}
 
 The evolutionary dynamics of such a situation can be difficult to think through intuitively. _So let's build a simulation!_
 
@@ -109,11 +111,11 @@ end
 
 We make this a `mutable` struct because the population will change over time (whereas each kind of chromosome and individual does not need to change after creation).
 
-Create a starting population of 2000 individuals in which 5% of the W are driving:
+Create a starting population of 20000 individuals in which 5% of the W are driving:
 
 ```{julia}
-pop1Females = vcat(fill(femaleDriveW, 50), fill(femaleBoring, 950))
-pop1Males = vcat(fill(maleBoring, 1000))
+pop1Females = vcat(fill(femaleDriveW, 500), fill(femaleBoring, 9500))
+pop1Males = vcat(fill(maleBoring, 10000))
 pop1 = Population(pop1Females, pop1Males)
 ```
 
@@ -121,11 +123,16 @@ We now have the main data structures needed for our simulations, so let's define
 
 ### Write a mating function
 
-Our function will use the function `sample()` from the `StatsBase` package to make a random choice of chromosome to inherit, weighted by transmission probability. To download and install that package, enter the package manager by typing `[` at the REPL prompt, then type `add StatsBase`. Then, call that package into memory:
+Our function will use the function `sample()` from the `StatsBase` package to make a random choice of chromosome to inherit, weighted by transmission probability. To download and install that package, if using the REPL, enter the package manager by typing `]` and then type `add StatsBase`. Then, call that package into memory:
 
 ```{julia}
 using StatsBase  # needed for "sample" function
 ```
+
+::: {.callout-tip}
+## Pluto automatically installs packages
+If using Pluto, you don't need to explicitly `add` a package. Rather, `using StatsBase` will cause Pluto to download and install on first use. 😃
+:::
 
 Given one female (ZW) and one male (ZZ) parent, we will write a function to determine the chromosomes passed on to one offspring, incorporating transmission advantage as calculated by the ratio of `spindleAttraction` of each chromosome compared to total `spindleAttraction`:
 
@@ -170,7 +177,7 @@ function test_makeOneOffspring(female, male, reps)
         end
     end
     proportionFemale = (sum(offspringSex .== "F") / reps)
-    println("Out of those " * string(reps) * " runs, the proportion of offspring who are female is " * string(proportionFemale))
+    println("Out of " * string(reps) * " offspring, the proportion female is " * string(proportionFemale))
 end
 ```
 
@@ -286,7 +293,7 @@ The above function returns a tuple containing the record of female proportions o
 
 ### _Run the simulation!!_
 
-OK, we've done a lot of setup. Now lets run and see what happens. This will rely on the `Plots` package---if not installed yet and if you are using the REPL, enter the package manager by typing `[` at the REPL prompt, then type `add Plots`.
+OK, we've done a lot of setup. Now lets run and see what happens. This will rely on the `Plots` package---if not installed yet and if you are using the REPL, enter the package manager by typing `]` at the REPL prompt, then type `add Plots`.
 
 ```{julia}
 using Plots
@@ -298,14 +305,169 @@ ylims!(0, 1.05)  # sets y axis limits
 plot!(0:runLength, pop1run.propDrivingW, color = :red, label = "Driving W")
 ```
 
+Our graph shows something not too surprising: the driving W (red line) spreads through the population rather quickly, and this causes the sex ratio to change from 50% to about 60% female. 
 
+You could play with the simulation by changing the value of `driveStrength` or the starting population size and frequency of the driving W. 
 
+Or, let's try asking an interesting question: How fast would a driving Z (rather than W) spread? Would it have the same potential as a W to spread, or would it go faster or slower? If both a driving W and driving Z start at the same low frequency, what happens?
 
+### Add a driving Z
 
+Because we've built our simulation above using data structures (_types_) and functions that are well-organized and quite general (not specific to the particular scenario in the graph above), it is easy for us to add another kind of chromosome and see what happens:
 
+```{julia}
+drivingZ = Chrom("Z", driveStrength)
+```
 
+This creates a Driving Z chromosome that has the equivalent drive strength as our Driving W above (a 50% advantage in getting into the egg, compared to a "boring" Z or W).
 
+We can now make some new kinds of starting individuals, with respect to the driving Z chromosome:
 
+```{julia}
+femaleDriveZ = Indiv(boringW, drivingZ, boringAutosome1, boringAutosome1)
+femaleDriveWZ = Indiv(drivingW, drivingZ, boringAutosome1, boringAutosome1)
+maleFirstDriveZ = Indiv(drivingZ, boringZ, boringAutosome1, boringAutosome1)
+maleSecondDriveZ = Indiv(boringZ, drivingZ, boringAutosome1, boringAutosome1)
+maleTwoDriveZ = Indiv(drivingZ, drivingZ, boringAutosome1, boringAutosome1)
+```
+
+Now let's make a population that has 5% starting Driving Z. This will be more complex than in the Driving W case, because there are more kinds of starting individuals. The code below set's things up initially according to Hardy-Weinberg equilibrium (i.e. according to frequencies that would result from random mating): 
+
+```{julia}
+pop2setPropDrivingZ = 0.05
+pop2SizeFemale = 10_000
+pop2SizeMale = 10_000
+pop2Females = vcat(fill(femaleDriveZ, Int(round(pop2setPropDrivingZ * pop2SizeFemale))), 
+                fill(femaleBoring, Int(round((1-pop2setPropDrivingZ) * pop2SizeMale))))
+pop2numMaleTwoDriveZ = Int(round(pop2setPropDrivingZ^2 * pop2SizeMale))
+pop2numMaleFirstDriveZ = Int(round(pop2setPropDrivingZ * (1-pop2setPropDrivingZ) * pop2SizeMale))
+pop2numMaleSecondDriveZ = Int(round((1-pop2setPropDrivingZ) * pop2setPropDrivingZ * pop2SizeMale))
+pop2numMaleBoring = Int(round((1-pop2setPropDrivingZ)^2 * pop2SizeMale))
+pop2Males = vcat(fill(maleTwoDriveZ, pop2numMaleTwoDriveZ),
+                fill(maleFirstDriveZ, pop2numMaleFirstDriveZ),
+                fill(maleSecondDriveZ, pop2numMaleSecondDriveZ),
+                fill(maleBoring, pop2numMaleBoring))
+pop2 = Population(pop2Females, pop2Males)
+```
+
+We need to add a function for calculating the population proportion of the driving Z, so we can track that over the generations:
+
+```{julia}
+function getPropDrivingZ(population::Population)
+    driving = []
+    # have to cycle through females and males to count up all the driving Z
+    for i in population.popFemales
+        if i.sexChromFromSperm.spindleAttraction > 1.0
+            push!(driving, true)
+        else push!(driving, false)
+        end
+    end
+    for i in population.popMales
+        if i.sexChromFromEgg.spindleAttraction > 1.0
+            push!(driving, true)
+        else push!(driving, false)
+        end
+        if i.sexChromFromSperm.spindleAttraction > 1.0
+            push!(driving, true)
+        else push!(driving, false)
+        end     
+    end
+    return sum(driving) / length(driving)       
+end
+```
+
+Let's also modify the `runManyGens()` funciton so that it keeps track of the driving Z frequency:
+
+```{julia}
+function runManyGens(population::Population, gens::Int; k = length(population.popFemales) + length(population.popMales))
+    # The above sets k (the number of offspring in each generation) as the starting population size
+    # Create vectors to store proportions over the generations:
+    propFemale = fill(-0.9999, gens+1)      # Fill with obviously wrong values,
+    propDrivingW = fill(-0.9999, gens+1)    # which will be written over as simulation proceeds.
+    propDrivingZ = fill(-0.9999, gens+1)
+    # record proportions in starting population (generation 0; index 1)
+    propFemale[1] = getPropFemale(population)
+    propDrivingW[1] = getPropDrivingW(population)
+    propDrivingZ[1] = getPropDrivingZ(population)
+    # Loop through generations
+    for i in 1:gens
+        # produce offspring
+        population = breedOneGeneration(population; k)
+        # record proportions in the offspring generation
+        propFemale[i+1] = getPropFemale(population)
+        propDrivingW[i+1] = getPropDrivingW(population)
+        propDrivingZ[i+1] = getPropDrivingZ(population)
+    end
+    return (propFemale = propFemale, 
+            propDrivingW = propDrivingW,
+            propDrivingZ = propDrivingZ, 
+            population = population)
+end
+```
+
+Let's now run the simulation with this starting population, and graph the results:
+
+```{julia}
+pop2run = runManyGens(pop2, runLength)
+pop2plot = plot(0:runLength, pop2run.propFemale, color = :purple, label = "Female", xlabel = "Generations", ylabel = "Proportion", title = "Driving Z, Drive Strength = " * string(driveStrength))
+xlims!(0,runLength)
+ylims!(0, 1.05)
+plot!(0:runLength, pop2run.propDrivingZ, color = :blue, label = "Driving Z")
+```
+
+This shows us something interesting: Equivalent strength W and Z drivers tend to spread through a population at different rates. ***The W spreads much more quickly.*** This is something that maybe some people would intuit in advance, and might be a surprise to many. Our simulation shows us this, and we can then ponder "_Why?_"
+
+After some thought, we might realize the answer: All of the W chromosomes are in females, whereas only 1/3 of Z chromosomes are in females (assuming equal sex ratios). Because the meiotic drive advantage only applies in female meiosis (rather than male), the strength of selection for the W driver is much greater than that for the Z driver. 
+
+##### What happens when both Z and W drivers are in a population?
+
+Let's now start a population with both Z and W drivers at 5% initially. Might they both cancel out each other's effects? (After all, when in the same pre-meiotic cell, neither has an advantage getting into the egg.)
+
+Let's see by running a simulation!
+
+Our setup of the starting population is even a little more complex, because there are more kinds of starting individuals:
+
+```{julia}
+pop4setPropDrivingW = 0.05
+pop4setPropDrivingZ = 0.05
+pop4SizeFemale = 10_000
+pop4SizeMale = 10_000
+
+pop4numFemaleDriveWZ = Int(round(pop4setPropDrivingW * pop4setPropDrivingZ * pop4SizeFemale))
+pop4numFemaleDriveW = Int(round(pop4setPropDrivingW * (1-pop4setPropDrivingZ) * pop4SizeFemale))
+pop4numFemaleDriveZ = Int(round((1-pop4setPropDrivingW) * pop4setPropDrivingZ * pop4SizeFemale))
+pop4numFemaleBoring = Int(round((1-pop4setPropDrivingW) * (1-pop4setPropDrivingZ) * pop4SizeFemale))
+
+pop4Females = vcat(fill(femaleDriveWZ, pop4numFemaleDriveWZ),
+                fill(femaleDriveW, pop4numFemaleDriveW),
+                fill(femaleDriveZ, pop4numFemaleDriveZ),
+                fill(femaleBoring, pop4numFemaleBoring))
+
+pop4numMaleTwoDriveZ = Int(round(pop4setPropDrivingZ^2 * pop4SizeMale))
+pop4numMaleFirstDriveZ = Int(round(pop4setPropDrivingZ * (1-pop4setPropDrivingZ) * pop4SizeMale))
+pop4numMaleSecondDriveZ = Int(round((1-pop4setPropDrivingZ) * pop4setPropDrivingZ * pop4SizeMale))
+pop4numMaleBoring = Int(round((1-pop4setPropDrivingZ)^2 * pop4SizeMale))
+pop4Males = vcat(fill(maleTwoDriveZ, pop4numMaleTwoDriveZ),
+                fill(maleFirstDriveZ, pop4numMaleFirstDriveZ),
+                fill(maleSecondDriveZ, pop4numMaleSecondDriveZ),
+                fill(maleBoring, pop4numMaleBoring))
+pop4 = Population(pop4Females, pop4Males)
+```
+
+Now, let's run it:
+
+```{julia}
+pop4run = runManyGens(pop4, runLength)
+pop4plot = plot(0:runLength, pop4run.propFemale, color = :purple, label = "Female", xlabel = "Generations", ylabel = "Proportion", title = "Driving W and Z, Drive Strength = " * string(driveStrength))
+xlims!(0, 100)
+ylims!(0, 1.05)
+plot!(0:runLength, pop4run.propDrivingW, color = :red, label = "Driving W")
+plot!(0:runLength, pop4run.propDrivingZ, color = :blue, label = "Driving Z")
+```
+
+Here, we see that the driving Z has little ability to hinder the spread of the driving W. Rather, the driving W still spreads quickly, going to fixation, and the driving Z spreads more slowly. We see that the sex ratio becomes female-biased as the driving W spreads, but eventually returns to 50:50 when the driving Z goes towards fixation. 
+
+The net effect is that W drivers have great potential to spread, and these can be followed by Z drivers, returning the sex ratio to an unremarkable level. The insight then from these simulations is that spread of W and Z drivers can occur regularly within species, and we might not notice. 
 
 
 
