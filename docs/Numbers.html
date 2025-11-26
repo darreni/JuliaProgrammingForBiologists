@@ -641,6 +641,21 @@ Decimal <code>5</code> can be stored as binary <code>101</code>.<br>
 <pre><code>30414093201713378043612608166064768844377641568960512000000000000</code></pre>
 </div>
 </div>
+<p>We can also store floating-point numbers in more than 64 bits, using type <code>BigFloat</code>. Actually, there is a shorthand function <code>big()</code> that converts its input argument into either a <code>BigFloat</code> or <code>BigInt</code>:</p>
+<div id="50" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">big</span>(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>0.1000000000000000055511151231257827021181583404541015625</code></pre>
+</div>
+</div>
+<p>This displays the value with lots of precision, because it is a <code>BigFloat</code>. It shows how the <code>Float64</code> value for <code>0.1</code> is somewhat different from <code>1//10</code>.</p>
+<p>If we want to make a floating point value that is much closer to perfect <code>1//10</code>, we could do this:</p>
+<div id="52" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>big<span class="st">"0.100000000000000000000000000000000000000000000"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>0.1000000000000000000000000000000000000000000000000000000000000000000000000000002</code></pre>
+</div>
+</div>
 </section>
 <section id="next-steps" class="level3">
 <h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>

@@ -71,7 +71,7 @@ There are many times when we don't care what the initial values in our array are
 @time F = ones(1000,1000)
 ```
 
-Those two commands both create the same sized objects of type `Matrix{Float64}`, but the second takes longer to run because it has to change all the values to `1.0`.
+Those two commands both create the same sized objects of type `Matrix{Float64}`, but the second usually takes longer to run because it has to change all the values to `1.0`. (If this time difference isn't apparent the first time you run each command above, try running each multiple times in the same Julia session. The first is sometimes much faster.)
 
 ### _Arrays can store just about anything!_
 

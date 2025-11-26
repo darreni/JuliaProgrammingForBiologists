@@ -250,6 +250,20 @@ The `BigInt` type can be useful for storing precise values of things like factor
 factorial(BigInt(50))
 ```
 
+We can also store floating-point numbers in more than 64 bits, using type `BigFloat`. Actually, there is a shorthand function `big()` that converts its input argument into either a `BigFloat` or `BigInt`:
+
+```{julia}
+big(0.1)
+```
+
+This displays the value with lots of precision, because it is a `BigFloat`. It shows how the `Float64` value for `0.1` is somewhat different from `1//10`.
+
+If we want to make a floating point value that is much closer to perfect `1//10`, we could do this:
+
+```{julia}
+big"0.100000000000000000000000000000000000000000000"
+```
+
 ### Next steps
 
 Thinking about efficiency of number types will be particularly important when storing large numbers of numbers in **Arrays** or **DataFrames**, which we will explore on the next page.
