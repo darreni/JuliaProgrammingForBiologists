@@ -125,6 +125,8 @@ Another amazing package is `PlutoUI`. You can use this to add sliders, checkboxe
 using PlutoUI
 ```
 
+**Also, if your notebook is not yet using the `Plots` package, add a cell that says `using Plots`.**
+
 ```julia
 @bind yIntercept Slider(-10.0:0.1:10.0)
 ```
@@ -149,10 +151,6 @@ md"##### Let's graph $(@bind numPoints Scrubbable(100)) points"
 ```
 
 If you put your cursor on the number and drag right or left, the number changes. Now let's write some code that depends on the variable that is represented by that number (`numPoints`):
-
-```julia
-xValues = 10 .* rand(numPoints) .- 5
-```
 
 ```julia
 begin
