@@ -293,6 +293,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./PreventingPointerPerils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preventing Perils of Pointers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./Randomization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Randomization in Simulation and Statistics</span></a>
   </div>
@@ -935,10 +941,10 @@ window.Quarto = {
 <div id="88" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">sum</span>(<span class="fu">rand</span>(<span class="fl">1000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000008 seconds (3 allocations: 8.062 KiB)</code></pre>
+<pre><code>  0.000004 seconds (3 allocations: 8.062 KiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>481.5878495084305</code></pre>
+<pre><code>505.3476828404759</code></pre>
 </div>
 </div>
 <p>The <code>rand(x)</code> function produces <code>x</code> random numbers between 0 and 1. The above returns the sum of 1000 such numbers. Julia tells you the time it took, followed by the sum.</p>
@@ -975,10 +981,10 @@ print(endTime - startTime)</code></pre>
 <div id="92" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">sumSqrtRands</span>(<span class="fl">1_000_000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.009607 seconds (6 allocations: 15.313 MiB)</code></pre>
+<pre><code>  0.009333 seconds (6 allocations: 15.313 MiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>666907.5022649702</code></pre>
+<pre><code>666716.2423698772</code></pre>
 </div>
 </div>
 <p>Below demonstrates another way to write functions, in this case with two <em>arguments</em> (things you pass into the function, called <em>parameters</em> inside the function):</p>

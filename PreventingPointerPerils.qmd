@@ -1,0 +1,178 @@
+---
+title: "Preventing Perils of Pointers"
+author: "Darren Irwin"
+execute:
+  echo: true
+format:
+  html:
+    code-fold: false
+engine: julia
+---
+
+We have now learned much about how data can be stored in named objects (often called "variables", even if not actually varying ;). We've also learned some about how the _type_ of the object tells Julia how to interpret the series of `0`s and `1`s stored there, e.g. as an integer, a floating-point number, a character, or something more complex.
+
+One thing we haven't yet introduced is the concept of a **pointer**. This is a key concept in computer science and is key to understanding some more advanced aspects of Julia programming.
+
+Consider the following:
+
+```{julia}
+a = [-4, -7]
+b = a
+b
+```
+
+The above creates the vector `[-4, -7]` and assigns it as the value of a newly-created object called `a`, then creates an object called `b` and assigns the value of `a` to `b`.
+
+What happens if we reach into `b` and change one of the elements in the vector?
+
+```{julia}
+b[2] = 33
+b
+```
+
+OK, that makes sense---we changed the second element of the vector in `b`.
+
+Let's now take a look at `a`. We might expect it to be the original `[-4, -7]`:
+
+```{julia}
+a
+```
+
+_Whoa! Our operation on an element in `b` also changed the corresponding element in `a`!!_
+
+To understand why, we need to think about what is really stored in the objects called `a` and `b`. It turns out they do not contain the vector itself, but rather just contain _pointers_ to the vector. Our first line above created a vector `[-4, -7]` that is somewhere in memory, and created an object named `a` that simply contains the directions to that vector in memory. We call this a _pointer_. 
+
+When we then entered the line `b = a`, that created an object `b` and copied into it the same pointer information that is in `a`. The key idea is this: **both `a` and `b` contain pointers to the same single vector in memory space.** In essence, the vector is _shared_ by `a` and `b`. If we change an element of either the `a` or `b` vectors, we change the other at the same time, _because they are in fact one and the same_.
+
+What if we want an object that is initially the same as `a` but is then treated separately, such that a change in one doesn't change the other? In that case, we need to create a _copy_:
+
+```{julia}
+c = copy(a)
+```
+
+This creates a copy of the vector pointed to by `a`, such that there are now two places in memory containing the (initially) same vector. One is pointed to by `a` and `b` and the other pointed to by `c`. We can then change `c` without changing the others:
+
+```{julia}
+c[1] = 1_000
+c
+```
+
+Let's check the state of `a`:
+
+```{julia}
+a
+```
+
+### Sharing vs. copying 
+
+The question of sharing _versus_ copying data structures is one that arises in many aspects of computer programming and data science, in virtually all languages. The basic tradeoff is this: Sharing tends to be more efficient (using less memory and avoiding copying time) and can be advantageous in causing one change to affect multiple named objects, whereas copying allows independent changes to data and can be less risky, ensuring changes to one named object don't propogate to others.
+
+Because Julia was designed for efficiency, as a language it tends to default to sharing data between objects. We see that in the `b = a` assignment above, where it simply copies the pointer to the same single vector that is shared. We also see it when passing data to functions (where data is passed by sharing rather than copying) and when using functions such as `fill()` (see below) to fill arrays with collections such as vectors and tuples or our own complex data types. But there are many ways to specify that we want to copy rather than share data.
+
+### Pointers as array elements 
+
+When we create arrays containing so-called primitive types such as integers, floats, or characters, these data types are stored without using pointers. Julia knows exactly how much space each of those elements will take and can therefore set up a memory array to store those directly. But when elements contain complex data types such as collections of various sorts (e.g., arrays), then Julia sets up an array of pointers. The pointer in each element contains the coordinates in memory space where the content of that element is stored. 
+
+This means that multiple cells in an array can have identical pointers to the same information in memory. Here's an example:
+
+```{julia}
+smallArray = ["AA", "AC"]
+bigArray = fill(smallArray, 3, 2)
+```
+
+Above we made a 3x2 matrix with each element containing a vector of strings. They are all the same vector. You could imagine the inner vectors as containing genotypes for two loci from a single individual, and the outer matrix containing info for two siblings (columns) from three families (rows). Let's try to change just one of the genotypes contained here:
+
+```{julia}
+bigArray[3,1][2] = "TT"
+```
+
+Above we are saying go into the 3rd row, 1st column of the outer matrix, and then get the second element in the inner vector, and change that to "TT". Let's check:
+
+```{julia}
+bigArray
+```
+
+Whoa! It changed all of the second elements to "TT"! This is a consequence of what we learned above: When Julia was told to `fill()` a matrix using the `smallArray` object, it did it by sharing the single `smallArray` in memory, by putting a pointer to it in each of the cells in the matrix. 
+
+Then, when we said to change one element of that interior vector within a single cell, it changed that in the shared `smallArray` in memory, and that then shows as changed in every cell. We can confirm that by looking at the state of `smallArray`:
+
+```{julia}
+smallArray
+```
+
+#### What if we want each element to be independent?
+
+If we want to change each element independently, there are multiple good approaches. First, we can replace an entire cell with a new vector:
+
+```{julia}
+bigArray[1,2] = ["GG", "GA"]
+bigArray
+```
+
+That is replacing the pointer (to `smallArray`) in the cell contained in row 1, column 2 with a pointer to an entirely new vector.
+
+Another approach is to set up the big matrix by copying rather than sharing. We can do that like this:
+
+```{julia}
+bigCopiedArray = [deepcopy(smallArray) for i in 1:3, j in 1:2]
+```
+
+The `deepcopy()` function makes a deep copy of its argument (meaning a copy of its entire structure), and the array comprehension (the square brackets and `for . . .in` statement) mean that different copies are put in each cell of the array.
+
+We can then change a single element of an of the inner vectors:
+
+```{julia}
+bigCopiedArray[3,1][2] = "CC" 
+bigCopiedArray
+```
+
+#### Another example using our own data type
+
+A few pages back we learned about using the `mutable struct` keywords to define our own data types. Imagine that we want to create a bunch of instances of such a type and store them in a matrix:
+
+```{julia}
+mutable struct Person
+	age
+	name
+end
+```
+
+We could create an example person and copy them into a bunch of identical people in a vector:
+
+```{julia}
+person1 = Person(23, "Gertrude")
+people = fill(person1, 5)
+```
+
+But now if we try to change just one trait of one person, we change them all (because they all point to the same `person1` in memory):
+
+```{julia}
+people[4].name = "Alexander"
+people
+```
+
+Again, there are at two ways to approach this to make them independent. First, we can replace entire cells:
+
+```{julia}
+people[3] = Person(81, "Sam")
+people
+```
+
+Second, we could set the vector up in a way that uses copying:
+
+```{julia}
+peopleCopiedArray = [deepcopy(person1) for i in 1:5]
+```
+
+Now we can alter any elements with ease:
+
+```{julia}
+    peopleCopiedArray[5].age = 5
+    peopleCopiedArray[5].name = "Selena"
+    peopleCopiedArray
+```
+
+### Next steps
+
+We might want to store in our data structures some random numbers--this can be useful in doing simulations and in statistical analysis. We've used the `rand()` function some on previous pages. On the next, we'll learn more about randomization and its uses.
+

@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Randomization.html" rel="next">
+<link href="./PreventingPointerPerils.html" rel="next">
 <link href="./Numbers.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -264,6 +264,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./PreventingPointerPerils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preventing Perils of Pointers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./Randomization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Randomization in Simulation and Statistics</span></a>
   </div>
@@ -429,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="14" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> E <span class="op">=</span> <span class="fu">Array</span><span class="dt">{Float64}</span>(<span class="cn">undef</span>, <span class="fl">1000</span>, <span class="fl">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.008109 seconds (1.43 k allocations: 7.720 MiB, 99.12% compilation time)</code></pre>
+<pre><code>  0.007892 seconds (1.43 k allocations: 7.720 MiB, 99.12% compilation time)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>1000×1000 Matrix{Float64}:
@@ -458,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="16" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> F <span class="op">=</span> <span class="fu">ones</span>(<span class="fl">1000</span>,<span class="fl">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.003547 seconds (15 allocations: 7.657 MiB)</code></pre>
+<pre><code>  0.031766 seconds (15 allocations: 7.657 MiB, 86.82% gc time)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>1000×1000 Matrix{Float64}:
@@ -773,25 +779,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td class="rowLabel" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.0676459</td>
+<td style="text-align: right;">0.546341</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.990614</td>
+<td style="text-align: right;">0.52475</td>
 </tr>
 <tr class="dataRow odd">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.203989</td>
+<td style="text-align: right;">0.938806</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.207683</td>
+<td style="text-align: right;">0.209747</td>
 </tr>
 </tbody>
 </table>
@@ -857,28 +863,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td class="rowLabel" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.0676459</td>
+<td style="text-align: right;">0.546341</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.990614</td>
+<td style="text-align: right;">0.52475</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="dataRow odd">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.203989</td>
+<td style="text-align: right;">0.938806</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.207683</td>
+<td style="text-align: right;">0.209747</td>
 <td style="text-align: left;">undetermined</td>
 </tr>
 </tbody>
@@ -916,28 +922,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td class="rowLabel" style="text-align: right; font-weight: bold;">1</td>
 <td style="text-align: left;">warbler</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.0676459</td>
+<td style="text-align: right;">0.546341</td>
 <td style="text-align: left;">small</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">2</td>
 <td style="text-align: left;">wren</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.990614</td>
+<td style="text-align: right;">0.52475</td>
 <td style="text-align: left;">small</td>
 </tr>
 <tr class="dataRow odd">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">3</td>
 <td style="text-align: left;">sparrow</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">0.203989</td>
+<td style="text-align: right;">0.938806</td>
 <td style="text-align: left;">medium</td>
 </tr>
 <tr class="dataRow even">
 <td class="rowLabel" style="text-align: right; font-weight: bold;">4</td>
 <td style="text-align: left;">flameback</td>
 <td style="text-align: right;">300</td>
-<td style="text-align: right;">0.207683</td>
+<td style="text-align: right;">0.209747</td>
 <td style="text-align: left;">BIG</td>
 </tr>
 </tbody>
@@ -957,7 +963,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="next-steps" class="level3">
 <h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
-<p>One thing we might want to fill arrays with are random numbers–this can be useful in doing simulations and in statistical analysis. We’ve used the <code>rand()</code> function some on previous pages. On the next, we’ll learn more about randomization and its uses.</p>
+<p>The cells (or elements) within Arrays and DataFrames can be used to store all sorts of different kinds of data, ranging from simple (e.g.&nbsp;<code>Int</code>s, <code>Float</code>s, <code>Char</code>s) to complex (e.g.&nbsp;arrays, tuples, or our own types created using <code>struct</code>). To understand the behaviour of data structures containing these more complex element types, we should now learn some about <em>pointers</em>.</p>
 
 
 </section>
@@ -1376,8 +1382,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Randomization.html" class="pagination-link" aria-label="Randomization in Simulation and Statistics">
-        <span class="nav-page-text">Randomization in Simulation and Statistics</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PreventingPointerPerils.html" class="pagination-link" aria-label="Preventing Perils of Pointers">
+        <span class="nav-page-text">Preventing Perils of Pointers</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -285,4 +285,4 @@ The `DataFrames.jl` package is extremely capable, and we are just touching the s
 
 ### Next steps
 
-One thing we might want to fill arrays with are random numbers--this can be useful in doing simulations and in statistical analysis. We've used the `rand()` function some on previous pages. On the next, we'll learn more about randomization and its uses.
+The cells (or elements) within Arrays and DataFrames can be used to store all sorts of different kinds of data, ranging from simple (e.g. `Int`s, `Float`s, `Char`s) to complex (e.g. arrays, tuples, or our own types created using `struct`). To understand the behaviour of data structures containing these more complex element types, we should now learn some about _pointers_.

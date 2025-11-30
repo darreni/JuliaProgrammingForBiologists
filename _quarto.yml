@@ -31,6 +31,7 @@ website:
           - MultipleDispatch.qmd
           - Numbers.qmd
           - ArraysAndDataFrames.qmd
+          - PreventingPointerPerils.qmd
           - Randomization.qmd
           - LoadDataAnalyzeGraph.qmd
           - SimulationWithNewTypes.qmd
