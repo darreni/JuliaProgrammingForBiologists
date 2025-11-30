@@ -174,5 +174,5 @@ Now we can alter any elements with ease:
 
 ### Next steps
 
-We might want to store in our data structures some random numbers--this can be useful in doing simulations and in statistical analysis. We've used the `rand()` function some on previous pages. On the next, we'll learn more about randomization and its uses.
+We might want to store in our data structures some random numbers---this can be useful in doing simulations and in statistical analysis. We've used the `rand()` function some on previous pages. On the next, we'll learn more about randomization and its uses.
 
