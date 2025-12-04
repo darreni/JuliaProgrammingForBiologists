@@ -105,7 +105,7 @@ In the above, the arguments given to `plot!()` are _anonymous functions_. This m
 We can use the `annotate!()` function to add text to our plot, at the desired coordinates:
 
 ```{julia}
-annotate!(-3, 10, "Here's some text", :left)
+annotate!(-3, 10, "Here's some DIFFERENT TEXT", :left)
 ```
 
 This adds text at location `-3, 10` and the `:left` indicates that it should be left-aligned to that location.
