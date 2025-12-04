@@ -37,6 +37,12 @@ But there are over 10,000 more out there! Here are some neat ones that you might
 
 [Unitful](https://painterqubits.github.io/Unitful.jl/stable/): do math while including the physical units.
 
+[JuliaImages](https://juliaimages.org): image processing and machine vision.
+
+[Tidier](https://tidierorg.github.io/Tidier.jl): if you are used to using the "Tidyverse" in R (e.g. ggplot, dplyr, tidyr), this is "a data analysis package inspired by R's tidyverse and crafted specifically for Julia." (Note however that using these approaches may not be the best way to gain insight into underlying syntax and logic of Julia or R.)
+
+[SciML](https://sciml.ai): a large ecosystem of packages for scientific machine learning. Includes Symbolics.jl, for doing symbolic mathematics in Julia.
+
 ## Call R and Python from within Julia
 
 The `RCall` and `PyCall` packages allow you to call R and Python from within Julia. Note that you need to have these installed on your computer for this to work---if you do, then try this in a series of Pluto cells:
@@ -115,7 +121,7 @@ We can learn about unusual units this way:
 uconvert(u"kg", 1u"slug")
 ```
 
-Did you know that 1 slug (a unit of mass, used in the olden days) is that many kilograms?
+Did you know that 1 slug (a unit of mass, used in the olden days) is that many kilograms? The Unitful package knows the values of hundreds of physical units from the SI and other systems, and you can even define your own!
 
 ## Add more interactivity to your Pluto notebooks
 
