@@ -53,5 +53,23 @@ There are a growing number of these. One I've done and recommend:
 
 [The Julia Discourse](https://discourse.julialang.org)
 
+### Irwin lab publications using Julia for data processing / visualization
 
+I list these here because the code for many of these is freely available and provide a source for learning about how to conduct data analysis and produce graphs in Julia:
 
+Irwin, D., and D. Schluter. 2022. Hybridization and the coexistence of species. _American Naturalist_ 200(3): E93-E109. [Link](https://doi.org/10.1086/720365)
+(Code and data files are [here](https://zenodo.org/records/4697976))
+
+Nikelski, E., A.S. Rubtsov, and D. Irwin. 2024. A sex chromosome polymorphism maintains divergent plumage phenotypes between extensively hybridizing yellowhammers (_Emberiza citrinella_) and pine buntings (_E. leucocephalos_). _Molecular Ecology_ 33(19): e17526. [Link](https://doi.org/10.1111/mec.17526)
+(Julia was used to produce figure 4 only; code is [here](https://zenodo.org/records/13370341) in the file Chromosome_Z_Analyses_Julia_Code.zip)
+
+Irwin, D., S. Bensch, C. Charlebois, G. David, A. Geraldes, S.K. Gupta, B. Harr, P. Holt, J.H. Irwin, V.V. Ivanitskii, I.M. Marova, Y. Niu, S. Seneviratne, A. Singh, Y. Wu, S. Zhang, T.D. Price. 2025. The distribution and dispersal of large haploblocks in a superspecies. In the Special Section on “The Genomics of Speciation”, _Molecular Ecology_ 34: e17731. [Link](https://doi.org/10.1111/mec.17731)
+(Data and processing scripts are available at [this Dryad archive](https://datadryad.org/dataset/doi:10.5061/dryad.8w9ghx3xr). Julia functions used in data processing and graphing are provided in the new [GenomicDiversity.jl package](https://github.com/darreni/GenomicDiversity.jl), and the complete analysis scripts with explanatory comments is at [a GitHub Pages site](https://darreni.github.io/GreenishWarblerGenomics2025/) and at a [Github repository](https://github.com/darreni/GreenishWarblerGenomics2025).)
+
+[![](GenomicDiversity_logo.jpg){width=30% fig-align=center}](https://github.com/darreni/GenomicDiversity.jl)
+
+Natola, L., and D. Irwin. 2025. Evidence for ancient selective sweeps followed by differentiation among three species of _Sphyrapicus_ sapsuckers. _Journal of Evolutionary Biology_ 38: 1460-1474. [Link](https://doi.org/10.1093/jeb/voaf096)
+(Code and data files are [here](https://doi.org/10.5061/dryad.rbnzs7hqs).)
+
+Irwin, D. 2025. The Driving W Hypothesis for low within-population mitochondrial DNA diversity and between-population mitochondrial capture. Preprint (not yet peer-reviewed) on _bioRxiv_: [https://doi.org/10.1101/2025.05.31.656024](https://doi.org/10.1101/2025.05.31.656024)
+(Code and explanation are [here](https://darreni.github.io/DrivingW/))

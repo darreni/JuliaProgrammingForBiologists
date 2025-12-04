@@ -23,6 +23,8 @@ To work through this example, start with a new Pluto notebook. Give it a name an
 
 ### Load the `GenomicDiversity` package
 
+[![](GenomicDiversity_logo.jpg){width=30% fig-align=center}](https://github.com/darreni/GenomicDiversity.jl)
+
 I wrote this set of functions to facilitate the analysis of and graphing of genomic data. To load download it and make it active in your Pluto notebook, write the following in a Pluto code cell and then run the cell:
 
 ```julia
