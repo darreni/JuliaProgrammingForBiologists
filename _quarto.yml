@@ -38,7 +38,7 @@ website:
           - UseVSCode.qmd
           - MoreFunThings.qmd
           - ResourcesForFurtherLearning.qmd
-  page-footer: "Copyright 2025, Darren Irwin" 
+  page-footer: "Copyright 2024-2026, Darren Irwin" 
 
 format:
   html:

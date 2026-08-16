@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Julia Programming For Biologists – JuliaProgrammingForBiologists</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -34,15 +37,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="./about.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-067f8ab80d092ae3595f7402c2c9b667.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3d0a6a45cc3f2b84ee6588310bb4a4d4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3f9fdd0bbfaeb16f944db9be691e127e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -82,8 +84,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">JuliaProgrammingForBiologists</span>
     </a>
@@ -126,10 +126,6 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -306,8 +302,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Welcome! I developed this website for the purpose of teaching tutorials about the <a href="https://julialang.org">Julia</a> programming language, in the context of biology.</p>
 <p>Julia is a relatively new programming language (started around 2012; first official release in 2018) that is both highly readable (by humans) and fast. This is intended to solve the “2-language” problem, a common workflow in which development of a new program is done first in a highly readable language (e.g., R or Python) and then converted by an expert programmer into a fast but less readable language (e.g., C), resulting in code than can be difficult to interpret by non-experts. Hence Julia provides easy entry for new programmers while also having the power and efficiency to appeal to experts. It is used by NASA, Moderna, Pfizer, and many other organizations, and is used widely by scientists doing climate modelling of Earth and imaging black holes in distant galaxies.</p>
 <p>If you are in doubt that you need a faster or more readable language than the one you are using, ask yourself this: Have you ever heard other scientists mention how long their bioinformatic processing or evolutionary simulations can take? It is often on the scale of days, weeks, months. What if that were instead minutes, hours, days? How might that accelerate your research, and allow you to expand the scope of your science? Have you ever heard someone say “I can’t program”? Did they decide that because they are fundamentally unable to learn the logic of programming, or because many the languages used in programming can be difficult to learn?</p>
-<p>I have used Julia in my own work for about four years now, after having much experience with Matlab and then R, and dabbling a bit in Python, C, C++, and Java. The developers of Julia have praise for aspects of all of these languages, and their goal was to combine all the good aspects into one efficient and readable language. I think they have succeeded marvelously. (I am not the only one—see <a href="https://www.nature.com/articles/s41592-023-01832-z">this paper in <em>Nature Methods</em></a> for a discussion of the merits of using Julia in biology.)</p>
-<p>My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. In particular, I used these to teach a new graduate-level course “Computer Programming for Biologists” at UBC in November of 2024, which after enthusiastic feedback is being taught again in November of 2025. My goal is to get students programming quickly, giving just enough underlying explanation of computer science principles to enable fast progress.</p>
+<p>I have used Julia in my own work for about six years now, after having much experience with Matlab and then R, and dabbling a bit in Python, C, C++, and Java. The developers of Julia have praise for aspects of all of these languages, and their goal was to combine all the good aspects into one efficient and readable language. I think they have succeeded marvelously. (I am not the only one—see <a href="https://www.nature.com/articles/s41592-023-01832-z">this paper in <em>Nature Methods</em></a> for a discussion of the merits of using Julia in biology.)</p>
+<p>My intended audience with these tutorials is biologists with no or little previous programming experience, who are interested in building their data science, bioinformatic, and statistics skills, or who even want to design their own mathematical models and simulations. In particular, I used these to develop and teach a new graduate-level course “Computer Programming for Biologists” at UBC in November of 2024, which after enthusiastic feedback was taught again in November of 2025 (and will be taught in November 2026). My goal is to get students programming quickly, giving just enough underlying explanation of computer science principles to enable fast progress.</p>
 <p>These tutorials are a work in progress, and there will be additions and revisions from time to time . . .</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -741,7 +737,7 @@ ul.task-list li input[type="checkbox"] {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright 2025, Darren Irwin</p>
+<p>Copyright 2024-2026, Darren Irwin</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;
